@@ -1,0 +1,4 @@
+name: output_styling_only
+description: >
+   This template exists to provide styling via css, it is not to be selected as a template for a new file and the skeleton is not to be used.
+create_dir: FALSE

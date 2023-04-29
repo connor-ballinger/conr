@@ -1,0 +1,21 @@
+---
+title: "Template Title"
+date: "`r paste(scales::ordinal(as.integer(format(Sys.Date(), '%d'))), format(Sys.Date(), '%B %Y'))`"
+author: "Connor Ballinger"
+knit: conr::write_and_date
+output: conr::html_format
+---
+
+```{r setup}
+knitr::opts_chunk$set()
+
+library(here)
+library(tidyverse)
+
+theme_set(theme_bw() + theme(legend.position = "bottom"))
+options(rmarkdown.page_table.scipen = 9999, rmarkdown.page_table.big.mark = ",")
+options(digits = 4, big.mark = ",", scipen = 999)
+
+set_flextable_defaults(padding.bottom = 1, padding.top = 1, 
+                       line_spacing = 1.2, table.layout = "autofit")
+```
