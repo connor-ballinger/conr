@@ -5,8 +5,15 @@
   background-repeat: no-repeat;
 }
 
-h1 {
-    border-bottom: 4px solid #5BAF46;
+.title {
+  color: #23285E;
+  border-bottom: 4px solid #5BAF46;
 }
 
+h1, h2, h3, h4, h5 {
+  color: #23285E;
+}
 
+body {
+  color: #23285E;
+}
