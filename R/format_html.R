@@ -6,13 +6,11 @@
 #' @examples
 format_html <- function() {
 
-  # locate resources
   styles = system.file(
     "rmarkdown/templates/output_styling_only/skeleton/styles.css",
     package = "conr"
   )
 
-  # format html
   rmarkdown::html_document(
     theme = "default",
     toc = TRUE,
@@ -21,6 +19,5 @@ format_html <- function() {
     css = styles,
     out.width = "830px",
     code_folding = "hide",
-    # df_print = flextable::flextable
   )
 }
