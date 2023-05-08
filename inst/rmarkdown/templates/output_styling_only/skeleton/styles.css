@@ -3,17 +3,47 @@
   background-size:  200px 200px;
   padding-top: 200px !important;
   background-repeat: no-repeat;
+  color: #23285E;
 }
 
 .title {
   color: #23285E;
-  border-bottom: 4px solid #5BAF46;
+  border-bottom: 2px solid #5BAF46;
+}
+
+.date {
+  padding-bottom: 20px;
+  padding-top: 0px;
+  font-style: italic;
+}
+
+.author {
+  padding-bottom: 0px;
+  font-style: italic;
 }
 
 h1, h2, h3, h4, h5 {
+  padding-top: 10px;
   color: #23285E;
 }
 
+.header-section-number::after {
+  content:".";
+}
+
 body {
-  color: #23285E;
+  color: #23285E !important;
+  line-height: 1.3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.list-group-item.active {
+  background-color: #23285E !important;
+}
+
+.html-widget {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 100%;
 }
