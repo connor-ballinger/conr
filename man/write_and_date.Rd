@@ -2,7 +2,7 @@
 % Please edit documentation in R/write_and_date.R
 \name{write_and_date}
 \alias{write_and_date}
-\title{Save Output with the Date.}
+\title{Save Output File with the Date}
 \usage{
 write_and_date(input, ...)
 }
@@ -12,11 +12,8 @@ write_and_date(input, ...)
 \item{...}{}
 }
 \value{
-Not sure... the knitted output? Otherwise, none.
+Output file created.
 }
 \description{
-Save Output with the Date.
-}
-\examples{
-write_and_date("my_report.Rmd")
+Save Output File with the Date
 }

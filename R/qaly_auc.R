@@ -1,3 +1,3 @@
-qaly_auc <- function(utilities = list(), periods = list()) {
-
-}
+# qaly_auc <- function(utilities = list(), periods = list()) {
+#
+# }

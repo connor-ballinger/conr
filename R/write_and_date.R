@@ -1,13 +1,12 @@
-#' Save Output with the Date.
+#' Save Output File with the Date
 #'
 #' @param input File to be knitted.
 #' @param ...
 #'
-#' @return Not sure... the knitted output? Otherwise, none.
+#' @return Output file created.
 #' @export
 #'
 #' @examples
-#' write_and_date("my_report.Rmd")
 write_and_date <- function(input, ...) {
   xfun::Rscript_call(
     rmarkdown::render,
