@@ -3,7 +3,7 @@ title: "Template Title"
 date: "`r conr::format_date()`"
 author: "Connor Ballinger"
 knit: conr::write_and_date
-output: html_document
+output: conr::format_html
 ---
 
 ```{r}
@@ -12,11 +12,16 @@ library(knitr)
 # knit_print.data.frame <- function(df, ...) {
 #   knitr::knit_print(DT::datatable(df), ...)
 # }
-# 
-#  registerS3method("knit_print", "data.frame", knit_print.data.frame)
+# knit_print.data.frame <-
+#   function(df, DT_opts = list(rownames = TRUE, dom = "tip",
+#                               scrollX = TRUE, pageLength = 5), ...) {
+#     df = conr::adorn_df(df)
+#     knitr::knit_print(DT::datatable(df, DT_opts))
+#   }
+registerS3method("knit_print", "data.frame", conr::knit_print.data.frame)
 
-conr::knit_print.data.frame()
-conr::knit_df()
+# conr::knit_print.data.frame()
+# conr::knit_df()
 
 library(here)
 library(tidyverse)
