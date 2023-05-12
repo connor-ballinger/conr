@@ -1,4 +1,4 @@
-#' Adorn a Dataframe
+#' Adorn a Dataframe with Percent and '000s Separator
 #'
 #' @param df A dataframe (tibble expected).
 #' @param perc_digits A number, like in format(accuracy = _), for percentage columns.

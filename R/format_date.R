@@ -5,6 +5,7 @@
 #'
 #' @return character date
 #' @export
+#' @importFrom scales ordinal
 #'
 #' @examples
 #' format_date()
@@ -13,6 +14,5 @@ format_date <- function(date = Sys.Date(), ...) {
   d = as.integer(format(date, "%d"))
   d = scales::ordinal(d)
   my = format(date, "%B, %Y")
-  full_date = paste(d, my)
-  return(full_date)
+  paste(d, my)
 }
