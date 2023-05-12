@@ -4,7 +4,7 @@
 #' @param DT_opts The options from knit_df().
 #' @param ...
 #'
-#' @return
+#' @return DT table.
 #' @export
 #'
 #' @examples

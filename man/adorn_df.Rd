@@ -2,7 +2,7 @@
 % Please edit documentation in R/adorn_df.R
 \name{adorn_df}
 \alias{adorn_df}
-\title{Adorn a Dataframe}
+\title{Adorn a Dataframe with Percent and '000s Separator}
 \usage{
 adorn_df(df, perc_digits = 1, digits = 1, ...)
 }
@@ -19,5 +19,5 @@ adorn_df(df, perc_digits = 1, digits = 1, ...)
 A dataframe.
 }
 \description{
-Adorn a Dataframe
+Adorn a Dataframe with Percent and '000s Separator
 }
