@@ -2,7 +2,7 @@ Package: conr
 Title: Helping with Health Economics Work
 Version: 0.0.0.9000
 Authors@R: 
-    person("Connor", "Ballinger", , "connor.ballinger@gmail.com", role = c("aut", "cre"),
+    person("Connor", "Ballinger", , "cdballinger97@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0004-5977-5385"))
 Description: This is my first package. It will contain templates, convenience functions, and some experimentation. It will definitely not be robust and is not to be trusted.
 License: MIT + file LICENSE
@@ -20,3 +20,6 @@ Imports:
     rmarkdown,
     scales,
     xfun
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
