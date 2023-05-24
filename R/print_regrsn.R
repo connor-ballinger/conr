@@ -8,9 +8,9 @@
 #'
 #' @return Flextable::flextable.
 #' @export
-#' @importFrom flextable::flextable
-#' @importFrom modelsummary::modelsummary
-#' @importFrom scales::label_number
+#' @importFrom flextable flextable
+#' @importFrom modelsummary modelsummary
+#' @importFrom scales label_number
 #'
 #' @examples
 print_regrsn <- function(models = list(), accuracy = 1, omit = c("Num.Obs")) {
