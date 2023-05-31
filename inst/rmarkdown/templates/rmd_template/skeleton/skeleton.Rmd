@@ -1,5 +1,5 @@
 ---
-title: "Template Title"
+title: "Title"
 date: "`r conr::format_date()`"
 author: "Connor Ballinger"
 knit: conr::write_and_date

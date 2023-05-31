@@ -14,9 +14,11 @@ BugReports: https://github.com/connor-ballinger/conr/issues
 Imports: 
     dplyr,
     DT,
+    flextable,
     ggplot2,
     here,
     knitr,
+    modelsummary,
     rmarkdown,
     scales,
     xfun
