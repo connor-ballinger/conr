@@ -7,8 +7,7 @@
 <!-- badges: end -->
 
 conr is a package to provide templates and convenience functions for
-work in health economics. It is my first package and will be buggy as
-fuck.
+work in health economics. It is my first package and will be bug-ridden.
 
 ## Templates
 
@@ -24,11 +23,12 @@ that may be useful.
 
 All functions (see their code in R/):
 
-    #>  [1] "adorn_df.R"              "calc_qaly.R"            
-    #>  [3] "decode_text.R"           "fix_excel_cols.R"       
-    #>  [5] "format_date.R"           "format_html.R"          
-    #>  [7] "knit_print.data.frame.R" "plot_icer.R"            
-    #>  [9] "print_regrsn.R"          "write_and_date.R"
+    #>  [1] "adorn_df.R"              "calc_ind_qaly.R"        
+    #>  [3] "calc_qaly.R"             "decode_text.R"          
+    #>  [5] "fix_excel_cols.R"        "format_date.R"          
+    #>  [7] "format_html.R"           "knit_print.data.frame.R"
+    #>  [9] "plot_icer.R"             "print_regrsn.R"         
+    #> [11] "write_and_date.R"
 
 The following functions are only to be used in rendering an Rmd
 document:
