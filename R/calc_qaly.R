@@ -1,24 +1,49 @@
-#' Calculate QALY
-#'
-#' @description Calculate quality-adjusted life-years using utility scores and the trapezium method.
-#'
-#' @param utilities Utility scores, roughly between zero and one, in a vector.
-#' @param periods Length of periods between utility scores, in weeks. For example, utility may be measured at baseline, 6 weeks later, and 10 weeks after baseline. Periods would then be c(6, 4). Periods is a vector one element shorter than utilities.
-#'
-#' @return QALY, a numeric.
-#' @export
-#'
-#' @examples
-#' calc_qaly(c(1, 0.4, 0.8), c(6, 4))
-calc_qaly <- function(utilities = c(), periods = c()) {
-
-  stopifnot(length(utilities) - length(periods) == 1)
-
-  parts = vector(mode = "double", length = length(periods))
-
-  for (i in 1:(length(utilities)-1)) {
-    parts[[i]] = utilities[[i]] + utilities[[i + 1]]
-    sum(parts)/104
-  }
-}
-
+# # Calculate QALY with Dataframe Inputs
+# #
+# # description Calculate quality-adjusted life-years using utility scores from
+# #   a dataframe and the trapezium method.
+# # Either a qaly for each person, or use the function on a summarised dataframe, to calculate a qaly for each arm.
+#
+# calc_qaly <- function (
+#     df,
+#     qol,
+#     periods # need to check that this is longer than 2 elements
+# ) {
+#
+#   multiplier = seq
+#
+#   mutate(
+#     df,
+#     qaly =
+#   )
+#
+#
+#   # mutate(
+#   #   df,
+#   #   qaly = sum(
+#   #     (0 + {{ var1 }}) * p1 +
+#   #       ({{ var1 }} + {{ var2 }}) * p2 +
+#   #       ({{ var2 }} + {{ var3 }}) * p3
+#   #   ) / 104
+#   # )
+#
+# }
+#
+# # to extend periods prior to element-wise multiplication
+# rep(periods, times = c(1, 2*is.numeric(periods[2:length(periods)-1]), 1))
+#
+#
+# testdf <- tribble(
+#   ~id, ~u1, ~u2, ~u3,
+#     1, 0.8, 0.9, 0.4
+# )
+# weeks <- c(4, 5)
+#
+#
+# # need u1, u2, u2, u3 such that we have 4 * (u1+u2) + 5 * (u2+u3) = 4*u1 + 4*u2 + 5*u2 + 5*u3
+# # so, need to make duplicate columns for all utilities except first and last. Or is there a better way?
+#
+# testdf |> mutate(qaly = sum(weeks * c(u1, u2, u3)))
+#
+# # only works if >2 periods
+# rep(v, times = c(1, 2*is.numeric(v[2:length(v)-1]), 1))

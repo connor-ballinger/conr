@@ -6,7 +6,7 @@ knit: conr::write_and_date
 output: conr::format_html
 ---
 
-```{r}
+```{r, warning=FALSE, message=FALSE}
 knitr::opts_chunk$set()
 
 library(here)

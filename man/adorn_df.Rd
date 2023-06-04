@@ -9,7 +9,8 @@ adorn_df(df, perc_digits = 1, digits = 1, ...)
 \arguments{
 \item{df}{A dataframe (tibble expected).}
 
-\item{perc_digits}{A number, like in format(accuracy = _), for percentage columns.}
+\item{perc_digits}{A number, like in format(accuracy = _), for percentage
+columns.}
 
 \item{digits}{A number like perc_digits, but for numeric columns.}
 

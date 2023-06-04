@@ -1,7 +1,8 @@
 #' Adorn a Dataframe with Percent and '000s Separator
 #'
 #' @param df A dataframe (tibble expected).
-#' @param perc_digits A number, like in format(accuracy = _), for percentage columns.
+#' @param perc_digits A number, like in format(accuracy = _), for percentage
+#'   columns.
 #' @param digits A number like perc_digits, but for numeric columns.
 #' @param ...
 #'
