@@ -24,7 +24,7 @@ conr is a package to provide templates and convenience functions for work in hea
 
 To this point, there is an Rmarkdown template to produce an html document, example below.
 
-![](./drafts/template_example_pic.png)
+![](./drafts/template_example_pic.PNG)
 
 ## Functions
 

@@ -14,7 +14,7 @@ work in health economics. It is my first package and will be bug-ridden.
 To this point, there is an Rmarkdown template to produce an html
 document, example below.
 
-![](./drafts/template_example_pic.png)
+![](./drafts/template_example_pic.PNG)
 
 ## Functions
 
