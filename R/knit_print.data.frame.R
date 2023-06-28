@@ -15,15 +15,17 @@ knit_print.data.frame <- function(
   df,
   DT_opts = list(
     rownames = TRUE,
-    dom = "tip",
+    dom = "ltipB",
     filter = "top",
     scrollX = TRUE,
-    pageLength = 5
+    pageLength = 5,
+    lengthMenu = c(5, 10, 20),
+    buttons = c('copy', 'csv')
   ),
 
   ...) {
 
-  knitr::knit_print(DT::datatable(df, DT_opts))
+  knitr::knit_print(DT::datatable(df, extensions = "Buttons", DT_opts))
 
 }
 

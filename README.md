@@ -49,8 +49,20 @@ You can install the development version of conr from
 devtools::install_github("connor-ballinger/conr")
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+## Ideas to Add
+
+- Functions to fix/improve:
+
+  - calc_qaly
+  - 
+
+- New functions:
+
+  - create labels
+  - basic bootstrap
+  - 2SB with shrinkage correction (NG 2013)
+  - 
+
+- Another template - word or pdf or shiny or a multi-page html.
+
+- Should adorn_df be added to the DT printing function?
