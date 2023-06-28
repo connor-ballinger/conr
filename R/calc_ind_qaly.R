@@ -24,7 +24,7 @@ calc_ind_qaly <- function(utilities = c(), periods = c()) {
 
     parts[[i]] = utilities[[i]] + utilities[[i + 1]]
 
-    sum(parts)/104
-
   }
+
+  sum(parts * periods)/104
 }
