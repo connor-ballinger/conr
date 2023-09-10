@@ -9,6 +9,7 @@
 #' @return Flextable::flextable.
 #' @export
 #' @importFrom flextable flextable
+#' @importFrom flextable nrow_part
 #' @importFrom modelsummary modelsummary
 #' @importFrom scales label_number
 #'
@@ -30,6 +31,6 @@ print_regrsn <- function(models = list(), accuracy = 1, omit = c("Num.Obs")) {
   flextable::bg(
     mod_sum,
     bg = "grey98",
-    i = seq(from = 2, to = nrow_part(mod_sum), by = 2)
+    i = seq(from = 2, to = flextable::nrow_part(mod_sum), by = 2)
     )
 }

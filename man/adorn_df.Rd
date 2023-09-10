@@ -4,15 +4,15 @@
 \alias{adorn_df}
 \title{Adorn a Dataframe with Percent and '000s Separator}
 \usage{
-adorn_df(df, perc_digits = 1, digits = 1, ...)
+adorn_df(df, perc_accuracy = 1, num_accuracy = 0.01, ...)
 }
 \arguments{
 \item{df}{A dataframe (tibble expected).}
 
-\item{perc_digits}{A number, like in format(accuracy = _), for percentage
-columns.}
+\item{perc_accuracy}{A number, like in format(accuracy = _), for percentage
+columns. 0.01 means to two decimal places.}
 
-\item{digits}{A number like perc_digits, but for numeric columns.}
+\item{num_accuracy}{A number like perc_digits, but for numeric columns.}
 
 \item{...}{}
 }
@@ -21,4 +21,9 @@ A dataframe.
 }
 \description{
 Adorn a Dataframe with Percent and '000s Separator
+}
+\examples{
+df <- data.frame(a_col = rnorm(5) * 1e6, portion = rnorm(5), Growth = rnorm(5))
+adorn_df(df)
+
 }

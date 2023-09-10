@@ -19,6 +19,7 @@ Imports:
     here,
     knitr,
     modelsummary,
+    purrr,
     rmarkdown,
     scales,
     xfun

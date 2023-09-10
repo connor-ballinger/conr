@@ -8,16 +8,18 @@
 #' @export
 #'
 #' @import dplyr
-#' @import purrr
+#' @importFrom purrr modify2
 #'
 #' @examples
-#' testdf <- tibble::tribble(
-#' ~id, ~u0, ~u1, ~u2, ~u3,
-#' 1,   0, 0.8, 0.9, 0.4,
-#' 2,   0, 0.4, 0.7, 0.6,
-#' 3,   1,   1,   1,   1
+#' testdf <- data.frame(
+#'   id = 1:3,
+#'   u0 = c(0, 0, 1),
+#'   u1 = c(0.8, 0.4, 1),
+#'   u2 = c(0.9, 0.7, 1),
+#'   u3 = c(0.4, 0.6, 1)
 #' )
-#' calc_qaly(testdf, c("u0", "u1", "u2", "u3"), c(4, 13, 26))
+#'
+#' calc_qaly(testdf, qol = c("u0", "u1", "u2", "u3"), periods = c(4, 13, 26))
 
 calc_qaly <- function (
     df,
@@ -41,9 +43,3 @@ periods_to_trapezium <- function(periods) {
   c(periods[1], additions, periods[length(periods)]) # This creates all a+b for trapeziums.
 
 }
-
-
-
-
-
-
