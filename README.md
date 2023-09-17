@@ -28,7 +28,7 @@ All functions (see their code in R/):
     #>  [5] "fix_excel_cols.R"        "format_date.R"          
     #>  [7] "format_html.R"           "knit_print.data.frame.R"
     #>  [9] "plot_icer.R"             "print_regrsn.R"         
-    #> [11] "write_and_date.R"
+    #> [11] "round_sensibly.R"        "write_and_date.R"
 
 The following functions are only to be used in rendering an Rmd
 document:
@@ -53,7 +53,6 @@ devtools::install_github("connor-ballinger/conr")
 
 - Functions to fix/improve:
 
-  - calc_qaly
   - 
 
 - New functions:
@@ -64,5 +63,3 @@ devtools::install_github("connor-ballinger/conr")
   - 
 
 - Another template - word or pdf or shiny or a multi-page html.
-
-- Should adorn_df be added to the DT printing function?

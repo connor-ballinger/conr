@@ -8,7 +8,8 @@
 #' @return ggplot
 #' @export
 #' @import ggplot2
-#'
+#' @importFrom scales label_percent
+#' @importFrom scales label_dollar
 #' @examples
 #' cost <- rnorm(n = 100, mean = 1000, sd = 500)
 #' effect <- rnorm(100, 3, 3)
@@ -51,7 +52,7 @@ plot_icer <- function(df, estimate, wtp, alpha = 0.5) {
                    label = text)) +
     # WTP
     geom_abline(slope = wtp, linewidth = 0.8) +
-    geom_label(aes(x = Inf, y = wtp * max(df$effect, na.rm = TRUE),
+    geom_label(aes(x = Inf, y = wtp * max(effect, na.rm = TRUE),
                    label = paste0("WTP = $", wtp)),
                hjust = "inward", vjust = 2) +
     # point estimate

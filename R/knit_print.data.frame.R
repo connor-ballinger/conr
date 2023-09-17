@@ -7,9 +7,16 @@
 #' @return DT table.
 #' @export
 #'
+#' @import dplyr
+#' @importFrom DT datatable
+#' @importFrom knitr knit_print
+#'
 #' @examples
 #' # redefine the default print method for objects with class "data.frame"
 #' # https://github.com/rstudio/rmarkdown-cookbook/issues/186
+#' # If you need to modify the method, define knit_print.data.frame in the
+#' # document, and remove the conr:: prefix in
+#' # registerS3method("knit_print", "data.frame", conr::knit_print.data.frame).
 knit_print.data.frame <- function(
 
   df,
@@ -25,7 +32,12 @@ knit_print.data.frame <- function(
 
   ...) {
 
-  knitr::knit_print(DT::datatable(df, extensions = "Buttons", DT_opts))
+  df |>
+    mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, digits = 4))) |>
+    DT::datatable(options = DT_opts, extensions = "Buttons") |>
+    knitr::knit_print()
+
+  # knitr::knit_print(DT::datatable(df, extensions = "Buttons", DT_opts))
 
 }
 
