@@ -7,16 +7,22 @@
 #' @return DT table.
 #' @export
 #'
-#' @import dplyr
+#' @description Redefine the default print method for objects with class
+#'   "data.frame". For further info:
+#'   https://github.com/rstudio/rmarkdown-cookbook/issues/186. If you need to
+#'   modify the method, define knit_print.data.frame in the document, and remove
+#'   the conr:: prefix. Why DT over gt? DT: pages, choose pageLength, copy/csv
+#'   buttons gt: has most of this here
+#'   https://gt.rstudio.com/reference/opt_interactive.html, but not the download
+#'   option.
+#'
+#'
 #' @importFrom DT datatable
-#' @importFrom knitr knit_print
+#' @importFrom DT formatRound
+#' @import knitr
 #'
 #' @examples
-#' # redefine the default print method for objects with class "data.frame"
-#' # https://github.com/rstudio/rmarkdown-cookbook/issues/186
-#' # If you need to modify the method, define knit_print.data.frame in the
-#' # document, and remove the conr:: prefix in
-#' # registerS3method("knit_print", "data.frame", conr::knit_print.data.frame).
+#'
 knit_print.data.frame <- function(
 
   df,
@@ -32,15 +38,18 @@ knit_print.data.frame <- function(
 
   ...) {
 
+  numeric_cols = which(sapply(mtcars, class) == "numeric")
+
   df |>
-    mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, digits = 4))) |>
     DT::datatable(options = DT_opts, extensions = "Buttons") |>
+    DT::formatRound(columns = numeric_cols, digits = 4) |>
     knitr::knit_print()
 
   # knitr::knit_print(DT::datatable(df, extensions = "Buttons", DT_opts))
 
 }
 
-# initComplete from https://stackoverflow.com/questions/44101055/changing-font-size-in-r-datatables-dt
+# https://stackoverflow.com/questions/44101055/changing-font-size-in-r-datatables-dt
 # I tried to create two functions, such that I could pass arguments to the
 # knitting fn (changing DT_opts) but it seems too difficult.
+# Rounding and then passing to DT doesn't work as DT changes digits seen.
