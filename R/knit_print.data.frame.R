@@ -18,7 +18,6 @@
 #'
 #'
 #' @importFrom DT datatable
-#' @importFrom DT formatRound
 #' @import knitr
 #'
 #' @examples
@@ -38,12 +37,16 @@ knit_print.data.frame <- function(
 
   ...) {
 
-  numeric_cols = which(sapply(mtcars, class) == "numeric")
+  df = df |>
+    mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, 4)))
 
-  df |>
-    DT::datatable(options = DT_opts, extensions = "Buttons") |>
-    DT::formatRound(columns = numeric_cols, digits = 4) |>
-    knitr::knit_print()
+  knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"))
+
+  # numeric_cols = which(sapply(df, class) == "numeric")
+  # df |>
+  #   DT::datatable(options = DT_opts, extensions = "Buttons") |>
+  #   DT::formatRound(columns = numeric_cols, digits = 4) |>
+  #   knitr::knit_print()
 
   # knitr::knit_print(DT::datatable(df, extensions = "Buttons", DT_opts))
 
