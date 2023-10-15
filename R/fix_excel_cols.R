@@ -8,10 +8,11 @@
 #'
 #' @examples
 fix_excel_cols <- function(df, cols) {
-  mutate(df,
-         across(
-           .cols = {{ cols }},
-           .fns = ~ as.numeric(gsub("\\%|\\,|\\$", "", .))
-         )
+  mutate(
+    df,
+    across(
+      .cols = {{ cols }},
+      .fns = ~ as.numeric(gsub("\\%|\\,|\\$", "", .))
+    )
   )
 }

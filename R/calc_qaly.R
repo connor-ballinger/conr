@@ -1,8 +1,9 @@
 #' Calculate QALYs for a Data Frame
 #'
-#' @param df Dataframe.
+#' @param df A dataframe.
 #' @param qol Columns which contain QALY weights.
 #' @param periods Vector containing the number of weeks between each measure.
+#'   The length of periods should be 1 more than the number of columns.
 #'
 #' @return df with an additional column, named qaly.
 #' @export
