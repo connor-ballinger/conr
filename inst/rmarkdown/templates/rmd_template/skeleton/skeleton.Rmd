@@ -6,35 +6,13 @@ knit: conr::write_and_date
 output: conr::format_html
 ---
 
-```{r, warning=FALSE, message=FALSE}
-knitr::opts_chunk$set()
+```{r setup}
+knitr::opts_knit$set(root.dir = here::here())
+knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = "")
 
-library(here)
-library(tidyverse)
+library(conr)
 library(knitr)
-
-registerS3method("knit_print", "data.frame", conr::knit_print.data.frame)
-
-# theme_set(theme_bw() + theme(legend.position = "bottom"))
-# options(digits = 4, big.mark = ",", scipen = 999)
-
-# set_flextable_defaults(padding.bottom = 1, padding.top = 1, 
-#                        line_spacing = 1.2, table.layout = "autofit")
-```
-
-
-# Heading
-
-Some text.
-
-## Heading
-
-```{r}
-iris
-
-mtcars
+library(tidyverse)
 
 ```
 
-
-# Heading
