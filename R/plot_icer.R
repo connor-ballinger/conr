@@ -36,9 +36,11 @@ plot_icer <- function(df, estimate, wtp, alpha = 0.5) {
     ypos = c(Inf, -Inf, -Inf, Inf),
     text = c(unlist(quad_portions)),
     hjustvar = c(1, 1, 0, 0),
-    vjustvar = c(1, 0, 0, 1))
+    vjustvar = c(1, 0, 0, 1)
+  )
 
   icer_plot = ggplot2::ggplot(data = df) +
+
     # setup
     geom_vline(xintercept = 0, colour = "grey") +
     geom_hline(yintercept = 0, colour = "grey") +
@@ -47,23 +49,33 @@ plot_icer <- function(df, estimate, wtp, alpha = 0.5) {
     labs(x = "Incremental Effect", y = "Incremental Cost") +
     scale_y_continuous(labels = scales::label_dollar()) +
     geom_label(data = annotations,
-               aes(x = xpos, y = ypos,
-                   hjust = hjustvar, vjust = vjustvar,
-                   label = text)) +
+               aes(x = .data$xpos, y = .data$ypos,
+                   hjust = .data$hjustvar, vjust = .data$vjustvar,
+                   label = .data$text)) +
+
     # WTP
     geom_abline(slope = wtp, linewidth = 0.8) +
     geom_label(aes(x = Inf, y = wtp * max(effect, na.rm = TRUE),
                    label = paste0("WTP = $", wtp)),
                hjust = "inward", vjust = 2) +
+
     # point estimate
     geom_point(aes(x = estimate[1], y = estimate[2]),
                colour = "green", size = 5) +
     geom_label(aes(x = estimate[1], y = estimate[2],
                    label = paste0(estimate[1], ", $", estimate[2])),
                vjust = 2) +
+
     # data
-    geom_point(aes(x = effect, y = cost), alpha = alpha)
+    geom_point(aes(x = .data$effect, y = .data$cost), alpha = alpha)
 
   icer_plot
 
 }
+
+
+#############################################
+# Split into multiple functions
+
+
+
