@@ -35,7 +35,9 @@ document:
 
 - [format_html](./R/format_html.R)
 
-- [knit_print.data.frame](./R/knit_print.data.frame.R)
+- [knit_print.data.frame](./R/knit_print.data.frame.R) which changed to
+  a method (no longer an exported function) possibly after R 4.3.1 or
+  maybe an update to devtools or similar package.
 
 - [write_and_date](./R/write_and_date.R)
 
@@ -57,7 +59,8 @@ devtools::install_github("connor-ballinger/conr")
 
 - New functions:
 
-  - create labels
+  - functions for decision modelling
+  - create labels and data dictionary
   - basic bootstrap
   - 2SB with shrinkage correction (NG 2013)
   - 
