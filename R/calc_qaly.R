@@ -22,14 +22,10 @@
 #'
 #' calc_qaly(testdf, qol = c("u0", "u1", "u2", "u3"), periods = c(4, 13, 26))
 
-calc_qaly <- function (
-    df,
-    qol,
-    periods
-) {
+calc_qaly <- function (df, qol, periods) {
 
   multiplier = periods_to_trapezium(periods)
-  scores = purrr::modify2(df[, {{ qol }}], multiplier, `*`)
+  scores = purrr::modify2(select(df, {{ qol }}), multiplier, `*`)
   scores = scores |>
     rowwise() |>
     mutate(qaly = sum(c_across(everything())) / 104) # 52 weeks * 2 for area trapezium
