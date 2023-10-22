@@ -5,7 +5,7 @@
 #' @param periods Vector containing the number of weeks between each measure.
 #'   The length of periods should be 1 more than the number of columns.
 #'
-#' @return df with an additional column, named qaly.
+#' @return vector of qaly values.
 #' @export
 #'
 #' @import dplyr
@@ -25,14 +25,17 @@
 calc_qaly <- function (df, qol, periods) {
 
   multiplier = periods_to_trapezium(periods)
+
   scores = purrr::modify2(select(df, {{ qol }}), multiplier, `*`)
+
   scores = scores |>
     rowwise() |>
-    mutate(qaly = sum(c_across(everything())) / 104) # 52 weeks * 2 for area trapezium
-  mutate(df, qaly = scores$qaly)
+    mutate(qaly = sum(c_across(everything())) / 104) |>  # 52 weeks * 2 for area trapezium
+    ungroup()
+
+  scores$qaly
 
 }
-
 
 periods_to_trapezium <- function(periods) {
 
