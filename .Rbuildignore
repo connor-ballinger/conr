@@ -3,3 +3,4 @@
 ^LICENSE\.md$
 ^README\.Rmd$
 ^drafts\*
+^data-raw$
