@@ -1,22 +1,30 @@
 #' Produce ICER Scatterplot
 #'
-#' @param df A two-column dataframe with 1 column named cost, the other named effect.
-#' @param estimate A vector of length 2, the first number being cost, the second being effect.
+#' @param df A two-column dataframe with 1 column named cost, the other named effect, produced from boot.
+#' @param effect Effect column.
+#' @param cost Cost column.
+#' @param estimate A vector of length 2, the first number being effect, the second being cost
 #' @param wtp WTP per unit of effect.
 #' @param alpha Opacity of data points.
+#' @param colour Colour of point estimate.
+#' @param size Size of point estimate.
 #'
 #' @return ggplot
+#'
 #' @export
+#'
 #' @import ggplot2
 #' @importFrom scales label_percent
 #' @importFrom scales label_dollar
+#'
 #' @examples
 #' cost <- rnorm(n = 100, mean = 1000, sd = 500)
 #' effect <- rnorm(100, 3, 3)
 #' df <- data.frame(cost, effect)
-#' plot_icer(df, c(effect = 1, cost = 100), wtp = 100, alpha = 0.8)
+#' plot_icer(df, c(effect = 1, cost = 1000))
+#' plot_icer(df, c(effect = 1, cost = 1000), wtp = 100, alpha = 0.8)
 
-plot_icer <- function(df, estimate, wtp, alpha = 0.5) {
+plot_icer <- function(df, effect, cost, estimate, wtp, alpha = 0.5, colour = "green", size = 2) {
 
   # count bootstrap replications
   B = nrow(df)
@@ -51,22 +59,29 @@ plot_icer <- function(df, estimate, wtp, alpha = 0.5) {
     geom_label(data = annotations,
                aes(x = .data$xpos, y = .data$ypos,
                    hjust = .data$hjustvar, vjust = .data$vjustvar,
-                   label = .data$text)) +
+                   label = .data$text))
 
-    # WTP
-    geom_abline(slope = wtp, linewidth = 0.8) +
-    geom_label(aes(x = Inf, y = wtp * max(effect, na.rm = TRUE),
-                   label = paste0("WTP = $", wtp)),
-               hjust = "inward", vjust = 2) +
+  # WTP
+  if (!missing(wtp)) {
+    icer_plot = icer_plot +
+      geom_abline(slope = wtp, linewidth = 0.8) +
+      geom_label(aes(x = Inf, y = wtp * max(effect, na.rm = TRUE),
+                     label = paste0("WTP = $", wtp)),
+                 hjust = "inward", vjust = 2)
+  }
 
-    # point estimate
-    geom_point(aes(x = estimate[1], y = estimate[2]),
-               colour = "green", size = 5) +
-    geom_label(aes(x = estimate[1], y = estimate[2],
-                   label = paste0(estimate[1], ", $", estimate[2])),
-               vjust = 2) +
+  # point estimate
+  if (!missing(estimate)) {
+    icer_plot = icer_plot +
+      geom_point(aes(x = estimate[1], y = estimate[2]),
+                 colour = colour, size = size) +
+      geom_label(aes(x = estimate[1], y = estimate[2],
+                     label = paste0(estimate[1], ", $", estimate[2])),
+                 vjust = 2)
+  }
 
-    # data
+  # data
+  icer_plot = icer_plot +
     geom_point(aes(x = .data$effect, y = .data$cost), alpha = alpha)
 
   icer_plot

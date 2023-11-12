@@ -20,7 +20,7 @@
 #'   u3 = c(0.4, 0.6, 1)
 #' )
 #'
-#' calc_qaly(testdf, qol = c("u0", "u1", "u2", "u3"), periods = c(4, 13, 26))
+#' calc_qaly(testdf, qol = starts_with("u"), periods = c(4, 13, 26))
 
 calc_qaly <- function (df, qol, periods) {
 
@@ -30,7 +30,7 @@ calc_qaly <- function (df, qol, periods) {
 
   scores = scores |>
     rowwise() |>
-    mutate(qaly = sum(c_across(everything())) / 104) |>  # 52 weeks * 2 for area trapezium
+    mutate(qaly = sum(c_across({{ qol }})) / 104) |>  # 52 weeks * 2 for area trapezium
     ungroup()
 
   scores$qaly
