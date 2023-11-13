@@ -25,7 +25,7 @@
 #' plot_icer(df, effect, cost)
 #' plot_icer(df, effect, cost, 3, 1000, wtp = 100, alpha = 0.8)
 
-plot_icer <- function(df, effect, cost, est_effect, est_cost, wtp, alpha = 0.5, colour = "green", size = 2) {
+plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp, alpha = 0.5, colour = "green", size = 2) {
 
   # count bootstrap replications
   B = nrow(df)
@@ -51,8 +51,8 @@ plot_icer <- function(df, effect, cost, est_effect, est_cost, wtp, alpha = 0.5, 
   icer_plot = ggplot2::ggplot(data = df) +
 
     # setup
-    geom_vline(xintercept = 0, colour = "grey") +
-    geom_hline(yintercept = 0, colour = "grey") +
+    geom_vline(xintercept = 0, colour = "grey10") +
+    geom_hline(yintercept = 0, colour = "grey10") +
     theme_set(theme_bw()) +
     theme_update(panel.grid = element_blank()) +
     labs(x = "Incremental Effect", y = "Incremental Cost") +
@@ -89,11 +89,11 @@ plot_icer <- function(df, effect, cost, est_effect, est_cost, wtp, alpha = 0.5, 
   icer_plot +
     coord_cartesian(
       xlim = c(
-        min(0, pull(df, {{ effect }} )),
-        max(0, pull(df, {{ effect }} ))
+        min(0, pull(df, {{ effect }} )) - abs(0.1 * mean(pull(df, {{ effect }} ))),
+        max(0, pull(df, {{ effect }} )) + abs(0.1 * mean(pull(df, {{ effect }} )))
       ),
-      ylim = c(min(0, pull(df, {{ cost }} )),
-               max(0, pull(df, {{ cost }} )))
+      ylim = c(min(0, pull(df, {{ cost }} )) - abs(0.1 * mean(pull(df, {{ cost }} ))),
+               max(0, pull(df, {{ cost }} )) + abs(0.1 * mean(pull(df, {{ cost }} ))))
     )
 
 }
