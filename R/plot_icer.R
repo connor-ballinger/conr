@@ -7,7 +7,8 @@
 #' @param est_cost Point estimate.
 #' @param wtp WTP per unit of effect.
 #' @param alpha Opacity of data points.
-#' @param colour Colour of point estimate.
+#' @param fill Fill of point estimate.
+#' @param colour Border colour of point estimate.
 #' @param size Size of point estimate.
 #'
 #' @return ggplot
@@ -25,7 +26,7 @@
 #' plot_icer(df, effect, cost)
 #' plot_icer(df, effect, cost, 3, 1000, wtp = 100, alpha = 0.8)
 
-plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp, alpha = 0.5, colour = "green", size = 2) {
+plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp, alpha = 0.5, fill = "green", colour = "black", size = 2) {
 
   # count bootstrap replications
   B = nrow(df)
@@ -71,22 +72,11 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost
     #            hjust = "inward", vjust = 2, size = 4)#atan(pi * wtp) * 180 / pi)
   }
 
-  # point estimate
-  if (!missing(est_effect) & !missing(est_cost)) {
-    icer_plot = icer_plot +
-      geom_point(data = data.frame(effect = est_effect, cost = est_cost),
-                 aes(x = effect, y = cost),
-                 colour = colour, size = size)
-    # geom_label(data = data.frame(estimate),
-    #                  aes(x = estimate[1], y = estimate[2],
-    #                      label = paste0(estimate[1], ", $", estimate[2])))
-  }
-
   # data
   icer_plot = icer_plot +
     geom_point(aes(x = .data$effect, y = .data$cost), alpha = alpha)
 
-  icer_plot +
+  icer_plot = icer_plot +
     coord_cartesian(
       xlim = c(
         min(0, pull(df, {{ effect }} )) - abs(0.1 * mean(pull(df, {{ effect }} ))),
@@ -95,6 +85,19 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost
       ylim = c(min(0, pull(df, {{ cost }} )) - abs(0.1 * mean(pull(df, {{ cost }} ))),
                max(0, pull(df, {{ cost }} )) + abs(0.1 * mean(pull(df, {{ cost }} ))))
     )
+
+  # point estimate
+  if (!missing(est_effect) & !missing(est_cost)) {
+    icer_plot = icer_plot +
+      geom_point(data = data.frame(effect = est_effect, cost = est_cost),
+                 aes(x = effect, y = cost),
+                 fill = fill, colour = colour, size = size, shape = 21)
+    # geom_label(data = data.frame(estimate),
+    #                  aes(x = estimate[1], y = estimate[2],
+    #                      label = paste0(estimate[1], ", $", estimate[2])))
+  }
+
+  icer_plot
 
 }
 
