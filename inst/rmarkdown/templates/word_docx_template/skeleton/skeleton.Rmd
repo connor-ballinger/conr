@@ -1,0 +1,43 @@
+---
+title: "Untitled"
+author: "Connor Ballinger"
+date: "`r conr::format_date()`"
+knit: conr::write_and_date
+output: officedown::rdocx_document
+---
+
+## List of tables
+
+<!---BLOCK_TOC{seq_id: 'tab'}--->
+
+## List of figures
+
+<!---BLOCK_TOC{seq_id: 'fig'}--->
+
+```{r setup}
+knitr::opts_knit$set(root.dir = here::here())
+
+knitr::opts_chunk$set(
+  echo = FALSE, 
+  fig.width = 6, fig.height = 4.3, 
+  ft_max_row = 12, ft_show_coltype = FALSE # flextables
+)
+
+flextable::set_flextable_defaults(
+  font.family = "Arial", font.size = 9,
+  padding.top = 8, padding.bottom = 2, padding.left = 3, padding.right = 3,
+  line_spacing = 1.2, table.layout = "autofit"
+)
+
+library(conr)
+library(tidyverse)
+library(knitr)
+library(flextable)
+
+conr::knit_df()
+```
+
+```{r, tab.id="tab", tab.cap="Iris."}
+head(iris)
+```
+

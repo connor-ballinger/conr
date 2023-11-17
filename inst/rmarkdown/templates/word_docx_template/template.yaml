@@ -1,0 +1,4 @@
+name: word_docx_document
+description: >
+   A template for word document output.
+create_dir: FALSE
