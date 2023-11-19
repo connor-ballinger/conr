@@ -14,7 +14,7 @@ output: officedown::rdocx_document
 
 <!---BLOCK_TOC{seq_id: 'fig'}--->
 
-```{r setup}
+```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
 knitr::opts_knit$set(root.dir = here::here())
 
 knitr::opts_chunk$set(

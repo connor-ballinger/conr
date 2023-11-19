@@ -1,10 +1,10 @@
 Package: conr
 Title: Helping with Health Economics Work
-Version: 0.0.0.9000
+Version: 0.0.1.0000
 Authors@R: 
     person("Connor", "Ballinger", , "cdballinger97@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0009-0004-5977-5385"))
-Description: This is my first package. It will contain templates, convenience functions, and some experimentation. It will definitely not be robust and is not to be trusted.
+Description: conr is a package to provide templates and convenience functions for work in health economics. It is my first package and will be bug-ridden.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
