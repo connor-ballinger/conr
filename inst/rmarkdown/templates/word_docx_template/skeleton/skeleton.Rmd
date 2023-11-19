@@ -29,12 +29,13 @@ flextable::set_flextable_defaults(
   line_spacing = 1.2, table.layout = "autofit"
 )
 
+conr::knit_df()
+
+
 library(conr)
 library(tidyverse)
 library(knitr)
 library(flextable)
-
-conr::knit_df()
 ```
 
 ```{r, tab.id="tab", tab.cap="Iris."}

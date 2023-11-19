@@ -18,28 +18,17 @@ document, example below.
 
 ## Functions
 
-There is no common theme for the functions, they are random bits of code
-that may be useful.
+Random bits of code that may be useful.
 
 All functions (see their code in R/):
 
-    #>  [1] "adorn_df.R"              "calc_ind_qaly.R"        
-    #>  [3] "calc_qaly.R"             "decode_text.R"          
-    #>  [5] "fix_excel_cols.R"        "format_date.R"          
-    #>  [7] "format_html.R"           "knit_print.data.frame.R"
-    #>  [9] "plot_icer.R"             "print_regrsn.R"         
-    #> [11] "round_sensibly.R"        "write_and_date.R"
-
-The following functions are only to be used in rendering an Rmd
-document:
-
-- [format_html](./R/format_html.R)
-
-- [knit_print.data.frame](./R/knit_print.data.frame.R) which changed to
-  a method (no longer an exported function) possibly after R 4.3.1 or
-  maybe an update to devtools or similar package.
-
-- [write_and_date](./R/write_and_date.R)
+    #>  [1] "adorn_df.R"                      "bootstrap_basic.R"              
+    #>  [3] "bootstrap_two_stage_shrinkage.R" "calc_ind_qaly.R"                
+    #>  [5] "calc_qaly.R"                     "decode_text.R"                  
+    #>  [7] "fix_excel_cols.R"                "format_date.R"                  
+    #>  [9] "format_html.R"                   "knit_df.R"                      
+    #> [11] "plot_icer.R"                     "print_regrsn.R"                 
+    #> [13] "round_sensibly.R"                "write_and_date.R"
 
 ## Installation
 

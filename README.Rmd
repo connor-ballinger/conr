@@ -28,21 +28,13 @@ To this point, there is an Rmarkdown template to produce an html document, examp
 
 ## Functions
 
-There is no common theme for the functions, they are random bits of code that may be useful. 
+Random bits of code that may be useful. 
 
 All functions (see their code in R/):
 
 ```{r, echo=FALSE}
 list.files("./R/")
 ```
-
-The following functions are only to be used in rendering an Rmd document:
-
--   [format_html](./R/format_html.R)
-
--   [knit_print.data.frame](./R/knit_print.data.frame.R) which changed to a method (no longer an exported function) possibly after R 4.3.1 or maybe an update to devtools or similar package.
-
--   [write_and_date](./R/write_and_date.R)
 
 ## Installation
 
