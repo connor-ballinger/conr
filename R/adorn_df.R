@@ -24,13 +24,13 @@ adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
       where(is.numeric) &
         (contains("portion") | contains("growth")),
       ~ scales::label_percent(accuracy = perc_accuracy)(
-        conr::round_sensibly(.x, digits = log10(perc_accuracy))
+        conr::round_sensibly(.x, digits = -log10(perc_accuracy))
       )
     ),
     across(
       where(is.numeric),
       ~ scales::label_comma(accuracy = num_accuracy)(
-        conr::round_sensibly(.x, digits = log10(num_accuracy))
+        conr::round_sensibly(.x, digits = -log10(num_accuracy))
       )
     )
   ) |>
