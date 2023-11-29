@@ -16,7 +16,7 @@ write_and_date <- function(input, ...) {
            xfun::sans_ext(basename(input)),
            sep = "_"
          ),
-         output_dir = here::here("drafts")
+         output_dir = here::here("output")
     )
   )
 }

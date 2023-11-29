@@ -24,11 +24,12 @@ All functions (see their code in R/):
 
     #>  [1] "adorn_df.R"                      "bootstrap_basic.R"              
     #>  [3] "bootstrap_two_stage_shrinkage.R" "calc_ind_qaly.R"                
-    #>  [5] "calc_qaly.R"                     "decode_text.R"                  
-    #>  [7] "fix_excel_cols.R"                "format_date.R"                  
-    #>  [9] "format_html.R"                   "knit_df.R"                      
-    #> [11] "plot_icer.R"                     "print_regrsn.R"                 
-    #> [13] "round_sensibly.R"                "write_and_date.R"
+    #>  [5] "calc_qaly.R"                     "data.R"                         
+    #>  [7] "decode_text.R"                   "fix_excel_cols.R"               
+    #>  [9] "format_date.R"                   "format_html.R"                  
+    #> [11] "knit_df.R"                       "plot_icer.R"                    
+    #> [13] "print_regrsn.R"                  "round_sensibly.R"               
+    #> [15] "write_and_date.R"
 
 ## Installation
 
@@ -52,6 +53,6 @@ devtools::install_github("connor-ballinger/conr")
   - create labels and data dictionary
   - basic bootstrap
   - 2SB with shrinkage correction (NG 2013)
-  - 
+  - mean & quantiles (for bootstrap output, multiple variables)
 
 - Another template - word or pdf or shiny or a multi-page html.

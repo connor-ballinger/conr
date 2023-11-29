@@ -57,6 +57,6 @@ devtools::install_github("connor-ballinger/conr")
     -   create labels and data dictionary
     -   basic bootstrap
     -   2SB with shrinkage correction (NG 2013)
-    -   
+    -   mean & quantiles (for bootstrap output, multiple variables)
 
 -   Another template - word or pdf or shiny or a multi-page html.
