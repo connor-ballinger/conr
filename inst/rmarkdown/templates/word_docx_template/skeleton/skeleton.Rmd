@@ -22,22 +22,22 @@ knitr::opts_chunk$set(
   warning = FALSE,
   message = FALSE,
   fig.width = 6, fig.height = 4.3, 
-  ft_max_row = 12, ft_show_coltype = FALSE # flextables
+  ft_max_row = 50, ft_show_coltype = FALSE # flextables
 )
 
 flextable::set_flextable_defaults(
   font.family = "Arial", font.size = 9,
-  padding.top = 8, padding.bottom = 2, padding.left = 3, padding.right = 3,
-  line_spacing = 1.2, table.layout = "autofit"
+  padding.top = 3, padding.bottom = 3, padding.left = 3, padding.right = 3,
+  line_spacing = 1, table.layout = "autofit"
 )
 
 conr::knit_df()
-
 
 library(conr)
 library(tidyverse)
 library(knitr)
 library(flextable)
+library(officedown)
 ```
 
 ```{r, tab.id="tab", tab.cap="Iris."}

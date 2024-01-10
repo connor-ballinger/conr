@@ -28,7 +28,8 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
       across(
         .cols = c( {{ effect }}, {{ cost }} ),
         .fns = ~ mean(.x, na.rm = TRUE)
-      ), .by = {{ tmt }}
+      ),
+      .by = {{ tmt }}
     )
 
   if (!is.null(periods)) {
@@ -38,7 +39,7 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
     effect_inc = fn_calc_increment(means, qaly)
 
   } else {
-    # implying we are dealing with a vanilla effect estimate
+    # implying we are dealing with a plain effect estimate
 
     effect_inc = fn_calc_increment(means, {{ effect }} )
   }

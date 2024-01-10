@@ -20,11 +20,11 @@
 #' @importFrom scales label_dollar
 #'
 #' @examples
-#'cost <- rnorm(n = 100, mean = 1000, sd = 500)
-#'effect <- rnorm(100, 3, 3)
-#'df <- data.frame(cost, effect)
-#'plot_icer(df, effect, cost)
-#'plot_icer(df, effect, cost, est_effect = 3, est_cost = 1000, wtp = 100, alpha = 0.8, size = 10)
+#' cost <- rnorm(n = 100, mean = 1000, sd = 500)
+#' effect <- rnorm(100, 3, 3)
+#' df <- data.frame(cost, effect)
+#' plot_icer(df, effect, cost)
+#' plot_icer(df, effect, cost, est_effect = 3, est_cost = 1000, wtp = 100, alpha = 0.8, size = 10)
 
 plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp, alpha = 0.5, fill = "green", colour = "black", size = 2) {
 # plot_icer <- function(df, effect = "effect", cost = "cost", point_est = list(), wtp)
