@@ -35,7 +35,7 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
   if (!is.null(periods)) {
     # implying a qaly is required
 
-    means$qaly = calc_qaly(means, {{ qol }}, periods)
+    means$qaly = calc_qaly(means, {{ effect }}, periods)
     effect_inc = fn_calc_increment(means, qaly)
 
   } else {

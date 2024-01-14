@@ -14,7 +14,7 @@ work in health economics. It is my first package and will be bug-ridden.
 To this point, there is an Rmarkdown template to produce an html
 document, example below.
 
-![](./drafts/template_example_pic.PNG)
+![](./inst/images/template_example_pic.PNG)
 
 ## Functions
 
@@ -23,13 +23,13 @@ Random bits of code that may be useful.
 All functions (see their code in R/):
 
     #>  [1] "adorn_df.R"                      "bootstrap_basic.R"              
-    #>  [3] "bootstrap_two_stage_shrinkage.R" "calc_ind_qaly.R"                
-    #>  [5] "calc_qaly.R"                     "data.R"                         
-    #>  [7] "decode_text.R"                   "fix_excel_cols.R"               
-    #>  [9] "format_date.R"                   "format_html.R"                  
-    #> [11] "knit_df.R"                       "plot_icer.R"                    
-    #> [13] "print_regrsn.R"                  "round_sensibly.R"               
-    #> [15] "write_and_date.R"
+    #>  [3] "bootstrap_cluster.R"             "bootstrap_two_stage_shrinkage.R"
+    #>  [5] "calc_ind_qaly.R"                 "calc_qaly.R"                    
+    #>  [7] "data.R"                          "decode_text.R"                  
+    #>  [9] "fix_excel_cols.R"                "format_date.R"                  
+    #> [11] "format_html.R"                   "knit_df.R"                      
+    #> [13] "plot_icer.R"                     "print_regrsn.R"                 
+    #> [15] "round_sensibly.R"                "write_and_date.R"
 
 ## Installation
 
@@ -45,7 +45,7 @@ devtools::install_github("connor-ballinger/conr")
 
 - Functions to fix/improve:
 
-  - 
+  - plot_icer
 
 - New functions:
 
