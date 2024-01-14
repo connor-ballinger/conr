@@ -7,13 +7,13 @@
 #' @param periods vector of weeks between each QoL measure, if applicable
 #' @param i needed for `boot::boot`
 #'
-#' @return named vector of mean incremental effect and cost and icer
+#' @return A named vector of mean incremental effect and cost and icer.
 #' @export
 #'
 #' @examples
 #' # pass named args of bootstrap_basic to boot::boot
 #' df <- fake_health_ec_data
-#' if (length(system.file(package = "boot)) > 1) { # check boot is installed
+#' if (requireNamespace("boot")) { # check boot is installed
 #'   boot <- boot::boot(df, bootstrap_basic, R = 100, strata = df$tmt,
 #'                      tmt = "tmt",
 #'                      effect = starts_with("utility"),
