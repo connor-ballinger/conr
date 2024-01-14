@@ -12,8 +12,8 @@ write_and_date <- function(input, ...) {
     rmarkdown::render,
     list(input,
          output_file = paste(
-           Sys.Date(),
            xfun::sans_ext(basename(input)),
+           Sys.Date(),
            sep = "_"
          ),
          output_dir = here::here("output")
