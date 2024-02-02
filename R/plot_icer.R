@@ -1,6 +1,7 @@
 #' Produce ICER Scatterplot
 #'
-#' @param df A two-column dataframe with 1 column named cost, the other named effect, produced from boot.
+#' @param df A two-column dataframe with 1 column named cost, the other named
+#'   effect, produced from boot.
 #' @param effect Effect column.
 #' @param cost Cost column.
 #' @param est_effect Point estimate.
@@ -24,9 +25,12 @@
 #' effect <- rnorm(100, 3, 3)
 #' df <- data.frame(cost, effect)
 #' plot_icer(df, effect, cost)
-#' plot_icer(df, effect, cost, est_effect = 3, est_cost = 1000, wtp = 100, alpha = 0.8, size = 10)
+#' plot_icer(df, effect, cost, est_effect = 3,
+#'           est_cost = 1000, wtp = 100, alpha = 0.8, size = 10)
 
-plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp, alpha = 0.5, fill = "green", colour = "black", size = 2) {
+plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
+                      est_cost, wtp, alpha = 0.5, fill = "green",
+                      colour = "black", size = 2) {
 # plot_icer <- function(df, effect = "effect", cost = "cost", point_est = list(), wtp)
   icer_plot = ggplot2::ggplot(data = df) +
 
@@ -52,11 +56,11 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost
   icer_plot = icer_plot +
     coord_cartesian(
       xlim = c(
-        min(0, pull(df, {{ effect }} )) - abs(0.1 * mean(pull(df, {{ effect }} ))),
-        max(0, pull(df, {{ effect }} )) + abs(0.1 * mean(pull(df, {{ effect }} )))
+        min(0, pull(df, {{ effect }})) - abs(0.1 * mean(pull(df, {{ effect }}))),
+        max(0, pull(df, {{ effect }})) + abs(0.1 * mean(pull(df, {{ effect }})))
       ),
-      ylim = c(min(0, pull(df, {{ cost }} )) - abs(0.1 * mean(pull(df, {{ cost }} ))),
-               max(0, pull(df, {{ cost }} )) + abs(0.1 * mean(pull(df, {{ cost }} ))))
+      ylim = c(min(0, pull(df, {{ cost }})) - abs(0.1 * mean(pull(df, {{ cost }}))),
+               max(0, pull(df, {{ cost }})) + abs(0.1 * mean(pull(df, {{ cost }}))))
     )
 
   # point estimate
@@ -73,7 +77,8 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect, est_cost
 #############################################
 # Split into multiple functions
 
-plot_icer_pt_est <- function(est_effect, est_cost, fill = "green", colour = "black", size = 2, shape = 21) {
+plot_icer_pt_est <- function(est_effect, est_cost, fill = "green",
+                             colour = "black", size = 2, shape = 21) {
   list(
     geom_point(data = data.frame(effect = est_effect, cost = est_cost),
                aes(x = effect, y = cost),
@@ -92,10 +97,10 @@ wrangle_icer_portions <- function(df = df, effect = effect, cost = cost) {
   B = nrow(df)
 
   # portion in quadrants, clockwise
-  tr = sum(pull(df, {{ effect }} ) > 0 & pull(df, {{ cost }} ) > 0) / B
-  br = sum(pull(df, {{ effect }} ) > 0 & pull(df, {{ cost }} ) < 0) / B
-  bl = sum(pull(df, {{ effect }} ) < 0 & pull(df, {{ cost }} ) < 0) / B
-  tl = sum(pull(df, {{ effect }} ) < 0 & pull(df, {{ cost }} ) > 0) / B
+  tr = sum(pull(df, {{ effect }}) > 0 & pull(df, {{ cost }}) > 0) / B
+  br = sum(pull(df, {{ effect }}) > 0 & pull(df, {{ cost }}) < 0) / B
+  bl = sum(pull(df, {{ effect }}) < 0 & pull(df, {{ cost }}) < 0) / B
+  tl = sum(pull(df, {{ effect }}) < 0 & pull(df, {{ cost }}) > 0) / B
 
   # print as %
   quad_portions = lapply(c(tr, br, bl, tl), scales::label_percent())
@@ -121,7 +126,8 @@ wrangle_icer_portions <- function(df = df, effect = effect, cost = cost) {
 ################################################################################
 
 
-# plot_iris <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width)) + geom_point(fill = "green", shape = 21)
+# plot_iris <- ggplot(data = iris, aes(x = Petal.Length, y = Petal.Width))
+# + geom_point(fill = "green", shape = 21)
 # plot_iris + plot_pt_est(4, 1) + plot_wtp(slope = 0.5)
 #
 #

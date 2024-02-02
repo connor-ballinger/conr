@@ -8,9 +8,9 @@
 #'
 #' @examples
 decode_text <- function(x, ...) {
-  x = gsub("_", " ", x)
-  x = tools::toTitleCase(x)
-  x = gsub("\\.", "", x)
+  x = gsub("_", " ", x) # underscores to spaces
+  x = tools::toTitleCase(x) # upper case
+  x = gsub("\\.", "", x) # remove periods - replace with a space?
 
   # columns named by years are often given x prefix, eg x2018
 
