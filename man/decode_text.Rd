@@ -9,11 +9,15 @@ decode_text(x, ...)
 \arguments{
 \item{x}{A character vector.}
 
-\item{...}{}
+\item{...}{Dots.}
 }
 \value{
 A visually-appealing character vector.
 }
 \description{
-Decode Text for Aesthetics
+Transform text which is used for code to something more normal-looking.
+}
+\examples{
+colnames(fake_health_ec_data)
+colnames(fake_health_ec_data) |> decode_text()
 }

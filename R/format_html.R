@@ -1,12 +1,14 @@
 #' Produce an HTML Report
 #'
-#' @return An html file.
+#' @description
+#' Produce an .html file from .Rmd, with branding and some preferences.
+#'
+#' @return `rmarkdown::html_document`
 #' @export
 #'
 #' @examples
 format_html <- function() {
-
-  styles = system.file(
+  styles <- system.file(
     "rmarkdown/templates/output_styling_only/skeleton/styles.css",
     package = "conr"
   )

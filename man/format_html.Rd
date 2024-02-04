@@ -7,8 +7,8 @@
 format_html()
 }
 \value{
-An html file.
+\code{rmarkdown::html_document}
 }
 \description{
-Produce an HTML Report
+Produce an .html file from .Rmd, with branding and some preferences.
 }

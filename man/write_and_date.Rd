@@ -9,11 +9,11 @@ write_and_date(input, ...)
 \arguments{
 \item{input}{File to be knitted.}
 
-\item{...}{}
+\item{...}{Dots.}
 }
 \value{
 Output file created.
 }
 \description{
-Save Output File with the Date
+Would be good to avoid the \code{xfun} dependency...
 }
