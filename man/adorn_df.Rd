@@ -14,7 +14,7 @@ columns. 0.01 means to two decimal places.}
 
 \item{num_accuracy}{A number like perc_digits, but for numeric columns.}
 
-\item{...}{}
+\item{...}{Dots.}
 }
 \value{
 A dataframe.
@@ -25,5 +25,4 @@ Adorn a Dataframe with Percent and '000s Separator
 \examples{
 df <- data.frame(a_col = rnorm(5) * 1e6, portion = rnorm(5), Growth = rnorm(5))
 adorn_df(df)
-
 }

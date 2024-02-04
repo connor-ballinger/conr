@@ -22,14 +22,11 @@ Random bits of code that may be useful.
 
 All functions (see their code in R/):
 
-    #>  [1] "adorn_df.R"                      "bootstrap_basic.R"              
-    #>  [3] "bootstrap_cluster.R"             "bootstrap_two_stage_shrinkage.R"
-    #>  [5] "calc_ind_qaly.R"                 "calc_qaly.R"                    
-    #>  [7] "data.R"                          "decode_text.R"                  
-    #>  [9] "fix_excel_cols.R"                "format_date.R"                  
-    #> [11] "format_html.R"                   "knit_df.R"                      
-    #> [13] "plot_icer.R"                     "print_regrsn.R"                 
-    #> [15] "round_sensibly.R"                "write_and_date.R"
+    #>  [1] "adorn_df.R"        "bootstrap_basic.R" "calc_ind_qaly.R"  
+    #>  [4] "calc_qaly.R"       "conr-package.R"    "data.R"           
+    #>  [7] "decode_text.R"     "format_date.R"     "format_html.R"    
+    #> [10] "knit_df.R"         "plot_icer.R"       "print_regrsn.R"   
+    #> [13] "round_sensibly.R"  "write_and_date.R"
 
 ## Installation
 
@@ -46,13 +43,14 @@ devtools::install_github("connor-ballinger/conr")
 - Functions to fix/improve:
 
   - plot_icer
+  - print_regn
 
 - New functions:
 
   - functions for decision modelling
   - create labels and data dictionary
-  - basic bootstrap
   - 2SB with shrinkage correction (NG 2013)
   - mean & quantiles (for bootstrap output, multiple variables)
+  - wrappers to simplify use of gtsummary
 
 - Another template - word or pdf or shiny or a multi-page html.

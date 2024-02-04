@@ -4,7 +4,7 @@
 #' @param perc_accuracy A number, like in format(accuracy = _), for percentage
 #'   columns. 0.01 means to two decimal places.
 #' @param num_accuracy A number like perc_digits, but for numeric columns.
-#' @param ...
+#' @param ... Dots.
 #'
 #' @return A dataframe.
 #' @export
@@ -16,7 +16,6 @@
 #' @examples
 #' df <- data.frame(a_col = rnorm(5) * 1e6, portion = rnorm(5), Growth = rnorm(5))
 #' adorn_df(df)
-#'
 adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
   dplyr::mutate(
     df,

@@ -18,12 +18,14 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-conr is a package to provide templates and convenience functions for work in health economics.
+conr is a package to provide templates and convenience functions for work in 
+health economics.
 It is my first package and will be bug-ridden.
 
 ## Templates
 
-To this point, there is an Rmarkdown template to produce an html document, example below.
+To this point, there is an Rmarkdown template to produce an html document, 
+example below.
 
 ![](./inst/images/template_example_pic.PNG)
 
@@ -39,7 +41,8 @@ list.files("./R/")
 
 ## Installation
 
-You can install the development version of conr from [GitHub](https://github.com/) with:
+You can install the development version of conr from 
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -51,13 +54,14 @@ devtools::install_github("connor-ballinger/conr")
 -   Functions to fix/improve:
 
     -   plot_icer
+    -   print_regn
 
 -   New functions:
 
     -   functions for decision modelling
     -   create labels and data dictionary
-    -   basic bootstrap
     -   2SB with shrinkage correction (NG 2013)
     -   mean & quantiles (for bootstrap output, multiple variables)
+    -   wrappers to simplify use of gtsummary
 
 -   Another template - word or pdf or shiny or a multi-page html.
