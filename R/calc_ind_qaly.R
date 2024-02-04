@@ -15,16 +15,13 @@
 #' @examples
 #' calc_ind_qaly(c(1, 0.4, 0.8), c(6, 4))
 calc_ind_qaly <- function(utilities = c(), periods = c()) {
-
   stopifnot(length(utilities) - length(periods) == 1)
 
-  parts = vector(mode = "double", length = length(periods))
+  parts <- vector(mode = "double", length = length(periods))
 
-  for (i in 1:(length(utilities)-1)) {
-
-    parts[[i]] = utilities[[i]] + utilities[[i + 1]]
-
+  for (i in 1:(length(utilities) - 1)) {
+    parts[[i]] <- utilities[[i]] + utilities[[i + 1]]
   }
 
-  sum(parts * periods)/104
+  sum(parts * periods) / 104
 }

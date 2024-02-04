@@ -21,25 +21,20 @@
 #' )
 #'
 #' calc_qaly(testdf, qol = starts_with("u"), periods = c(4, 13, 26))
+calc_qaly <- function(df, qol, periods) {
+  multiplier <- periods_to_trapezium(periods)
 
-calc_qaly <- function (df, qol, periods) {
+  scores <- purrr::modify2(select(df, {{ qol }}), multiplier, `*`)
 
-  multiplier = periods_to_trapezium(periods)
-
-  scores = purrr::modify2(select(df, {{ qol }}), multiplier, `*`)
-
-  scores = scores |>
+  scores <- scores |>
     rowwise() |>
-    mutate(qaly = sum(c_across({{ qol }})) / 104) |>  # 52 weeks * 2 for area trapezium
+    mutate(qaly = sum(c_across({{ qol }})) / 104) |> # 52 weeks * 2 for area trapezium
     ungroup()
 
   scores$qaly
-
 }
 
 periods_to_trapezium <- function(periods) {
-
-  additions = periods[-length(periods)] + periods[-1] # Area trapezium = h*(a+b)/2
+  additions <- periods[-length(periods)] + periods[-1] # Area trapezium = h*(a+b)/2
   c(periods[1], additions, periods[length(periods)]) # This creates all a+b for trapeziums.
-
 }

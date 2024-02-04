@@ -13,9 +13,9 @@
 #' colnames(fake_health_ec_data)
 #' colnames(fake_health_ec_data) |> decode_text()
 decode_text <- function(x, ...) {
-  x = gsub("_", " ", x) # underscores to spaces
-  x = tools::toTitleCase(x) # upper case
-  x = gsub("\\.", " ", x) # remove periods - replace with a space.
+  x <- gsub("_", " ", x) # underscores to spaces
+  x <- tools::toTitleCase(x) # upper case
+  x <- gsub("\\.", " ", x) # remove periods - replace with a space.
 
   # columns named by years are often given x prefix, eg x2018
 

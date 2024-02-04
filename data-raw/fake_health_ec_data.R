@@ -12,8 +12,12 @@ sim_utility <- function(alpha, beta) {
 df1 <- tibble(
   id = 1:300,
   day = round(id * 3.3 + sample.int(7, size = 300, replace = TRUE)),
-  cluster = sample(LETTERS[1:5], size = 300, replace = TRUE,
-                   prob = c(0.1, 0.35, 0.15, 0.25, 0.15)),
+  cluster = sample(
+    LETTERS[1:5],
+    size = 300,
+    replace = TRUE,
+    prob = c(0.1, 0.35, 0.15, 0.25, 0.15)
+  ),
   age = round(18 + 70 * rbeta(n = 300, shape1 = 3, shape2 = 2)),
   male = rbinom(n = 300, size = 1, prob = 0.66),
   utility0 = sim_utility(9, 2),
@@ -25,16 +29,22 @@ df1 <- tibble(
       rbeta(n = 300, shape1 = 0.3, shape2 = 0.9) *
         (1.5 - utility0) *
         (1.5 - utility3),
-      3)
+      3
+    )
 )
 
 # create tmt dummy, note clusters transition once each.
 
 portions <- c(0.7, 0.6, 0.5, 0.4, 0.3) # later clusters "treat" fewer patients
 clusters <- sort(unique(df1$cluster))
-df2 <- map2(.x = clusters, .y = portions,
-            \(x, y)
-            df1 |> filter(cluster == x) |> slice_tail(prop = y)) |>
+df2 <- map2(
+  .x = clusters,
+  .y = portions,
+  \(x, y)
+  df1 |>
+    filter(cluster == x) |>
+    slice_tail(prop = y)
+) |>
   list_rbind() |>
   mutate(tmt = "1", .before = age)
 
@@ -45,10 +55,11 @@ fake_health_ec_data <- df1 |>
   rbind(df2) |>
   arrange(id)
 
-
+# create missing data
 for (i in sample.int(300, size = 40, replace = TRUE)) {
   for (j in sample(c("utility0", "utility1", "utility2", "utility3"),
-                     size = 1, replace = TRUE)) {
+    size = 1, replace = TRUE
+  )) {
     fake_health_ec_data[i, j] <- NA
   }
 }
@@ -56,4 +67,3 @@ for (i in sample.int(300, size = 40, replace = TRUE)) {
 rm(list = setdiff(ls(), "fake_health_ec_data"))
 
 usethis::use_data(fake_health_ec_data, overwrite = TRUE)
-

@@ -16,28 +16,18 @@
 #'   most of this here https://gt.rstudio.com/reference/opt_interactive.html,
 #'   but not the download option.
 #'
-#'   Not sure why this changed from a function exported from conr to a method
-#'   which always automatically overwrites the default rmarkdown method, without
-#'   any need for calling function.
-#'
 #'   Currently not ideal as datatable() trims trailing zeros, leading to
 #'   inconsistent number of decimal places in a given column. DT::formatRound is
 #'   not an option as trailing zeros are never trimmed.
 #'
-#' @import knitr
+#' @importFrom knitr pandoc_to
 #'
 #' @examples
-#'
 knit_df <- function(...) {
-
   if (knitr::pandoc_to("docx")) {
-
     .S3method("knit_print", "data.frame", knit_docx_df)
-
   } else if (knitr::pandoc_to("html")) {
-
     .S3method("knit_print", "data.frame", knit_html_df)
-
   }
 }
 
@@ -46,10 +36,10 @@ knit_df <- function(...) {
 #' @param df dataframe
 #' @param ... dots
 #'
-#' @return not sure
+#' @return not sure... whatever `knitr::knit_print` returns.
 #' @export
 #'
-#' @import knitr
+#' @importFrom knitr knit_print
 #' @importFrom dplyr mutate
 #' @importFrom dplyr across
 #' @importFrom dplyr where
@@ -59,20 +49,19 @@ knit_df <- function(...) {
 #'
 #' @examples
 knit_docx_df <- function(df, ...) {
-
-  df = df |>
+  df <- df |>
     mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, 4)))
 
-  table = flextable(df)
+  table <- flextable(df)
 
   if (nrow_part(table) >= 2) {
-    table = bg(table,
-               bg = "grey97",
-               i = seq(from = 2, to = nrow_part(table), by = 2))
+    table <- bg(table,
+      bg = "grey97",
+      i = seq(from = 2, to = nrow_part(table), by = 2)
+    )
   }
 
   knitr::knit_print(table, ...)
-
 }
 
 #' Knit method for dataframes in html output
@@ -81,10 +70,10 @@ knit_docx_df <- function(df, ...) {
 #' @param DT_opts passed to DT
 #' @param ... dots
 #'
-#' @return not sure
+#' @return not sure... whatever `knitr::knit_print` returns.
 #' @export
 #'
-#' @import knitr
+#' @importFrom knitr knit_print
 #' @importFrom dplyr mutate
 #' @importFrom dplyr across
 #' @importFrom dplyr where
@@ -92,22 +81,19 @@ knit_docx_df <- function(df, ...) {
 #'
 #' @examples
 knit_html_df <- function(
-
-  df,
-  DT_opts = list(
-    rownames = TRUE,
-    dom = "ltipB",
-    filter = "top",
-    scrollX = TRUE,
-    pageLength = 5,
-    lengthMenu = c(5, 10, 20),
-    buttons = c('copy', 'csv')
-  ),
-  ...) {
-
-  df = df |>
+    df,
+    DT_opts = list(
+      rownames = TRUE,
+      dom = "ltipB",
+      filter = "top",
+      scrollX = TRUE,
+      pageLength = 5,
+      lengthMenu = c(5, 10, 20),
+      buttons = c("copy", "csv")
+    ),
+    ...) {
+  df <- df |>
     mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, 4)))
 
   knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"), ...)
-
 }
