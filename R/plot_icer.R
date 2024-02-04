@@ -3,8 +3,7 @@
 #' @description
 #' Plot an ICER using `boot::boot` output. Point estimate and WTP optional.
 #'
-#' @param df A two-column dataframe with 1 column named cost, the other named
-#'   effect, produced from boot.
+#' @param df A dataframe, likely produced from boot.
 #' @param effect Effect column.
 #' @param cost Cost column.
 #' @param est_effect Point estimate.

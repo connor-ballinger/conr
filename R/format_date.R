@@ -1,7 +1,7 @@
 #' Long Format Date
 #'
 #' @param date Currently a Date format, as provided by Sys.Date()
-#' @param ...
+#' @param ... Date.
 #'
 #' @return character date
 #' @export

@@ -9,7 +9,7 @@ format_date(date = Sys.Date(), ...)
 \arguments{
 \item{date}{Currently a Date format, as provided by Sys.Date()}
 
-\item{...}{}
+\item{...}{Date.}
 }
 \value{
 character date
