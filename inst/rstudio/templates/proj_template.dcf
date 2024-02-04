@@ -1,0 +1,16 @@
+Binding: init_project
+Title: Project Template
+OpenFiles: README.md
+
+Parameter: use_renv
+Widget: CheckboxInput
+Label: Use renv with this project?
+Default: On
+Position: left
+
+Parameter: use_git
+Widget: CheckboxInput
+Label: Use git with this project?
+Default: On
+Position: left
+
