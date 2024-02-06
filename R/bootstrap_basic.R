@@ -59,6 +59,6 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
 
 # helper function for second row minus first row
 fn_calc_increment <- function(df, col) { # tidyselect is handy
-  select(df, {{ col }}) |> _[[2, 1]] -
-    select(df, {{ col }}) |> _[[1, 1]]
+  dplyr::pull(df, {{ col }}) |>
+    diff()
 }
