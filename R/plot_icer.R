@@ -30,6 +30,7 @@
 #' @importFrom ggplot2 scale_y_continuous
 #' @importFrom ggplot2 coord_cartesian
 #' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_abline
 #' @importFrom ggplot2 geom_point
 #' @importFrom scales label_percent
 #' @importFrom scales label_dollar
