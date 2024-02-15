@@ -19,76 +19,90 @@
 #'
 #' @export
 #'
-#' @import ggplot2
+#' @importFrom dplyr pull
+#' @importFrom ggplot2 ggplot
+#' @importFrom ggplot2 geom_vline
+#' @importFrom ggplot2 geom_hline
+#' @importFrom ggplot2 theme_set
+#' @importFrom ggplot2 theme_bw
+#' @importFrom ggplot2 theme_update
+#' @importFrom ggplot2 element_blank
+#' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 coord_cartesian
+#' @importFrom ggplot2 aes
+#' @importFrom ggplot2 geom_point
 #' @importFrom scales label_percent
 #' @importFrom scales label_dollar
 #'
 #' @examples
-#' cost <- rnorm(n = 100, mean = 1000, sd = 500)
-#' effect <- rnorm(100, 3, 3)
-#' df <- data.frame(cost, effect)
-#' plot_icer(df, effect, cost)
-#' plot_icer(df, effect, cost,
-#'   est_effect = 3,
-#'   est_cost = 1000, wtp = 100, alpha = 0.8, size = 10
-#' )
-plot_icer <-
-  function(df, effect = "effect", cost = "cost", est_effect, est_cost, wtp,
-           alpha = 0.5, fill = "green", colour = "black", size = 2, shape = 21) {
-    icer_plot <- ggplot2::ggplot(data = df) +
+#' c <- rnorm(n = 100, mean = 1000, sd = 500) # cost
+#' e <- rnorm(100, 3, 3) # effect
+#' df <- data.frame(c, e)
+#' plot_icer(df, e, c)
+#' plot_icer(df, e, c, est_effect = 3, est_cost = 1000, wtp = 100,
+#'   alpha = 0.8, size = 10)
+plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
+                      est_cost, wtp, alpha = 0.5, fill = "green",
+                      colour = "black", size = 2, shape = 21) {
 
-      # setup
-      geom_vline(xintercept = 0, colour = "grey10") +
-      geom_hline(yintercept = 0, colour = "grey10") +
-      theme_set(theme_bw()) +
-      theme_update(panel.grid = element_blank()) +
-      labs(x = "Incremental Effect", y = "Incremental Cost") +
-      scale_y_continuous(labels = scales::label_dollar()) +
-      wrangle_icer_portions(df, effect, cost)
+  icer_plot <- ggplot2::ggplot(data = df) +
 
-    # ensure origin always in view
-    icer_plot <- icer_plot +
-      coord_cartesian(
-        xlim = c(
-          min(0, pull(df, {{ effect }})) - abs(0.1 * mean(pull(df, {{ effect }}))),
-          max(0, pull(df, {{ effect }})) + abs(0.1 * mean(pull(df, {{ effect }})))
-        ),
-        ylim = c(
-          min(0, pull(df, {{ cost }})) - abs(0.1 * mean(pull(df, {{ cost }}))),
-          max(0, pull(df, {{ cost }})) + abs(0.1 * mean(pull(df, {{ cost }})))
-        )
+    # setup
+    ggplot2::geom_vline(xintercept = 0, colour = "grey10") +
+    ggplot2::geom_hline(yintercept = 0, colour = "grey10") +
+    ggplot2::theme_set(ggplot2::theme_bw()) +
+    ggplot2::theme_update(panel.grid = ggplot2::element_blank()) +
+    ggplot2::labs(x = "Incremental Effect", y = "Incremental Cost") +
+    ggplot2::scale_y_continuous(labels = scales::label_dollar()) +
+    wrangle_icer_portions(df, {{ effect }}, {{ cost }})
+
+  # ensure origin always in view
+  icer_plot <- icer_plot +
+    ggplot2::coord_cartesian(
+      xlim = c(
+        min(0, dplyr::pull(df, {{ effect }})) -
+          abs(0.1 * mean(dplyr::pull(df, {{ effect }}))),
+        max(0, dplyr::pull(df, {{ effect }})) +
+          abs(0.1 * mean(dplyr::pull(df, {{ effect }})))
+      ),
+      ylim = c(
+        min(0, dplyr::pull(df, {{ cost }})) -
+          abs(0.1 * mean(dplyr::pull(df, {{ cost }}))),
+        max(0, dplyr::pull(df, {{ cost }})) +
+          abs(0.1 * mean(dplyr::pull(df, {{ cost }})))
       )
+    )
 
-    # WTP
-    if (!missing(wtp)) {
-      icer_plot <- icer_plot + plot_wtp(slope = wtp)
-    }
-
-    # data
-    icer_plot <- icer_plot +
-      geom_point(aes(x = .data$effect, y = .data$cost), alpha = alpha)
-
-    # point estimate plotted on top of data
-    if (!missing(est_effect) & !missing(est_cost)) {
-      icer_plot <- icer_plot +
-        plot_icer_pt_est(
-          est_effect = est_effect,
-          est_cost = est_cost,
-          fill = fill,
-          colour = colour,
-          size = size,
-          shape = shape
-        )
-    }
-
-    icer_plot
+  # WTP
+  if (!missing(wtp)) {
+    icer_plot <- icer_plot + plot_wtp(slope = wtp)
   }
+
+  # data
+  icer_plot <- icer_plot +
+    ggplot2::geom_point(aes(x = {{ effect }}, y = {{ cost }}), alpha = alpha)
+
+  # point estimate plotted on top of data
+  if (!missing(est_effect) & !missing(est_cost)) {
+    icer_plot <- icer_plot +
+      plot_icer_pt_est(
+        est_effect = est_effect,
+        est_cost = est_cost,
+        fill = fill,
+        colour = colour,
+        size = size,
+        shape = shape
+      )
+  }
+
+  icer_plot
+}
 
 plot_icer_pt_est <- function(est_effect, est_cost, fill, colour, size, shape) {
   list(
-    geom_point(
+    ggplot2::geom_point(
       data = data.frame(effect = est_effect, cost = est_cost),
-      aes(x = effect, y = cost),
+      ggplot2::aes(x = effect, y = cost),
       fill = fill, colour = colour, size = size, shape = shape
     )
   )
@@ -100,15 +114,27 @@ plot_wtp <- function(slope, linewidth = 0.8, extras = list()) {
   )
 }
 
-wrangle_icer_portions <- function(df = df, effect = effect, cost = cost) {
+wrangle_icer_portions <- function(df, effect, cost) {
   # count bootstrap replications
   B <- nrow(df)
 
   # portion in quadrants, clockwise
-  tr <- sum(pull(df, {{ effect }}) > 0 & pull(df, {{ cost }}) > 0) / B
-  br <- sum(pull(df, {{ effect }}) > 0 & pull(df, {{ cost }}) < 0) / B
-  bl <- sum(pull(df, {{ effect }}) < 0 & pull(df, {{ cost }}) < 0) / B
-  tl <- sum(pull(df, {{ effect }}) < 0 & pull(df, {{ cost }}) > 0) / B
+  tr <- sum(
+    dplyr::pull(df, {{ effect }}) > 0 &
+      dplyr::pull(df, {{ cost }}) > 0
+  ) / B
+  br <- sum(
+    dplyr::pull(df, {{ effect }}) > 0 &
+      dplyr::pull(df, {{ cost }}) < 0
+  ) / B
+  bl <- sum(
+    dplyr::pull(df, {{ effect }}) < 0 &
+      dplyr::pull(df, {{ cost }}) < 0
+  ) / B
+  tl <- sum(
+    dplyr::pull(df, {{ effect }}) < 0 &
+      dplyr::pull(df, {{ cost }}) > 0
+  ) / B
 
   # print as %
   quad_portions <- lapply(c(tr, br, bl, tl), scales::label_percent())
@@ -122,10 +148,11 @@ wrangle_icer_portions <- function(df = df, effect = effect, cost = cost) {
     vjustvar = c(1, 0, 0, 1)
   )
 
+  # plotting labels
   list(
-    geom_label(
+    ggplot2::geom_label(
       data = annotations,
-      aes(
+      ggplot2::aes(
         x = .data$xpos, y = .data$ypos,
         hjust = .data$hjustvar, vjust = .data$vjustvar,
         label = .data$text
