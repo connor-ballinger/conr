@@ -14,5 +14,7 @@ library(conr)
 library(knitr)
 library(tidyverse)
 
+conr::knit_df()
+
 ```
 
