@@ -50,14 +50,18 @@ knit_df <- function(...) {
 #' @examples
 knit_docx_df <- function(df, ...) {
   df <- df |>
-    mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, 4)))
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
+      )
+    )
 
-  table <- flextable(df)
+  table <- flextable::flextable(df)
 
-  if (nrow_part(table) >= 2) {
-    table <- bg(table,
+  if (flextable::nrow_part(table) >= 2) {
+    table <- flextable::bg(table,
       bg = "grey97",
-      i = seq(from = 2, to = nrow_part(table), by = 2)
+      i = seq(from = 2, to = flextable::nrow_part(table), by = 2)
     )
   }
 
@@ -93,7 +97,11 @@ knit_html_df <- function(
     ),
     ...) {
   df <- df |>
-    mutate(across(where(is.numeric), ~ conr::round_sensibly(.x, 4)))
+    dplyr::mutate(
+      dplyr::across(
+        dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
+      )
+    )
 
   knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"), ...)
 }
