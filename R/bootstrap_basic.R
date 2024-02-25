@@ -10,6 +10,9 @@
 #' @return A named vector of mean incremental effect and cost and icer.
 #' @export
 #'
+#' @importFrom dplyr across
+#' @importFrom dplyr summarise
+#'
 #' @examples
 #' # pass named args of bootstrap_basic to boot::boot
 #' df <- fake_health_ec_data
@@ -29,8 +32,8 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
   sampled <- df[i, ]
 
   means <- sampled |>
-    summarise(
-      across(
+    dplyr::summarise(
+      dplyr::across(
         .cols = c({{ effect }}, {{ cost }}),
         .fns = ~ mean(.x, na.rm = TRUE)
       ),
@@ -57,7 +60,16 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
   )
 }
 
-# helper function for second row minus first row
+#' Helper function for second row minus first row
+#'
+#' @param df dataframe
+#' @param col variable
+#'
+#' @return vector created by `diff`.
+#'
+#' @importFrom dplyr pull
+#'
+#' @examples
 fn_calc_increment <- function(df, col) { # tidyselect is handy
   dplyr::pull(df, {{ col }}) |>
     diff()

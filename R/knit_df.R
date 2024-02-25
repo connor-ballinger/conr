@@ -59,12 +59,12 @@ knit_docx_df <- function(df, ...) {
   table <- flextable::flextable(df)
 
   if (flextable::nrow_part(table) >= 2) {
-    table <- flextable::bg(table,
+    table <- flextable::bg(
+      table,
       bg = "grey97",
-      i = seq(from = 2, to = flextable::nrow_part(table), by = 2)
+      i = seq.int(from = 2, to = flextable::nrow_part(table), by = 2)
     )
   }
-
   knitr::knit_print(table, ...)
 }
 

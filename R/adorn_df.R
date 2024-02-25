@@ -11,23 +11,31 @@
 #'
 #' @importFrom scales label_percent
 #' @importFrom scales label_comma
-#' @import dplyr
+#' @importFrom dplyr mutate
+#' @importFrom dplyr across
+#' @importFrom dplyr where
+#' @importFrom dplyr rename_with
+#' @importFrom dplyr contains
 #'
 #' @examples
-#' df <- data.frame(a_col = rnorm(5) * 1e6, portion = rnorm(5), Growth = rnorm(5))
+#' df <- data.frame(
+#'   a_col = rnorm(5) * 1e6,
+#'   portion = rnorm(5),
+#'   Growth = rnorm(5)
+#' )
 #' adorn_df(df)
 adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
   dplyr::mutate(
     df,
-    across(
-      where(is.numeric) &
-        (contains("portion") | contains("growth")),
+    dplyr::across(
+      dplyr::where(is.numeric) &
+        (dplyr::contains("portion") | dplyr::contains("growth")),
       ~ scales::label_percent(accuracy = perc_accuracy)(
         conr::round_sensibly(.x, digits = -log10(perc_accuracy))
       )
     ),
-    across(
-      where(is.numeric),
+    dplyr::across(
+      dplyr::where(is.numeric),
       ~ scales::label_comma(accuracy = num_accuracy)(
         conr::round_sensibly(.x, digits = -log10(num_accuracy))
       )

@@ -23,6 +23,10 @@ A dataframe.
 Adorn a Dataframe with Percent and '000s Separator
 }
 \examples{
-df <- data.frame(a_col = rnorm(5) * 1e6, portion = rnorm(5), Growth = rnorm(5))
+df <- data.frame(
+  a_col = rnorm(5) * 1e6,
+  portion = rnorm(5),
+  Growth = rnorm(5)
+)
 adorn_df(df)
 }

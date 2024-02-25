@@ -8,7 +8,11 @@
 #' @return vector of qaly values.
 #' @export
 #'
-#' @import dplyr
+#' @importFrom dplyr select
+#' @importFrom dplyr rowwise
+#' @importFrom dplyr mutate
+#' @importFrom dplyr c_across
+#' @importFrom dplyr ungroup
 #' @importFrom purrr modify2
 #'
 #' @examples
@@ -24,17 +28,19 @@
 calc_qaly <- function(df, qol, periods) {
   multiplier <- periods_to_trapezium(periods)
 
-  scores <- purrr::modify2(select(df, {{ qol }}), multiplier, `*`)
+  scores <- purrr::modify2(dplyr::select(df, {{ qol }}), multiplier, `*`)
 
   scores <- scores |>
-    rowwise() |>
-    mutate(qaly = sum(c_across({{ qol }})) / 104) |> # 52 weeks * 2 for area trapezium
-    ungroup()
+    dplyr::rowwise() |>
+    dplyr::mutate(qaly = sum(dplyr::c_across({{ qol }})) / 104) |>
+    dplyr::ungroup() # 52 weeks * 2 for area trapezium
 
   scores$qaly
 }
 
 periods_to_trapezium <- function(periods) {
-  additions <- periods[-length(periods)] + periods[-1] # Area trapezium = h*(a+b)/2
-  c(periods[1], additions, periods[length(periods)]) # This creates all a+b for trapeziums.
+  # Area trapezium = h*(a+b)/2
+  additions <- periods[-length(periods)] + periods[-1]
+  # This creates all a+b for trapeziums.
+  c(periods[1], additions, periods[length(periods)])
 }
