@@ -24,8 +24,8 @@ All functions (see their code in R/):
 
     #>  [1] "adorn_df.R"        "bootstrap_basic.R" "calc_ind_qaly.R"  
     #>  [4] "calc_qaly.R"       "conr-package.R"    "data.R"           
-    #>  [7] "decode_text.R"     "format_date.R"     "format_html.R"    
-    #> [10] "init_project.R"    "knit_df.R"         "plot_icer.R"      
+    #>  [7] "decode_text.R"     "format_date.R"     "format_docx.R"    
+    #> [10] "format_html.R"     "knit_df.R"         "plot_icer.R"      
     #> [13] "print_regrsn.R"    "round_sensibly.R"  "write_and_date.R"
 
 ## Installation
@@ -42,7 +42,6 @@ devtools::install_github("connor-ballinger/conr")
 
 - Functions to fix/improve:
 
-  - plot_icer
   - print_regn
 
 - New functions:

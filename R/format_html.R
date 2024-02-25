@@ -6,6 +6,8 @@
 #' @return `rmarkdown::html_document`
 #' @export
 #'
+#' @importFrom rmarkdown html_document
+#'
 #' @examples
 format_html <- function() {
   styles <- system.file(
