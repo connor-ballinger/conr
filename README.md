@@ -51,6 +51,7 @@ devtools::install_github("connor-ballinger/conr")
   - 2SB with shrinkage correction (NG 2013)
   - mean & quantiles (for bootstrap output, multiple variables)
   - wrappers to simplify use of gtsummary
+  - style all sorts of tables
   - source files up to a specific number (e.g. “05\_”)
 
 - Another template - word or pdf or shiny or a multi-page html.
