@@ -93,11 +93,11 @@ write_readme <- function(path, use_git, ...) {
         "**Analysis by**:", gert::git_config() |>
           subset(name == "user.name", "value", drop = TRUE)
       )
-    }, else {
+    } else {
       paste(
         "**Analysis by**:", Sys.info()[["user"]]
       )
-    }
+    },
     "**Project description**: ",
     "**Notes**: "
   )
