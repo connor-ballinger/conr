@@ -1,0 +1,22 @@
+Binding: init_project
+Title: conr Project
+Subtitle: Create a new project from a template exported by conr.
+OpenFiles: README.md
+
+Parameter: use_renv
+Widget: CheckboxInput
+Label: Use renv with this project?
+Default: On
+Position: left
+
+Parameter: use_git
+Widget: CheckboxInput
+Label: Use git with this project?
+Default: On
+Position: left
+
+Parameter: use_folders
+Widget: CheckboxInput
+Label: Use template folder structure with this project?
+Default: On
+Position: left
