@@ -55,6 +55,7 @@ devtools::install_github("connor-ballinger/conr")
 
     -   print_regn
 
+
 -   New functions:
 
     -   functions for decision modelling
@@ -66,3 +67,10 @@ devtools::install_github("connor-ballinger/conr")
     -   source files up to a specific number (e.g. "05_")
 
 -   Another template - word or pdf or shiny or a multi-page html.
+
+## Package Overview
+
+```{r}
+fs::dir_tree()
+```
+
