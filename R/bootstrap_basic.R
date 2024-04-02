@@ -17,13 +17,14 @@
 #' # pass named args of bootstrap_basic to boot::boot
 #' df <- fake_health_ec_data
 #' if (requireNamespace("boot")) { # check boot is installed
+#'   str(df)
 #'   boot <- boot::boot(
 #'     df,
 #'     bootstrap_basic,
 #'     R = 100,
-#'      strata = df$tmt,
+#'     strata = df$tmt,
 #'     tmt = "tmt",
-#'     effect = starts_with("utility"),
+#'     effect = dplyr::starts_with("utility"),
 #'     cost = "cost",
 #'     periods = c(10, 5, 20)
 #'   )

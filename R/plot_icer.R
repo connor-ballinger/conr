@@ -1,19 +1,28 @@
 #' Produce ICER Scatterplot
 #'
-#' @description
-#' Plot an ICER using `boot::boot` output. Point estimate and WTP optional.
+#' @description Plot an ICER using `boot::boot` output. Point estimate and WTP
+#'   optional.
 #'
 #' @param df A dataframe, likely produced from boot.
-#' @param effect Effect column.
-#' @param cost Cost column.
-#' @param est_effect Point estimate.
-#' @param est_cost Point estimate.
-#' @param wtp WTP per unit of effect.
-#' @param alpha Opacity of data points, default 0.5.
-#' @param fill Fill of point estimate, default "green".
-#' @param colour Border colour of point estimate, default "black".
-#' @param size Size of point estimate, default 2.
-#' @param shape Shape of the point estimate, default 21.
+#' @param effect Effect column. Numeric.
+#' @param cost Cost column. Numeric.
+#' @param est_effect Point estimate. Numeric.
+#' @param est_cost Point estimate. Numeric.
+#' @param est_alpha Point estimate transparency, via geom_point(..., alpha =
+#'   est_alpha). Numeric.
+#' @param est_fill Colour to fill point estimate. Character.
+#' @param est_colour Colour to outline point estimate. Character.
+#' @param est_size Size of point estimate.
+#' @param est_shape Point type of point estimate.
+#' @param ellipse Draw ellipse? TRUE/FALSE.
+#' @param ellipse_fill Colour of fill of ellipse. Character.
+#' @param ellipse_alpha Transparency of ellipse. Numeric.
+#' @param zoom_factor Change how zoomed-in the plot is using
+#'   ggplot2::coord_cartesian indirectly. Numeric.
+#' @param wtp WTP per unit of effect. Numeric.
+#' @param wtp_line_colour Colour of WTP line. Character.
+#' @param wtp_fill Colour to fill beyond WTP line. Character.
+#' @param wtp_alpha Numeric.
 #'
 #' @return ggplot
 #'
@@ -30,25 +39,38 @@
 #' @importFrom ggplot2 scale_y_continuous
 #' @importFrom ggplot2 coord_cartesian
 #' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_abline
 #' @importFrom ggplot2 geom_point
+#' @importFrom ggplot2 stat_ellipse
+#' @importFrom ggplot2 geom_polygon
 #' @importFrom scales label_percent
 #' @importFrom scales label_dollar
+#' @importFrom rlang .data
 #'
 #' @examples
-#' c <- rnorm(n = 100, mean = 1000, sd = 500) # cost
-#' e <- rnorm(100, 3, 3) # effect
+#' c <- rnorm(n = 100, mean = 1000, sd = 50000) # cost
+#' e <- rnorm(100, 3, 300) # effect
 #' df <- data.frame(c, e)
-#' plot_icer(df, e, c)
-#' plot_icer(df, e, c, est_effect = 3, est_cost = 1000, wtp = 100,
-#'   alpha = 0.8, size = 10)
+#' plot_icer(df, e, c, zoom_factor = 5)
+#' plot_icer(df, e, c, est_effect = 3, est_cost = 1000, wtp = 100)
 plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
-                      est_cost, wtp, alpha = 0.5, fill = "green",
-                      colour = "black", size = 2, shape = 21) {
+                      est_cost, wtp, est_alpha = 0.5, est_fill = "green",
+                      est_colour = "black", est_size = 2, est_shape = 21,
+                      wtp_line_colour = "grey", wtp_fill = "grey",
+                      wtp_alpha = 0.1, ellipse = TRUE, ellipse_fill = "grey",
+                      ellipse_alpha = 0.2, zoom_factor = 4) {
 
-  icer_plot <- ggplot2::ggplot(data = df) +
-
-    # setup
+  icer_plot <- ggplot2::ggplot(
+    data = df,
+    ggplot2::aes(x = {{ effect }}, y = {{ cost }})
+  )
+  # setup
+  # WTP
+  if (!missing(wtp)) {
+    icer_plot <- icer_plot +
+      plot_wtp(df = df, effect = {{ effect }}, wtp = wtp, wtp_fill = wtp_fill,
+               wtp_alpha = wtp_alpha, wtp_line_colour = wtp_line_colour)
+  }
+  icer_plot <- icer_plot +
     ggplot2::geom_vline(xintercept = 0, colour = "grey10") +
     ggplot2::geom_hline(yintercept = 0, colour = "grey10") +
     ggplot2::theme_set(ggplot2::theme_bw()) +
@@ -59,29 +81,20 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
 
   # ensure origin always in view
   icer_plot <- icer_plot +
-    ggplot2::coord_cartesian(
-      xlim = c(
-        min(0, dplyr::pull(df, {{ effect }})) -
-          abs(0.1 * mean(dplyr::pull(df, {{ effect }}))),
-        max(0, dplyr::pull(df, {{ effect }})) +
-          abs(0.1 * mean(dplyr::pull(df, {{ effect }})))
-      ),
-      ylim = c(
-        min(0, dplyr::pull(df, {{ cost }})) -
-          abs(0.1 * mean(dplyr::pull(df, {{ cost }}))),
-        max(0, dplyr::pull(df, {{ cost }})) +
-          abs(0.1 * mean(dplyr::pull(df, {{ cost }})))
-      )
-    )
+    zoom(df = df, effect = {{ effect }}, cost = {{ cost }},
+         zoom_factor = zoom_factor)
 
-  # WTP
-  if (!missing(wtp)) {
-    icer_plot <- icer_plot + plot_wtp(slope = wtp)
+  if (ellipse) {
+    icer_plot <- icer_plot +
+      plot_ellipse(
+        ellipse_fill = ellipse_fill,
+        ellipse_alpha = ellipse_alpha
+      )
   }
 
   # data
   icer_plot <- icer_plot +
-    ggplot2::geom_point(aes(x = {{ effect }}, y = {{ cost }}), alpha = alpha)
+    ggplot2::geom_point(alpha = est_alpha)
 
   # point estimate plotted on top of data
   if (!missing(est_effect) & !missing(est_cost)) {
@@ -89,29 +102,32 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
       plot_icer_pt_est(
         est_effect = est_effect,
         est_cost = est_cost,
-        fill = fill,
-        colour = colour,
-        size = size,
-        shape = shape
+        est_fill = est_fill,
+        est_colour = est_colour,
+        est_size = est_size,
+        est_shape = est_shape
       )
   }
 
   icer_plot
 }
 
-plot_icer_pt_est <- function(est_effect, est_cost, fill, colour, size, shape) {
+plot_icer_pt_est <- function(est_effect, est_cost, est_fill,
+                             est_colour, est_size, est_shape) {
   list(
     ggplot2::geom_point(
-      data = data.frame(effect = est_effect, cost = est_cost),
-      ggplot2::aes(x = effect, y = cost),
-      fill = fill, colour = colour, size = size, shape = shape
+      data = data.frame("effect" = est_effect, "cost" = est_cost),
+      ggplot2::aes(x = .data$effect, y = .data$cost),
+      est_fill = est_fill, est_colour = est_colour, est_size = est_size,
+      est_shape = est_shape
     )
   )
 }
 
-plot_wtp <- function(slope, linewidth = 0.8, extras = list()) {
+plot_ellipse <- function(ellipse_fill, ellipse_alpha) {
   list(
-    do.call("geom_abline", c(slope = slope, linewidth = 0.8, extras))
+    ggplot2::stat_ellipse(type = "norm", geom = "polygon", fill = ellipse_fill,
+                          alpha = ellipse_alpha)
   )
 }
 
@@ -158,6 +174,48 @@ wrangle_icer_portions <- function(df, effect, cost) {
         hjust = .data$hjustvar, vjust = .data$vjustvar,
         label = .data$text
       )
+    )
+  )
+}
+
+plot_wtp <- function(df, effect, wtp, wtp_fill, wtp_alpha, wtp_line_colour) {
+  xmin <- dplyr::pull(df, {{ effect }}) |> min(na.rm = TRUE)
+  xmax <- dplyr::pull(df, {{ effect }}) |> max(na.rm = TRUE)
+  x1 <- abs(xmin) * - 100
+  x2 <- abs(xmax) * 100
+  ymin <- wtp * x1
+  ymax <- wtp * x2
+  list(
+    ggplot2::geom_polygon(
+      data = data.frame(x = c(x1, x2, 0),
+                        y = c(ymin, ymax, 1e10)),
+      mapping = ggplot2::aes(x = .data$x, y = .data$y),
+      fill = wtp_fill,
+      alpha = wtp_alpha,
+      colour = wtp_line_colour
+    )
+  )
+}
+
+zoom <- function(df, effect, cost, zoom_factor) {
+  zoom_factor <- 1 / zoom_factor
+
+  range_e <- pull(df, {{ effect }}) |>
+    range(na.rm = TRUE)
+  range_c <- pull(df, {{ cost }}) |>
+    range(na.rm = TRUE)
+
+  space_e <- zoom_factor * diff(range_e)
+  space_c <- zoom_factor * diff(range_c)
+
+  ggplot2::coord_cartesian(
+    xlim = c(
+      min(0, range_e) - space_e,
+      max(0, range_e) + space_e
+    ),
+    ylim = c(
+      min(0, range_c) - space_c,
+      max(0, range_c) + space_c
     )
   )
 }

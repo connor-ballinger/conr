@@ -13,15 +13,20 @@ BugReports: https://github.com/connor-ballinger/conr/issues
 Depends: 
     R (>= 2.10)
 Imports: 
+    cli,
     dplyr,
     DT,
     flextable,
+    fs,
+    gert,
     ggplot2,
     here,
     knitr,
     modelsummary,
     officedown,
     purrr,
+    renv,
+    rlang,
     rmarkdown,
     scales,
     xfun
