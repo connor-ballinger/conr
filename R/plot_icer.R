@@ -8,8 +8,6 @@
 #' @param cost Cost column. Numeric.
 #' @param est_effect Point estimate. Numeric.
 #' @param est_cost Point estimate. Numeric.
-#' @param est_alpha Point estimate transparency, via geom_point(..., alpha =
-#'   est_alpha). Numeric.
 #' @param est_fill Colour to fill point estimate. Character.
 #' @param est_colour Colour to outline point estimate. Character.
 #' @param est_size Size of point estimate.
@@ -19,6 +17,8 @@
 #' @param ellipse_alpha Transparency of ellipse. Numeric.
 #' @param zoom_factor Change how zoomed-in the plot is using
 #'   ggplot2::coord_cartesian indirectly. Numeric.
+#' @param est_alpha Point estimate transparency for data, via
+#'   geom_point(..., alpha = est_alpha). Numeric.
 #' @param wtp WTP per unit of effect. Numeric.
 #' @param wtp_line_colour Colour of WTP line. Character.
 #' @param wtp_fill Colour to fill beyond WTP line. Character.
@@ -53,8 +53,8 @@
 #' plot_icer(df, e, c, zoom_factor = 5)
 #' plot_icer(df, e, c, est_effect = 3, est_cost = 1000, wtp = 100)
 plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
-                      est_cost, wtp, est_alpha = 0.5, est_fill = "green",
-                      est_colour = "black", est_size = 2, est_shape = 21,
+                      est_cost, wtp, est_fill = "green", est_colour = "black",
+                      est_size = 2, est_shape = 21, data_alpha = 0.5,
                       wtp_line_colour = "grey", wtp_fill = "grey",
                       wtp_alpha = 0.1, ellipse = TRUE, ellipse_fill = "grey",
                       ellipse_alpha = 0.2, zoom_factor = 4) {
@@ -94,7 +94,7 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
 
   # data
   icer_plot <- icer_plot +
-    ggplot2::geom_point(alpha = est_alpha)
+    ggplot2::geom_point(alpha = data_alpha)
 
   # point estimate plotted on top of data
   if (!missing(est_effect) & !missing(est_cost)) {
@@ -118,8 +118,7 @@ plot_icer_pt_est <- function(est_effect, est_cost, est_fill,
     ggplot2::geom_point(
       data = data.frame("effect" = est_effect, "cost" = est_cost),
       ggplot2::aes(x = .data$effect, y = .data$cost),
-      est_fill = est_fill, est_colour = est_colour, est_size = est_size,
-      est_shape = est_shape
+      fill = est_fill, colour = est_colour, size = est_size, shape = est_shape
     )
   )
 }
