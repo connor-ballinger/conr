@@ -84,6 +84,10 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
     zoom(df = df, effect = {{ effect }}, cost = {{ cost }},
          zoom_factor = zoom_factor)
 
+  # data
+  icer_plot <- icer_plot +
+    ggplot2::geom_point(alpha = data_alpha)
+
   if (ellipse) {
     icer_plot <- icer_plot +
       plot_ellipse(
@@ -91,10 +95,6 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
         ellipse_alpha = ellipse_alpha
       )
   }
-
-  # data
-  icer_plot <- icer_plot +
-    ggplot2::geom_point(alpha = data_alpha)
 
   # point estimate plotted on top of data
   if (!missing(est_effect) & !missing(est_cost)) {
