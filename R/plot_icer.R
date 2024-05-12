@@ -1,7 +1,6 @@
 #' Produce ICER Scatterplot
 #'
-#' @description Plot an ICER using `boot::boot` output. Point estimate and WTP
-#'   optional.
+#' @description Plot an ICER using `boot::boot` output. Most arguments optional.
 #'
 #' @param df A dataframe, likely produced from boot.
 #' @param effect Effect column. Numeric.
@@ -17,7 +16,7 @@
 #' @param ellipse_alpha Transparency of ellipse. Numeric.
 #' @param zoom_factor Change how zoomed-in the plot is using
 #'   ggplot2::coord_cartesian indirectly. Numeric.
-#' @param est_alpha Point estimate transparency for data, via
+#' @param data_alpha Point estimate transparency for data, via
 #'   geom_point(..., alpha = est_alpha). Numeric.
 #' @param wtp WTP per unit of effect. Numeric.
 #' @param wtp_line_colour Colour of WTP line. Character.
@@ -37,13 +36,15 @@
 #' @importFrom ggplot2 theme_update
 #' @importFrom ggplot2 element_blank
 #' @importFrom ggplot2 scale_y_continuous
+#' @importFrom ggplot2 scale_x_continuous
 #' @importFrom ggplot2 coord_cartesian
 #' @importFrom ggplot2 aes
 #' @importFrom ggplot2 geom_point
 #' @importFrom ggplot2 stat_ellipse
 #' @importFrom ggplot2 geom_polygon
 #' @importFrom scales label_percent
-#' @importFrom scales label_dollar
+#' @importFrom scales label_currency
+#' @importFrom scales pretty_breaks
 #' @importFrom rlang .data
 #'
 #' @examples
@@ -76,7 +77,11 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
     ggplot2::theme_set(ggplot2::theme_bw()) +
     ggplot2::theme_update(panel.grid = ggplot2::element_blank()) +
     ggplot2::labs(x = "Incremental Effect", y = "Incremental Cost") +
-    ggplot2::scale_y_continuous(labels = scales::label_dollar()) +
+    ggplot2::scale_y_continuous(
+      breaks = scales::pretty_breaks(),
+      labels = scales::label_currency()
+    ) +
+    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks()) +
     wrangle_icer_portions(df, {{ effect }}, {{ cost }})
 
   # ensure origin always in view
