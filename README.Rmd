@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# conr: Helping with Health Economics
+# Helping with Health Economics
 
 <!-- badges: start -->
 <!-- badges: end -->
@@ -24,14 +24,16 @@ It is my first package and will be bug-ridden.
 
 ## Templates
 
-To this point, there is an Rmarkdown template to produce an html document, 
-example below.
+A project template exists. 
+It provides a folder structure and facilitates `Git` and `renv` integration (all
+of which are optional).
+
+There is an Rmarkdown template to produce an html document, example below, and
+another to produce a Word document (.docx).
 
 ![](./inst/images/template_example_pic.PNG)
 
 ## Functions
-
-Random bits of code that may be useful. 
 
 All functions (see their code in R/):
 
@@ -53,9 +55,6 @@ devtools::install_github("connor-ballinger/conr")
 
 -   Functions to fix/improve:
 
-    -   print_regn
-
-
 -   New functions:
 
     -   functions for decision modelling
@@ -64,9 +63,8 @@ devtools::install_github("connor-ballinger/conr")
     -   mean & quantiles (for bootstrap output, multiple variables)
     -   wrappers to simplify use of gtsummary
     -   style all sorts of tables
-    -   source files up to a specific number (e.g. "05_")
 
--   Another template - word or pdf or shiny or a multi-page html.
+-   Another template - pdf or shiny or a multi-page html.
 
 ## Package Overview
 

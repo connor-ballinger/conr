@@ -4,8 +4,9 @@
 #' @param digits The number of digits after the decimal, defaults to zero.
 #'
 #' @description base::round() has a flaw in that it rounds 5 to the nearest even
-#' number - i.e. 1.5 is rounded to 2 but 2.5 is also rounded to 2. This function
-#' was stolen from https://stackoverflow.com/questions/12688717/round-up-from-5.
+#'   number - i.e. 1.5 is rounded to 2 but 2.5 is also rounded to 2. This
+#'   function was stolen from
+#'   \url{https://stackoverflow.com/questions/12688717/round-up-from-5}.
 #'
 #' @return A double.
 #' @export

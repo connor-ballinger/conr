@@ -1,8 +1,11 @@
 #' Insert New Heading
 #'
-#' @description
-#' Create a new heading for a script.
-#' Credit to mnist91/shoRtcut.
+#' @description Create a new heading for a script by inserting hyphens from
+#' cursor position to the 80 character limit.
+#' Function is linked to a .dcf file, thereby creating an Addin.
+#' Create a keyboard shortcut (e.g. Ctrl + H) for the Addin.
+#'
+#' Credit to \url{https://github.com/mnist91/shoRtcut}.
 #'
 #' @importFrom rstudioapi getActiveDocumentContext
 #' @importFrom rstudioapi insertText
@@ -25,4 +28,3 @@ insert_heading <- function(){
     rstudioapi::insertText(strrep("-", nchars - context_col))
   }
 }
-

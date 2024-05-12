@@ -1,8 +1,9 @@
 #' Run Scripts
 #'
 #' @description Convenience function to run all (or some) scripts in a
-#' subdirectory. The function currently assumes all scripts to be run are named
-#' similar to `clean_01.R`, with numbers following the script name.
+#'   subdirectory. The function currently assumes all scripts to be run are
+#'   named similar to `01_clean.R`, with numbers somewhere in the name to
+#'   indicate ordering.
 #'
 #' @param directory Character. What directory contains the scripts to run? The
 #'   default is in the `code` subdirectory of the open project.

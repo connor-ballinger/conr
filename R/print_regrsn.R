@@ -6,7 +6,7 @@
 #' @param accuracy Argument in scales::label_number(accuracy = 1).
 #' @param omit Argument in modelsummary::modelsummary(gof_omit = omit).
 #'
-#' @return Flextable::flextable.
+#' @return flextable::flextable.
 #' @export
 #' @importFrom flextable flextable
 #' @importFrom flextable nrow_part
