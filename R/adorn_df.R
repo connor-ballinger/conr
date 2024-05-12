@@ -1,5 +1,9 @@
 #' Adorn a Dataframe with Percent and '000s Separator
 #'
+#' @description
+#' Make your dataframe presentable by: renaming columns, adding comma separator,
+#' transforming columns to percent.
+#'
 #' @param df A dataframe (tibble expected).
 #' @param perc_accuracy A number, like in format(accuracy = _), for percentage
 #'   columns. 0.01 means to two decimal places.
@@ -21,8 +25,10 @@
 #' df <- data.frame(
 #'   a_col = rnorm(5) * 1e6,
 #'   portion = rnorm(5),
-#'   Growth = rnorm(5)
+#'   Growth = rnorm(5),
+#'   growth2 = 0.025
 #' )
+#' df
 #' adorn_df(df)
 adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
   dplyr::mutate(
@@ -31,7 +37,7 @@ adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
       dplyr::where(is.numeric) &
         (dplyr::contains("portion") | dplyr::contains("growth")),
       ~ scales::label_percent(accuracy = perc_accuracy)(
-        conr::round_sensibly(.x, digits = -log10(perc_accuracy))
+        conr::round_sensibly(.x, digits = -log10(perc_accuracy / 100))
       )
     ),
     dplyr::across(
