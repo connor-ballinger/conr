@@ -28,6 +28,7 @@ Imports:
     renv,
     rlang,
     rmarkdown,
+    rstudioapi,
     scales,
     xfun
 Suggests: 

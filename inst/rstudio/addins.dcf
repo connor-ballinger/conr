@@ -1,0 +1,4 @@
+Name: Insert Heading
+Description: Inserts hyphens at the cursor position up to 80 characters.
+Binding: insert_heading
+Interactive: false
