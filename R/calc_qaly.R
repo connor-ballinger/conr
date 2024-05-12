@@ -1,9 +1,15 @@
 #' Calculate QALYs for a Data Frame
 #'
+#' @description
+#' Calculates quality-adjusted life-years for each row of the dataframe.
+#' Missing data will cause issues.
+#' Note that a baseline differences between treatment arms should be accounted
+#' for.
+#'
 #' @param df A dataframe.
 #' @param qol Columns which contain QALY weights.
 #' @param periods Vector containing the number of weeks between each measure.
-#'   The length of periods should be 1 more than the number of columns.
+#'   The length of periods should be 1 less than the number of columns.
 #'
 #' @return vector of qaly values.
 #' @export
@@ -16,7 +22,7 @@
 #' @importFrom purrr modify2
 #'
 #' @examples
-#' testdf <- data.frame(
+#' df <- data.frame(
 #'   id = 1:3,
 #'   u0 = c(0, 0, 1),
 #'   u1 = c(0.8, 0.4, 1),
@@ -24,7 +30,11 @@
 #'   u3 = c(0.4, 0.6, 1)
 #' )
 #'
-#' calc_qaly(testdf, qol = starts_with("u"), periods = c(4, 13, 26))
+#' calc_qaly(df, qol = dplyr::starts_with("u"), periods = c(4, 13, 26))
+#' df |>
+#'   dplyr::mutate(
+#'     qaly = calc_qaly(df, qol = dplyr::starts_with("u"), periods = c(4, 13, 26))
+#'   )
 calc_qaly <- function(df, qol, periods) {
   multiplier <- periods_to_trapezium(periods)
 
