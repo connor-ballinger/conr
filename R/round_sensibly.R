@@ -14,15 +14,23 @@
 #' @examples
 #' base::round(2.5)
 #' conr::round_sensibly(2.5)
+#'
 round_sensibly <- function(x, digits = 0) {
-  if (class(x) == "numeric") {
-    posneg <- sign(x)
-    z <- abs(x) * (10^digits)
-    z <- z + 0.5 + sqrt(.Machine$double.eps)
-    z <- trunc(z)
-    z <- z / (10^digits)
-    z * posneg
-  } else {
+  if (is(x, "numeric")) {
+    if (!is(x, "Timespan")) {
+      posneg <- sign(x)
+      z <- abs(x) * (10^digits)
+      z <- z + 0.5 + sqrt(.Machine$double.eps)
+      z <- trunc(z)
+      z <- z / (10^digits)
+      z * posneg
+    } else { # is Timespan
+      x
+      cli::cli_inform(
+        c("{.var x} is of class {.cls Timespan} and was not rounded.")
+      )
+    }
+  } else { # not numeric
     cli::cli_abort(
       c("{.var x} must be a numeric",
         "You supplied a {.cls {class(x)}}")
