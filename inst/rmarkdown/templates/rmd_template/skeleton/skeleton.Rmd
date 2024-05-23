@@ -6,7 +6,7 @@ knit: conr::write_and_date
 output: conr::format_html
 ---
 
-```{r setup}
+```{r setup, message=FALSE, warning=FALSE}
 knitr::opts_knit$set(root.dir = here::here())
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = "")
 
