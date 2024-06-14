@@ -17,17 +17,19 @@
 #'
 round_sensibly <- function(x, digits = 0) {
   if (is(x, "numeric")) {
-    posneg <- sign(x)
-    z <- abs(x) * (10^digits)
-    z <- z + 0.5 + sqrt(.Machine$double.eps)
-    z <- trunc(z)
-    z <- z / (10^digits)
-    z * posneg
-  } else { # not numeric
-    x
-    cli::cli_warn(
-      c("{.var x} should be a numeric. You supplied a {.cls {class(x)}}.
-        {.var x} is unchanged.")
-    )
+    if (!is(x, "Timespan")) {
+      posneg <- sign(x)
+      z <- abs(x) * (10^digits)
+      z <- z + 0.5 + sqrt(.Machine$double.eps)
+      z <- trunc(z)
+      z <- z / (10^digits)
+      z * posneg
+    } else {
+      x
+      # cli::cli_warn(
+      #   c("{.var x} should be a numeric. You supplied a {.cls {class(x)}}.
+      #   {.var x} is unchanged.")
+      # )
+    }
   }
 }
