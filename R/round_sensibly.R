@@ -16,7 +16,7 @@
 #' conr::round_sensibly(2.5)
 #'
 round_sensibly <- function(x, digits = 0) {
-  if (is(x, "numeric")) {
+  if (class(x) == "numeric") {
     posneg <- sign(x)
     z <- abs(x) * (10^digits)
     z <- z + 0.5 + sqrt(.Machine$double.eps)
