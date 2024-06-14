@@ -24,12 +24,6 @@ round_sensibly <- function(x, digits = 0) {
       z <- trunc(z)
       z <- z / (10^digits)
       z * posneg
-    } else {
-      x
-      # cli::cli_warn(
-      #   c("{.var x} should be a numeric. You supplied a {.cls {class(x)}}.
-      #   {.var x} is unchanged.")
-      # )
     }
   }
 }
