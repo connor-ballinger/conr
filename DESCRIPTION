@@ -30,6 +30,7 @@ Imports:
     rmarkdown,
     rstudioapi,
     scales,
+    sjlabelled,
     xfun
 Suggests: 
     testthat (>= 3.0.0),

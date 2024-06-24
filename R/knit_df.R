@@ -46,6 +46,7 @@ knit_df <- function(...) {
 #' @importFrom flextable flextable
 #' @importFrom flextable nrow_part
 #' @importFrom flextable bg
+#' @importFrom sjlabelled label_to_colnames
 #'
 #' @examples
 knit_docx_df <- function(df, ...) {
@@ -55,9 +56,8 @@ knit_docx_df <- function(df, ...) {
         dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
       )
     )
-
+  df <- sjlabelled::label_to_colnames()
   table <- flextable::flextable(df)
-
   if (flextable::nrow_part(table) >= 2) {
     table <- flextable::bg(
       table,
@@ -82,6 +82,7 @@ knit_docx_df <- function(df, ...) {
 #' @importFrom dplyr across
 #' @importFrom dplyr where
 #' @importFrom DT datatable
+#' @importFrom sjlabelled label_to_colnames
 #'
 #' @examples
 knit_html_df <- function(
@@ -102,6 +103,6 @@ knit_html_df <- function(
         dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
       )
     )
-
+  df <- sjlabelled::label_to_colnames(df)
   knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"), ...)
 }
