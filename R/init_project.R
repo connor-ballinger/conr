@@ -1,4 +1,4 @@
-#' Initiate Project
+#' Initiate project
 #'
 #' @description
 #' Create a new project with some folder structures and preferences in place.
@@ -10,10 +10,10 @@
 #'
 #'
 #' @param path String for desired directory.
-#' @param use_renv TRUE/FALSE Use renv?
-#' @param use_git TRUE/FALSE Use Git?
 #' @param use_folders TRUE/FALSE Use the default directory structure, with some
 #'  blank files.
+#' @param use_git TRUE/FALSE Use Git?
+#' @param use_renv TRUE/FALSE Use renv?
 #' @param ... Dots.
 #'
 #' @return A project.
@@ -31,11 +31,16 @@
 #'
 #' @examples
 
-# readme.Rmd
-# add github - remote
-
+# add github - remote?
 init_project <- function(path, use_renv = TRUE, use_git = TRUE,
-                         use_folders = TRUE, ...) {
+                         use_folders = TRUE, ...) { # use_packages = TRUE,
+
+  if (use_renv == FALSE & use_packages == TRUE) {
+    use_packages <- FALSE
+    cli::cli_alert_warning(
+      "There is no need to use packages if not using {.pkg renv}."
+    )
+  }
 
   # clean proj name
   if (grepl(" ", basename(path))) {
@@ -48,9 +53,11 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
 
   # create directory
   dir.create(path, recursive = TRUE)
-  cli::cli_alert_success("Directory {.path {path}} created.")
+  full_path <- path.expand(path = path)
+  cli::cli_alert_success("Directory {.path {full_path}} created.")
 
   setwd(path)
+  wd <- getwd()
 
   write_proj(path = path)
 
@@ -66,10 +73,16 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
   if (use_renv) {
     renv::init(load = FALSE, restart = FALSE)
     cli::cli_alert_success("{.pkg renv} project library created.")
+    # if (use_packages) {
+    #   write_packages(path = wd)
+    #   cli::cli_alert_success(
+    #     "Some key packages have been added to the {.pkg renv} project library."
+    #   )
+    # }
   }
 
-  file.create("README.md")
-  write_readme(path = path, use_git = use_git)
+  file.create("README.Rmd")
+  write_readme(path = path, use_git = use_git, proj_name = basename(path))
 
   if (use_git) {
     gert::git_add(files = ".")
@@ -82,26 +95,29 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
   fs::dir_tree(recurse = 2)
 }
 
-write_readme <- function(path, use_git, ...) {
-  text = c(
-    "# PROJECT README",
-    paste("**Project short name**:", basename(path)),
-    "**Project long name**: ",
-    paste("**Analysis initiated**:", conr::format_date()),
-    if (use_git) {
-      paste(
-        "**Analysis by**:", gert::git_config() |>
-          subset(name == "user.name", "value", drop = TRUE)
-      )
-    } else {
-      paste(
-        "**Analysis by**:", Sys.info()[["user"]]
-      )
-    },
-    "**Project description**: ",
-    "**Notes**: "
+write_readme <- function(path, use_git, proj_name, ...) {
+  # some parameters first
+  author <- if (use_git) {
+    gert::git_config() |>
+      subset(name == "user.name", "value", drop = TRUE)
+  } else {
+    Sys.info()[["user"]]
+  } |>
+    conr::decode_text()
+  proj_name <- conr::decode_text(proj_name)
+  title <- paste("PROJECT README:", proj_name)
+  date <- Sys.Date()
+  date_text <- paste0("Analysis initiated ", conr::format_date(date), ".")
+  text <- readLines( # read straight from template
+    con = system.file(
+      package = "conr", "rmarkdown", "templates", "rmd_template", "skeleton",
+      "skeleton.Rmd"
+    )
   )
-  writeLines(text, con = file.path("README.md"), sep = "\n\n")
+  text <- sub("Title", title, text)
+  text[3] <- paste0("date: \"", date_text, "\"")
+  text[4] <- paste0("author: \"", author, "\"")
+  writeLines(text, con = file.path("README.Rmd"), sep = "\n")
 }
 
 write_proj <- function(path) {
@@ -150,3 +166,29 @@ write_folders <- function() {
   cli::cli_alert_success("Folders and blank scripts created.")
 
 }
+
+# not working - too hard? function to add packages once inside project?
+# write_packages <- function(path) {
+#   packages <- c(
+#     "connor-ballinger/conr",
+#     "tidyverse",
+#     "knitr",
+#     "rmarkdown"
+#   )
+#   R_version <- regexpr("\\d\\.\\d", R.version[["version.string"]]) |>
+#     regmatches(R.version[["version.string"]], m = _)
+#   R_version <- paste0("R-", R_version)
+#
+#   renv::install(
+#     packages = packages,
+#     dependencies = c("Depends", "Imports", "LinkingTo"),
+#     lock = TRUE,
+#     library = paste0(
+#       path,
+#       "/renv/library/windows/",
+#       R_version,
+#       "/",
+#       R.version[["platform"]]
+#     )
+#   )
+# }
