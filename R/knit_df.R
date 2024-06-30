@@ -53,10 +53,11 @@ knit_docx_df <- function(df, ...) {
   df <- df |>
     dplyr::mutate(
       dplyr::across(
-        dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
+        .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
+        .fns = ~ conr::round_sensibly(.x, 4)
       )
     )
-  df <- sjlabelled::label_to_colnames()
+  df <- sjlabelled::label_to_colnames(df)
   table <- flextable::flextable(df)
   if (flextable::nrow_part(table) >= 2) {
     table <- flextable::bg(
@@ -100,7 +101,8 @@ knit_html_df <- function(
   df <- df |>
     dplyr::mutate(
       dplyr::across(
-        dplyr::where(is.numeric), ~ conr::round_sensibly(.x, 4)
+        .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
+        .fns = ~ conr::round_sensibly(.x, 4)
       )
     )
   df <- sjlabelled::label_to_colnames(df)
