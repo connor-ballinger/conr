@@ -1,0 +1,6 @@
+name: html-report-updated
+description: >
+   HTML styling is provided by the css in the output_styling_only template (this
+   ensures only 1 file, rmd_template skeleton, needs to be saved within your
+   project).
+create_dir: FALSE

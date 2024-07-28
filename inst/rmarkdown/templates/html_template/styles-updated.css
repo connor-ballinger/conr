@@ -1,0 +1,106 @@
+#TOC {
+  background: url("hmri-logo-new.png");
+  background-size:  250px 180px;
+  padding-top: 180px !important;
+  background-repeat: no-repeat;
+  color: rgb(82, 46, 145);
+}
+
+.title {
+  color: rgb(82, 46, 145);
+  border-bottom: 2px solid rgb(242, 102, 73);
+  font-family: "Roboto Slab", "Amasis MT Pro Medium";
+  padding-bottom: 0px;
+  padding-top: 0px;
+  font-size: 44px;
+}
+
+.date {
+  padding-bottom: 20px;
+  padding-top: 0px;
+  font-style: italic;
+}
+
+.author {
+  padding-bottom: 0px;
+  font-style: italic;
+}
+
+h1, h2, h3, h4, h5 {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Roboto Slab Regular", "Amasis MT Pro Medium";
+}
+
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 20px;
+}
+
+.header-section-number::after {
+  content:".";
+}
+
+body {
+  color: rgb(82, 46, 145) !important;
+  line-height: 1.3;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  font-family: "Roboto sanserif";
+  font-size: 16px;
+}
+
+.list-group-item.active {
+  background-color: rgb(82, 46, 145) !important;
+}
+
+.html-widget {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 100%;
+}
+
+.btn {
+  font-family: "Roboto sanserif";
+  font-size: 90%;
+  /* border-color: rgb(242, 102, 73); */
+  color: rgb(82, 46, 145);
+}
+/*
+.btn-default {
+  color: ;
+  background-color: rgb(82, 46, 145);
+  border-color: rgb(82, 46, 145);
+}
+*/
+a {
+  color: rgb(82, 46, 145);
+}
+a:hover {
+  color: rgb(242, 102, 73);
+}
+
+a:focus {
+  color: rgb(82, 46, 145);
+}
+
+.nav-tabs > li.active > a {
+  color: rgb(82, 46, 145);
+}
+
+/* remove excessive whitespace at bottom */
+.tocify-extend-page {
+  height: 100px !important;
+}
+/* paragraph spacing after second line bullets */
+ul {
+  margin-bottom: 10px !important;
+}
