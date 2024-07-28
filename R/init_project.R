@@ -28,6 +28,7 @@
 #' @importFrom gert git_config
 #' @importFrom gert git_init
 #' @importFrom renv init
+#' @importFrom withr local_dir
 #'
 #' @examples
 
@@ -56,8 +57,9 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
   full_path <- path.expand(path = path)
   cli::cli_alert_success("Directory {.path {full_path}} created.")
 
-  setwd(path)
-  wd <- getwd()
+  # setwd(path)
+  # wd <- getwd()
+  withr::local_dir(path)
 
   write_proj(path = path)
 
@@ -99,7 +101,7 @@ write_readme <- function(path, use_git, proj_name, ...) {
   # some parameters first
   author <- if (use_git) {
     gert::git_config() |>
-      subset(name == "user.name", "value", drop = TRUE)
+      subset(.data$name == "user.name", "value", drop = TRUE)
   } else {
     Sys.info()[["user"]]
   } |>
@@ -121,7 +123,7 @@ write_readme <- function(path, use_git, proj_name, ...) {
 }
 
 write_proj <- function(path) {
-  text = c(
+  text <- c(
     "Version: 1.0",
     "",
     "RestoreWorkspace: No",
@@ -139,22 +141,22 @@ write_proj <- function(path) {
     "AutoAppendNewline: Yes",
     "StripTrailingWhitespace: Yes"
   )
-  proj = paste0(basename(path), ".Rproj")
+  proj <- paste0(basename(path), ".Rproj")
   writeLines(text, con = file.path(proj), sep = "\n")
 }
 
 write_folders <- function() {
 
-  folders = c(
+  folders <- c(
     file.path("code", "checks"),
     file.path("data", "raw"),
     file.path("data", "supplementary"),
     "output"
   )
 
-  lapply(X = folders, FUN = \(x) dir.create(path = x, recursive = TRUE))
+  lapply(folders, \(x) dir.create(path = x, recursive = TRUE))
 
-  code_files = c(
+  code_files <- c(
     "01_cleaning.R",
     "02_transformations.R",
     "03_results.R",
@@ -162,7 +164,7 @@ write_folders <- function() {
     "05_tables.R"
   )
 
-  lapply(X = file.path("code", code_files), FUN = file.create)
+  lapply(file.path("code", code_files), file.create)
   cli::cli_alert_success("Folders and blank scripts created.")
 
 }
