@@ -46,6 +46,10 @@ devtools::install_github("connor-ballinger/conr")
 
 - New functions:
 
+  - check lubridate import and testthat
+  - usethis::edit_rstudio_prefs and usethis::edit_rstudio_snippets
+  - init_project: try setting active project in addition to directory
+    for console output.
   - functions for decision modelling
   - create labels and data dictionary
   - 2SB with shrinkage correction (NG 2013)
@@ -71,6 +75,14 @@ fs::dir_tree()
 #> │   │   └── template_example_pic.PNG
 #> │   ├── rmarkdown
 #> │   │   └── templates
+#> │   │       ├── html_template
+#> │   │       │   ├── favicon.html
+#> │   │       │   ├── favicon.ico
+#> │   │       │   ├── hmri-logo-new.png
+#> │   │       │   ├── skeleton
+#> │   │       │   │   └── skeleton.Rmd
+#> │   │       │   ├── styles-updated.css
+#> │   │       │   └── template.yaml
 #> │   │       ├── output_styling_only
 #> │   │       │   ├── skeleton
 #> │   │       │   │   ├── styles.css

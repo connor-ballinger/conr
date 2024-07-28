@@ -43,7 +43,7 @@ bootstrap_basic <- function(df, tmt, effect, cost, periods = NULL, i) {
     # implying a qaly is required
 
     means$qaly <- calc_qaly(means, {{ effect }}, periods)
-    effect_inc <- fn_calc_increment(means, qaly)
+    effect_inc <- fn_calc_increment(means, .data$qaly)
   } else {
     # implying we are dealing with a plain effect estimate
 
