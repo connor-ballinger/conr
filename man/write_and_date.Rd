@@ -7,13 +7,39 @@
 write_and_date(input, ...)
 }
 \arguments{
-\item{input}{File to be knitted.}
+\item{input}{File to knit. Automatically provided by YAML when knitting.}
 
-\item{...}{Dots.}
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Supply any arguments to
+\code{\link[rmarkdown]{render}}. For example, the default \code{output_dir}
+is \code{\link[here]{here}("output")} - the output folder in your project
+directory.
+
+The other argument with a default specified is:
+\code{output_file = paste(
+     \link[tools]{file_path_sans_ext}(basename(input)),
+     Sys.Date(),
+     sep = "_"
+  )}
+This provides an output file with the same name as the Rmarkdown file,
+suffixed by the date and with an appropriate file extension.}
 }
 \value{
 Output file created.
 }
 \description{
-Would be good to avoid the \code{xfun} dependency...
+Pass this function to the YAML knit argument
+}
+\examples{
+# example YAML
+# ---
+# title: "Title"
+# date: "`r conr::format_date()`"
+# author: "Author"
+# knit:
+#   conr::write_and_date:
+#     output_dir: "output/docs"
+# output:
+#   conr::format_html:
+#     code_folding: "hide"
+# ---
 }

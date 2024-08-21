@@ -20,13 +20,16 @@ columns. 0.01 means to two decimal places.}
 A dataframe.
 }
 \description{
-Adorn a Dataframe with Percent and '000s Separator
+Make your dataframe presentable by: renaming columns, adding comma separator,
+transforming columns to percent.
 }
 \examples{
 df <- data.frame(
   a_col = rnorm(5) * 1e6,
   portion = rnorm(5),
-  Growth = rnorm(5)
+  Growth = rnorm(5),
+  growth2 = 0.025
 )
+df
 adorn_df(df)
 }

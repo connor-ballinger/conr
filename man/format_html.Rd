@@ -4,11 +4,21 @@
 \alias{format_html}
 \title{Produce an HTML Report}
 \usage{
-format_html()
+format_html(..., new_styles = TRUE)
+}
+\arguments{
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Supply any arguments to
+\code{\link[rmarkdown]{html_document}}. This allows arguments to be
+supplied in the YAML in the same was as with any standard format, just
+remember to use spaces to indent, not tabs.}
+
+\item{new_styles}{TRUE/FALSE - HMRI branding, new (default) or old.}
 }
 \value{
 \code{rmarkdown::html_document}
 }
 \description{
-Produce an .html file from .Rmd, with branding and some preferences.
+Produce an .html file from .Rmd, with branding and some
+preferences. Essentially a wrapper around
+\code{\link[rmarkdown]{html_document}}.
 }
