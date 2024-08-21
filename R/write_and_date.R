@@ -1,10 +1,22 @@
 #' Save Output File with the Date
 #'
 #' @description
-#' Would be good to avoid the `xfun` dependency...
+#' Pass this function to the YAML knit argument
 #'
-#' @param input File to be knitted.
-#' @param ... Dots.
+#' @param input File to knit. Automatically provided by YAML when knitting.
+#' @param ... <[`dynamic-dots`][rlang::dyn-dots]> Supply any arguments to
+#'   \code{\link[rmarkdown]{render}}. For example, the default \code{output_dir}
+#'   is \code{\link[here]{here}("output")} - the output folder in your project
+#'   directory.
+#'
+#'   The other argument with a default specified is:
+#'   \code{output_file = paste(
+#'      \link[tools]{file_path_sans_ext}(basename(input)),
+#'      Sys.Date(),
+#'      sep = "_"
+#'   )}
+#'   This provides an output file with the same name as the Rmarkdown file,
+#'   suffixed by the date and with an appropriate file extension.
 #'
 #' @return Output file created.
 #' @export
@@ -15,16 +27,29 @@
 #' @importFrom here here
 #'
 #' @examples
+#' # example YAML
+#' # ---
+#' # title: "Title"
+#' # date: "`r conr::format_date()`"
+#' # author: "Author"
+#' # knit:
+#' #   conr::write_and_date:
+#' #     output_dir: "output/docs"
+#' # output:
+#' #   conr::format_html:
+#' #     code_folding: "hide"
+#' # ---
 write_and_date <- function(input, ...) {
-  xfun::Rscript_call(
-    rmarkdown::render,
-    list(input,
-      output_file = paste(
-        tools::file_path_sans_ext(basename(input)),
-        Sys.Date(),
-        sep = "_"
-      ),
-      output_dir = here::here("output")
-    )
+  arguments <- rlang::dots_list(
+    input,
+    output_file = paste(
+      tools::file_path_sans_ext(basename(input)),
+      Sys.Date(),
+      sep = "_"
+    ),
+    output_dir = here::here("output"),
+    ...,
+    .homonyms = "last" # means the dots will overwrite defaults
   )
+  xfun::Rscript_call(fun = rmarkdown::render, args = arguments)
 }
