@@ -14,8 +14,9 @@ work in health economics. It is my first package and will be bug-ridden.
 A project template exists. It provides a folder structure and
 facilitates `Git` and `renv` integration (all of which are optional).
 
-There is an Rmarkdown template to produce an html document, example
-below, and another to produce a Word document (.docx).
+There is an Rmarkdown template to produce an .html document (current or
+old HMRI branding), example below, and another to produce a Word
+document (.docx).
 
 ![](./inst/images/template_example_pic.PNG)
 
@@ -46,7 +47,7 @@ devtools::install_github("connor-ballinger/conr")
 
 - New functions:
 
-  - check lubridate import and testthat
+  - check lubridate and testthat and tools dependencies
   - usethis::edit_rstudio_prefs and usethis::edit_rstudio_snippets
   - init_project: try setting active project in addition to directory
     for console output.

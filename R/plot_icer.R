@@ -48,11 +48,11 @@
 #' @importFrom rlang .data
 #'
 #' @examples
-#' c <- rnorm(n = 100, mean = 1000, sd = 50000) # cost
-#' e <- rnorm(100, 3, 300) # effect
+#' c <- rnorm(n = 100, mean = 10000, sd = 20000) # cost
+#' e <- rnorm(100, 3, 3) # effect
 #' df <- data.frame(c, e)
 #' plot_icer(df, e, c, zoom_factor = 5)
-#' plot_icer(df, e, c, est_effect = 3, est_cost = 1000, wtp = 100)
+#' plot_icer(df, e, c, est_effect = 3, est_cost = 10000, wtp = 30000)
 plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
                       est_cost, wtp, est_fill = "green", est_colour = "black",
                       est_size = 2, est_shape = 21, data_alpha = 0.5,
