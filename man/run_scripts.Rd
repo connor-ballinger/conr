@@ -4,7 +4,7 @@
 \alias{run_scripts}
 \title{Run Scripts}
 \usage{
-run_scripts(directory = here::here("code"), last = Inf)
+run_scripts(directory = here::here("code"), last = Inf, ...)
 }
 \arguments{
 \item{directory}{Character. What directory contains the scripts to run? The
@@ -12,12 +12,14 @@ default is in the \code{code} subdirectory of the open project.}
 
 \item{last}{Numeric. What is the last script to run. Default is \code{Inf}. If
 later scripts are a work in progress, you don't want to run them.}
+
+\item{...}{Dots to pass to \code{\link[base]{source}}.}
 }
 \value{
 Whatever your scripts return after being parsed to \code{source}.
 }
 \description{
-Convenience function to run all (or some) scripts in a
+Convenience function to source all (or some) scripts in a
 subdirectory. The function currently assumes all scripts to be run are
 named similar to \verb{01_clean.R}, with numbers somewhere in the name to
 indicate ordering.
