@@ -55,6 +55,8 @@ devtools::install_github("connor-ballinger/conr")
 
 -   Functions to fix/improve:
 
+    - remove print_rgrsn
+
 -   New functions:
 
     -   check lubridate and testthat and tools dependencies
