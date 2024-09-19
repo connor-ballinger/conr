@@ -22,7 +22,6 @@ Imports:
     ggplot2,
     here,
     knitr,
-    lubridate,
     methods,
     modelsummary,
     officedown,
