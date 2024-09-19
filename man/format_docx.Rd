@@ -4,7 +4,13 @@
 \alias{format_docx}
 \title{Produce a Word Document}
 \usage{
-format_docx()
+format_docx(...)
+}
+\arguments{
+\item{...}{<\code{\link[rlang:dyn-dots]{dynamic-dots}}> Supply any arguments to
+\code{\link[officedown]{rdocx_document}}. This allows arguments to be
+supplied in the YAML in the same was as with any standard format, just
+remember to use spaces to indent, not tabs.}
 }
 \value{
 \code{officedown::rdocx_document} to pass to \code{rmarkdown::render}.
