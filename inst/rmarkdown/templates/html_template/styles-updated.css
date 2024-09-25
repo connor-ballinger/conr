@@ -12,7 +12,7 @@
   font-family: "Roboto Slab", "Amasis MT Pro Medium";
   padding-bottom: 0px;
   padding-top: 0px;
-  font-size: 52px;
+  font-size: 52px !important;
 }
 
 .date {
@@ -96,6 +96,10 @@ a:focus {
   color: rgb(82, 46, 145);
 }
 
+/* space above tabset */
+.nav-tabs {
+  margin-top: 20px;
+}
 /* remove excessive whitespace at bottom */
 .tocify-extend-page {
   height: 100px !important;

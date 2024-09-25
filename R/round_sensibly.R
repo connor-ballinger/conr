@@ -18,6 +18,7 @@
 #' @examples
 #' base::round(2.5)
 #' conr::round_sensibly(2.5)
+#' conr::round_sensibly(2.115, 2)
 #'
 #' @examplesIf requireNamespace("lubridate")
 #' lubridate::interval(
@@ -29,11 +30,11 @@ round_sensibly <- function(x, digits = 0) {
   if (is(x, "numeric")) {
     if (!is(x, "Timespan")) {
       posneg <- sign(x)
-      z <- abs(x) * (10^digits)
-      z <- z + 0.5 + sqrt(.Machine$double.eps)
-      z <- trunc(z)
-      z <- z / (10^digits)
-      z * posneg
+      x <- abs(x) * (10^digits)
+      x <- x + 0.5 + sqrt(.Machine$double.eps)
+      x <- trunc(x)
+      x <- x / (10^digits)
+      x <- x * posneg
     } else if (interactive()) {
       # if Timespan, return x unchanged, warning to console if interactive
       cli::cli_warn(
@@ -44,7 +45,7 @@ round_sensibly <- function(x, digits = 0) {
     x
   }  else {
     cli::cli_abort(
-      c("{.var x} should be a numeric. You supplied a {.cls {class(x)}}.")
+      c("{.var x} should be a numeric. You supplied class {.cls {class(x)}}.")
     )
   }
 }

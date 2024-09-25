@@ -34,14 +34,14 @@ adorn_df <- function(df, perc_accuracy = 1, num_accuracy = .01, ...) {
   dplyr::mutate(
     df,
     dplyr::across(
-      dplyr::where(is.numeric) &
+      dplyr::where(is.double) & # leave integers alone
         (dplyr::contains("portion") | dplyr::contains("growth")),
       ~ scales::label_percent(accuracy = perc_accuracy)(
         conr::round_sensibly(.x, digits = -log10(perc_accuracy / 100))
       )
     ),
     dplyr::across(
-      dplyr::where(is.numeric),
+      dplyr::where(is.double), # leave integers alone
       ~ scales::label_comma(accuracy = num_accuracy)(
         conr::round_sensibly(.x, digits = -log10(num_accuracy))
       )
