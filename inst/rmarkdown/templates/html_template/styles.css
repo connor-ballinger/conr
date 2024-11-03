@@ -1,5 +1,5 @@
 #TOC {
-  background: url("hmri-logo-new.png");
+  background: url("hmri-logo.png");
   background-size:  250px 180px;
   padding-top: 180px !important;
   background-repeat: no-repeat;
@@ -23,6 +23,12 @@
 
 .author {
   padding-bottom: 0px;
+  font-style: italic;
+}
+
+.caption {
+  text-align: center;
+  font-style: bold;
   font-style: italic;
 }
 

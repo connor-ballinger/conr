@@ -21,12 +21,12 @@ format_html <- function(..., new_styles = TRUE) {
 # args with defaults should go after dots apparently
   if (new_styles) {
     styles <- system.file(
-      "rmarkdown/templates/html_template/styles-updated.css",
+      "rmarkdown/templates/html_template/styles.css",
       package = "conr"
     )
   } else {
     styles <- system.file(
-      "rmarkdown/templates/output_styling_only/skeleton/styles.css",
+      "rmarkdown/templates/rmd-template/syles-deprecated.css",
       package = "conr"
     )
   }
