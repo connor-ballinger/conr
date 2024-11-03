@@ -25,6 +25,7 @@ but can't be rounded.
 \examples{
 base::round(2.5)
 conr::round_sensibly(2.5)
+conr::round_sensibly(2.115, 2)
 
 \dontshow{if (requireNamespace("lubridate")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 lubridate::interval(
