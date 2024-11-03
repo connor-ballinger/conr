@@ -36,12 +36,12 @@
 init_project <- function(path, use_renv = TRUE, use_git = TRUE,
                          use_folders = TRUE, ...) { # use_packages = TRUE,
 
-  if (use_renv == FALSE & use_packages == TRUE) {
-    use_packages <- FALSE
-    cli::cli_alert_warning(
-      "There is no need to use packages if not using {.pkg renv}."
-    )
-  }
+  # if (use_renv == FALSE & use_packages == TRUE) {
+  #   use_packages <- FALSE
+  #   cli::cli_alert_warning(
+  #     "There is no need to use packages if not using {.pkg renv}."
+  #   )
+  # }
 
   # clean proj name
   if (grepl(" ", basename(path))) {
