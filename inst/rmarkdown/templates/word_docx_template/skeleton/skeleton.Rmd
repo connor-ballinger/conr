@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 flextable::set_flextable_defaults(
   font.family = "Arial", font.size = 9,
   padding.top = 3, padding.bottom = 3, padding.left = 3, padding.right = 3,
-  line_spacing = 1, table.layout = "autofit"
+  line_spacing = 1 # table.layout = "autofit"
 )
 
 library(conr)
@@ -38,13 +38,15 @@ conr::knit_df()
 
 `r ftext("List of Tables",  fp_text(font.size = 14, bold = TRUE))`
 
-<!---BLOCK_TOC{seq_id: 'tab'}--->
+<!---BLOCK_TOC{seq_id: 'Table'}--->
 
 `r ftext("List of Figures",  fp_text(font.size = 14, bold = TRUE))`
 
 <!---BLOCK_TOC{seq_id: 'fig'}--->
 
-```{r, tab.id="tab", tab.cap="Iris."}
+```{r}
+#| tab.id="Table",
+#| tab.cap="Iris."
 head(iris)
 ```
 

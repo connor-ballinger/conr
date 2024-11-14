@@ -5,8 +5,9 @@
 #'
 #' @description base::round() has a flaw in that it rounds 5 to the nearest even
 #'   number - i.e. 1.5 is rounded to 2 but 2.5 is also rounded to 2. This
-#'   function was stolen from \code{\link[janitor]{round_half_up}} and
-#'   \url{https://stackoverflow.com/questions/12688717/round-up-from-5}. Added
+#'   function was originally stolen from
+#'   \url{https://stackoverflow.com/questions/12688717/round-up-from-5} and I
+#'   subsequently found \code{\link[janitor]{round_half_up}}. Added
 #'   exception to the \code{\link[lubridate]{timespan}} class, which is numeric
 #'   but can't be rounded.
 #'
@@ -20,12 +21,9 @@
 #' conr::round_sensibly(2.5)
 #' conr::round_sensibly(2.115, 2)
 #'
-#' @examplesIf requireNamespace("lubridate")
-#' lubridate::interval(
-#'   lubridate::ymd("2021-01-01"),
-#'   lubridate::ymd("2021-04-01")
-#' ) |>
-#'   round_sensibly()
+#' @examplesIf requireNamespace("lubridate") library(lubridate)
+#'   lubridate::interval( lubridate::ymd("2021-01-01"),
+#'   lubridate::ymd("2021-04-01") ) |> round_sensibly()
 round_sensibly <- function(x, digits = 0) {
   if (is(x, "numeric")) {
     if (!is(x, "Timespan")) {

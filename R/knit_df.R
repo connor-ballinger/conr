@@ -56,9 +56,10 @@ knit_docx_df <- function(df, ...) {
         .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
         .fns = ~ conr::round_sensibly(.x, 4)
       )
-    )
-  df <- sjlabelled::label_to_colnames(df)
-  table <- flextable::flextable(df)
+    ) |>
+    sjlabelled::label_to_colnames()
+  table <- flextable::flextable(df) |>
+    flextable::autofit()
   if (flextable::nrow_part(table) >= 2) {
     table <- flextable::bg(
       table,
@@ -104,7 +105,6 @@ knit_html_df <- function(
         .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
         .fns = ~ conr::round_sensibly(.x, 4)
       )
-    )
-  df <- sjlabelled::label_to_colnames(df)
+    ) |> sjlabelled::label_to_colnames()
   knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"), ...)
 }
