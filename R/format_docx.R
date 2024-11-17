@@ -17,7 +17,7 @@
 #' @examples
 format_docx <- function(...) {
   style_ref <- system.file(
-    "rmarkdown/templates/output_styling_only/skeleton/template-conr.docx",
+    "rmarkdown/templates/word_docx_template/template-conr.docx",
     package = "conr"
   )
   arguments <- rlang::dots_list(
