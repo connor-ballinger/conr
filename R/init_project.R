@@ -22,6 +22,8 @@
 #' @importFrom cli cli_alert_info
 #' @importFrom cli cli_alert_success
 #' @importFrom cli cli_alert_warning
+#' @importFrom dplyr filter
+#' @importFrom dplyr pull
 #' @importFrom fs dir_tree
 #' @importFrom gert git_add
 #' @importFrom gert git_commit_all
@@ -101,7 +103,8 @@ write_readme <- function(path, use_git, proj_name, ...) {
   # some parameters first
   author <- if (use_git) {
     gert::git_config() |>
-      subset(.data$name == "user.name", "value", drop = TRUE)
+      dplyr::filter(.data$name == "user.name") |>
+      dplyr::pull(.data$value)
   } else {
     Sys.info()[["user"]]
   } |>
