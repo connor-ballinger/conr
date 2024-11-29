@@ -21,7 +21,8 @@
 #' conr::round_sensibly(2.5)
 #' conr::round_sensibly(2.115, 2)
 #'
-#' @examplesIf requireNamespace("lubridate") library(lubridate)
+#' @examplesIf requireNamespace("lubridate")
+#'   library(lubridate)
 #'   lubridate::interval( lubridate::ymd("2021-01-01"),
 #'   lubridate::ymd("2021-04-01") ) |> round_sensibly()
 round_sensibly <- function(x, digits = 0) {

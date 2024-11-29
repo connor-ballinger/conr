@@ -32,14 +32,12 @@
 #' # title: "Title"
 #' # date: "`r conr::format_date()`"
 #' # author: "Author"
-#' # knit:
-#' #   conr::write_and_date:
-#' #     output_dir: "output/docs"
+#' # knit: conr::write_and_date
 #' # output:
 #' #   conr::format_html:
 #' #     code_folding: "hide"
 #' # ---
-write_and_date <- function(input, ...) {
+write_and_date <- function(input, ...) { # could revert to old version - this has no effect.
   arguments <- rlang::dots_list(
     input,
     output_file = paste(
