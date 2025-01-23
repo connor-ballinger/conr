@@ -18,7 +18,8 @@ conr::knit_df()
 
 ```
 
-<!----------------- does not appear in output --------------------------------->
+<!----------------- comment does not appear in output ------------------------->
+
 # Heading
 
 - Bullet 1
