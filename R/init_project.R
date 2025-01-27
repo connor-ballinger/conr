@@ -1,17 +1,18 @@
 #' Initiate project
 #'
-#' @description
-#' Create a new project with some folder structures and preferences in place.
-#' Similar examples:
+#' @description Create a new project with some folder structures and preferences
+#'   in place. Similar examples:
 #'
-#' https://rstudio.github.io/rstudio-extensions/rstudio_project_templates.html
-#' https://github.com/jonas-hag/analysistemplates/
-#' https://github.com/rostools/prodigenr/blob/main/R/setup_project.R
+#'   \url{https://rstudio.github.io/rstudio-extensions/rstudio_project_templates.html}
+#'
+#'   \url{https://github.com/jonas-hag/analysistemplates/}
+#'
+#'   \url{https://github.com/rostools/prodigenr/blob/main/R/setup_project.R}
 #'
 #'
 #' @param path String for desired directory.
 #' @param use_folders TRUE/FALSE Use the default directory structure, with some
-#'  blank files.
+#'   blank files.
 #' @param use_git TRUE/FALSE Use Git?
 #' @param use_renv TRUE/FALSE Use renv?
 #' @param ... Dots.
@@ -35,6 +36,10 @@
 #' @examples
 
 # add github - remote?
+# see source code of usethis::use_rstudio - lots of potentially useful functions.
+# rstudio.R file and proj.R
+# Also see workflowr pkg
+
 init_project <- function(path, use_renv = TRUE, use_git = TRUE,
                          use_folders = TRUE, ...) { # use_packages = TRUE,
 
@@ -134,7 +139,7 @@ write_proj <- function(path) {
     "AlwaysSaveHistory: No",
     "",
     "EnableCodeIndexing: Yes",
-    "UseSpacesForTab: No",
+    "UseSpacesForTab: Yes",
     "NumSpacesForTab: 2",
     "Encoding: UTF-8",
     "",
@@ -149,16 +154,13 @@ write_proj <- function(path) {
 }
 
 write_folders <- function() {
-
   folders <- c(
     file.path("code", "checks"),
     file.path("data", "raw"),
     file.path("data", "supplementary"),
     "output"
   )
-
   lapply(folders, \(x) dir.create(path = x, recursive = TRUE))
-
   code_files <- c(
     "01_cleaning.R",
     "02_transformations.R",
@@ -166,10 +168,8 @@ write_folders <- function() {
     "04_figures.R",
     "05_tables.R"
   )
-
   lapply(file.path("code", code_files), file.create)
   cli::cli_alert_success("Folders and blank scripts created.")
-
 }
 
 # not working - too hard? function to add packages once inside project?

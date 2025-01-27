@@ -22,10 +22,12 @@ blank files.}
 A project.
 }
 \description{
-Create a new project with some folder structures and preferences in place.
-Similar examples:
+Create a new project with some folder structures and preferences
+in place. Similar examples:
 
-https://rstudio.github.io/rstudio-extensions/rstudio_project_templates.html
-https://github.com/jonas-hag/analysistemplates/
-https://github.com/rostools/prodigenr/blob/main/R/setup_project.R
+\url{https://rstudio.github.io/rstudio-extensions/rstudio_project_templates.html}
+
+\url{https://github.com/jonas-hag/analysistemplates/}
+
+\url{https://github.com/rostools/prodigenr/blob/main/R/setup_project.R}
 }
