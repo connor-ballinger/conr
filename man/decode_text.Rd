@@ -4,20 +4,22 @@
 \alias{decode_text}
 \title{Decode Text for Aesthetics}
 \usage{
-decode_text(x, ...)
+decode_text(x)
 }
 \arguments{
 \item{x}{A character vector.}
-
-\item{...}{Dots.}
 }
 \value{
 A visually-appealing character vector.
 }
 \description{
-Transform text which is used for code to something more normal-looking.
+Transform text which is used for code to something more
+normal-looking. Underscores replaced with spaces, title case, periods
+replaced with spaces, "x" preceding numbers removed (e.g. x2025).
 }
 \examples{
+colnames(iris)
+decode_text(colnames(iris))
 colnames(fake_health_ec_data)
 colnames(fake_health_ec_data) |> decode_text()
 }
