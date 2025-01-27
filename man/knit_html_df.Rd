@@ -19,8 +19,12 @@ knit_html_df(
 \item{...}{dots}
 }
 \value{
-not sure... whatever \code{knitr::knit_print} returns.
+Returns the dataframe in the form of \code{\link[DT]{datatable}}, via
+\code{knitr::knit_print}.
 }
 \description{
 Knit method for dataframes in html output
+}
+\seealso{
+\code{\link[=knit_df]{knit_df()}}, \code{\link[=knit_docx_df]{knit_docx_df()}}
 }

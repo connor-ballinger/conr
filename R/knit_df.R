@@ -1,26 +1,38 @@
 #' Knit nice dataframes in .docx and .html
 #'
+#' @description Redefine the default print method for objects with class
+#'   `data.frame` when the rmarkdown file is knitted. If the file is knitted to
+#'   html, then `data.frame` objects will be output as
+#'   \code{\link[DT]{datatable}}. Knitting to Word (.docx) produces a
+#'   \code{\link[flextable]{flextable}}.
+#'
+#'   For further info, see \code{\link[knitr]{knit_print}} and
+#'   \code{\link[base]{.S3method}} and
+#'   \url{https://github.com/rstudio/rmarkdown-cookbook/issues/186}.
+#'
+#'   If you need to modify the method, define `knit_print.data.frame` in the
+#'   document. I tried to create two functions, such that I could pass arguments
+#'   to the knitting fn (changing `DT_opts`) but it seems too difficult.
+#'
+#'   Why `DT` over `gt`? `DT`: pages, choose pageLength, copy/csv buttons. `gt`:
+#'   has most of this here
+#'   \url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
+#'   download option.
+#'
+#'   \code{reactable} is another alternative to \code{\link[DT]{datatable}}.
+#'
+#'   Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
+#'   leading to inconsistent number of decimal places in a given column.
+#'   \code{\link[DT]{formatRound}} is not an option as trailing zeros are never
+#'   trimmed.
+#'
 #' @param ... Usual dots.
 #'
-#' @return Probably nothing.
-#' @export
-#'
-#' @description Redefine the default print method for objects with class
-#'   "data.frame". For further info:
-#'   https://github.com/rstudio/rmarkdown-cookbook/issues/186. If you need to
-#'   modify the method, define knit_print.data.frame in the document. I tried to
-#'   create two functions, such that I could pass arguments to the knitting fn
-#'   (changing DT_opts) but it seems too difficult.
-#'
-#'   Why DT over gt? DT: pages, choose pageLength, copy/csv buttons. gt: has
-#'   most of this here https://gt.rstudio.com/reference/opt_interactive.html,
-#'   but not the download option.
-#'
-#'   Currently not ideal as datatable() trims trailing zeros, leading to
-#'   inconsistent number of decimal places in a given column. DT::formatRound is
-#'   not an option as trailing zeros are never trimmed.
-#'
 #' @importFrom knitr pandoc_to
+#'
+#' @return \code{\link[base]{.S3method}}.
+#' @seealso [knit_docx_df()], [knit_html_df()]
+#' @export
 #'
 #' @examples
 knit_df <- function(...) {
@@ -36,7 +48,9 @@ knit_df <- function(...) {
 #' @param df dataframe
 #' @param ... dots
 #'
-#' @return not sure... whatever `knitr::knit_print` returns.
+#' @return Returns the dataframe in the form of
+#'   \code{\link[flextable]{flextable}}, via `knitr::knit_print`.
+#' @seealso [knit_df()], [knit_html_df()]
 #' @export
 #'
 #' @importFrom knitr knit_print
@@ -76,7 +90,9 @@ knit_docx_df <- function(df, ...) {
 #' @param DT_opts passed to DT
 #' @param ... dots
 #'
-#' @return not sure... whatever `knitr::knit_print` returns.
+#' @return Returns the dataframe in the form of \code{\link[DT]{datatable}}, via
+#'   `knitr::knit_print`.
+#' @seealso [knit_df()], [knit_docx_df()]
 #' @export
 #'
 #' @importFrom knitr knit_print

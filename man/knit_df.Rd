@@ -10,21 +10,35 @@ knit_df(...)
 \item{...}{Usual dots.}
 }
 \value{
-Probably nothing.
+\code{\link[base]{.S3method}}.
 }
 \description{
 Redefine the default print method for objects with class
-"data.frame". For further info:
-https://github.com/rstudio/rmarkdown-cookbook/issues/186. If you need to
-modify the method, define knit_print.data.frame in the document. I tried to
-create two functions, such that I could pass arguments to the knitting fn
-(changing DT_opts) but it seems too difficult.
+\code{data.frame} when the rmarkdown file is knitted. If the file is knitted to
+html, then \code{data.frame} objects will be output as
+\code{\link[DT]{datatable}}. Knitting to Word (.docx) produces a
+\code{\link[flextable]{flextable}}.
 
-Why DT over gt? DT: pages, choose pageLength, copy/csv buttons. gt: has
-most of this here https://gt.rstudio.com/reference/opt_interactive.html,
-but not the download option.
+For further info, see \code{\link[knitr]{knit_print}} and
+\code{\link[base]{.S3method}} and
+\url{https://github.com/rstudio/rmarkdown-cookbook/issues/186}.
 
-Currently not ideal as datatable() trims trailing zeros, leading to
-inconsistent number of decimal places in a given column. DT::formatRound is
-not an option as trailing zeros are never trimmed.
+If you need to modify the method, define \code{knit_print.data.frame} in the
+document. I tried to create two functions, such that I could pass arguments
+to the knitting fn (changing \code{DT_opts}) but it seems too difficult.
+
+Why \code{DT} over \code{gt}? \code{DT}: pages, choose pageLength, copy/csv buttons. \code{gt}:
+has most of this here
+\url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
+download option.
+
+\code{reactable} is another alternative to \code{\link[DT]{datatable}}.
+
+Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
+leading to inconsistent number of decimal places in a given column.
+\code{\link[DT]{formatRound}} is not an option as trailing zeros are never
+trimmed.
+}
+\seealso{
+\code{\link[=knit_docx_df]{knit_docx_df()}}, \code{\link[=knit_html_df]{knit_html_df()}}
 }

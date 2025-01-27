@@ -12,8 +12,12 @@ knit_docx_df(df, ...)
 \item{...}{dots}
 }
 \value{
-not sure... whatever \code{knitr::knit_print} returns.
+Returns the dataframe in the form of
+\code{\link[flextable]{flextable}}, via \code{knitr::knit_print}.
 }
 \description{
 Knit method for dataframes in docx output
+}
+\seealso{
+\code{\link[=knit_df]{knit_df()}}, \code{\link[=knit_html_df]{knit_html_df()}}
 }
