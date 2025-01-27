@@ -16,10 +16,11 @@ directory.
 
 The other argument with a default specified is:
 \code{output_file = paste(
-     \link[fs]{path_ext_remove}(basename(input)),
+     \link[tools]{file_path_sans_ext}(basename(input)),
       Sys.Date(),
       sep = "_"
   )}
+
 This provides an output file with the same name as the Rmarkdown file,
 suffixed by the date and with an appropriate file extension.}
 }
@@ -28,8 +29,8 @@ Output file created.
 }
 \description{
 Pass this function to the YAML knit argument. Can also be used
-interactively. Dots can't be accessed in the YAML (but see that they can for
-the knit argument, which is used by format_html).
+interactively. Dots can't be accessed in the YAML (but see that they can
+for the knit argument, which is used by format_html).
 }
 \examples{
 # example YAML
