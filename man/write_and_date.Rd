@@ -16,7 +16,7 @@ directory.
 
 The other argument with a default specified is:
 \code{output_file = paste(
-     \link[tools]{file_path_sans_ext}(basename(input)),
+     \link[fs]{path_ext_remove}(basename(input)),
       Sys.Date(),
       sep = "_"
   )}
@@ -27,7 +27,9 @@ suffixed by the date and with an appropriate file extension.}
 Output file created.
 }
 \description{
-Pass this function to the YAML knit argument
+Pass this function to the YAML knit argument. Can also be used
+interactively. Dots can't be accessed in the YAML (but see that they can for
+the knit argument, which is used by format_html).
 }
 \examples{
 # example YAML
@@ -36,8 +38,6 @@ Pass this function to the YAML knit argument
 # date: "`r conr::format_date()`"
 # author: "Author"
 # knit: conr::write_and_date
-# output:
-#   conr::format_html:
-#     code_folding: "hide"
+# output: conr::format_html
 # ---
 }
