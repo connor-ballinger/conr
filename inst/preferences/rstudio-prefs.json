@@ -1,0 +1,55 @@
+{
+    "jobs_tab_visibility": "shown",
+    "default_project_location": "~/coding",
+    "initial_working_directory": "~/coding",
+    "windows_terminal_shell": "win-cmd",
+    "highlight_r_function_calls": true,
+    "save_workspace": "never",
+    "load_workspace": false,
+    "always_save_history": false,
+    "code_completion_characters": 2,
+    "show_doc_outline_rmd": true,
+    "doc_outline_show": "sections_and_chunks",
+    "pdf_previewer": "system",
+    "restore_last_project": false,
+    "insert_native_pipe_operator": true,
+    "indent_guides": "gray",
+    "syntax_color_console": true,
+    "editor_theme": "Chrome",
+    "panes": {
+        "quadrants": [
+            "Source",
+            "Console",
+            "TabSet1",
+            "TabSet2"
+        ],
+        "tabSet1": [
+            "Environment",
+            "Files",
+            "Build",
+            "VCS",
+            "Presentation"
+        ],
+        "tabSet2": [
+            "Plots",
+            "Packages",
+            "Help",
+            "Viewer",
+            "Presentations"
+        ],
+        "hiddenTabSet": [
+            "History",
+            "Connections",
+            "Tutorial",
+            "Presentations"
+        ],
+        "console_left_on_top": false,
+        "console_right_on_top": true,
+        "additional_source_columns": 0
+    },
+    "knit_working_dir": "project",
+    "use_tinytex": true,
+    "spelling_dictionary_language": "en_AU",
+    "default_open_project_location": "~/coding",
+    "strip_trailing_whitespace": true
+}
