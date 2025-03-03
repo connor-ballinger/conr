@@ -35,7 +35,7 @@ branding), example below, and another to produce a Word document (.docx).
 
 ## Functions
 
-All functions (see their code in R/):
+All function files (see their code in R/):
 
 ```{r, echo=FALSE}
 list.files("./R/")
@@ -60,7 +60,6 @@ devtools::install_github("connor-ballinger/conr")
 -   New functions:
 
     -   check lubridate and testthat and tools dependencies
-    -   usethis::edit_rstudio_prefs and usethis::edit_rstudio_snippets
     -   init_project: try setting active project in addition to directory for
     console output.
     -   functions for decision modelling
@@ -71,6 +70,18 @@ devtools::install_github("connor-ballinger/conr")
     -   style all sorts of tables
 
 -   Another template - pdf or shiny or a multi-page html.
+
+- Use @describeIn or @rdname? https://roxygen2.r-lib.org/articles/reuse.html
+
+- utils::menu or base::readline?
+
+- Make data less available? No, causes issues, perhaps simpler to leave.
+
+     - datasets will either be automatically exported if you set LazyData: true in your DESCRIPTION, or made available after calling data() if not. https://roxygen2.r-lib.org/articles/namespace.html
+
+## Testing
+
+- I haven't implemented tests thus far. Most of the functions in `conr` relate to files/directories or non-interactive functions (executed when knitting .Rmd). Such tests seem complicated - see tests for usethis::create_package() or workflowr::wflow_start().
 
 ## Package Overview
 

@@ -22,14 +22,15 @@ document (.docx).
 
 ## Functions
 
-All functions (see their code in R/):
+All function files (see their code in R/):
 
     #>  [1] "adorn_df.R"        "bootstrap_basic.R" "calc_ind_qaly.R"  
     #>  [4] "calc_qaly.R"       "conr-package.R"    "data.R"           
     #>  [7] "decode_text.R"     "format_date.R"     "format_docx.R"    
     #> [10] "format_html.R"     "init_project.R"    "insert_heading.R" 
     #> [13] "knit_df.R"         "plot_icer.R"       "print_regrsn.R"   
-    #> [16] "round_sensibly.R"  "run_scripts.R"     "write_and_date.R"
+    #> [16] "round_sensibly.R"  "run_scripts.R"     "set_preferences.R"
+    #> [19] "wrap_flextable.R"  "write_and_date.R"
 
 ## Installation
 
@@ -50,7 +51,6 @@ devtools::install_github("connor-ballinger/conr")
 - New functions:
 
   - check lubridate and testthat and tools dependencies
-  - usethis::edit_rstudio_prefs and usethis::edit_rstudio_snippets
   - init_project: try setting active project in addition to directory
     for console output.
   - functions for decision modelling
@@ -61,6 +61,24 @@ devtools::install_github("connor-ballinger/conr")
   - style all sorts of tables
 
 - Another template - pdf or shiny or a multi-page html.
+
+- Use @describeIn or @rdname?
+  <https://roxygen2.r-lib.org/articles/reuse.html>
+
+- utils::menu or base::readline?
+
+- Make data less available? No, causes issues, perhaps simpler to leave.
+
+  - datasets will either be automatically exported if you set LazyData:
+    true in your DESCRIPTION, or made available after calling data() if
+    not. <https://roxygen2.r-lib.org/articles/namespace.html>
+
+## Testing
+
+- I haven’t implemented tests thus far. Most of the functions in `conr`
+  relate to files/directories or non-interactive functions (executed
+  when knitting .Rmd). Such tests seem complicated - see tests for
+  usethis::create_package() or workflowr::wflow_start().
 
 ## Package Overview
 
@@ -76,28 +94,26 @@ fs::dir_tree()
 #> ├── inst
 #> │   ├── images
 #> │   │   └── template_example_pic.PNG
+#> │   ├── preferences
+#> │   │   └── rstudio-prefs.json
 #> │   ├── rmarkdown
 #> │   │   └── templates
-#> │   │       ├── html_template
-#> │   │       │   ├── favicon.html
+#> │   │       ├── html-template
 #> │   │       │   ├── favicon.ico
-#> │   │       │   ├── hmri-logo-new.png
+#> │   │       │   ├── hmri-logo.png
 #> │   │       │   ├── skeleton
 #> │   │       │   │   └── skeleton.Rmd
-#> │   │       │   ├── styles-updated.css
+#> │   │       │   ├── styles.css
 #> │   │       │   └── template.yaml
-#> │   │       ├── output_styling_only
-#> │   │       │   ├── skeleton
-#> │   │       │   │   ├── styles.css
-#> │   │       │   │   └── template-conr.docx
-#> │   │       │   └── template.yaml
-#> │   │       ├── rmd_template
+#> │   │       ├── html-template-deprecated
 #> │   │       │   ├── skeleton
 #> │   │       │   │   └── skeleton.Rmd
+#> │   │       │   ├── styles-deprecated.css
 #> │   │       │   └── template.yaml
-#> │   │       └── word_docx_template
+#> │   │       └── word-docx-template
 #> │   │           ├── skeleton
 #> │   │           │   └── skeleton.Rmd
+#> │   │           ├── template-conr.docx
 #> │   │           └── template.yaml
 #> │   └── rstudio
 #> │       ├── addins.dcf
@@ -127,7 +143,9 @@ fs::dir_tree()
 #> │   ├── print_regrsn.Rd
 #> │   ├── round_sensibly.Rd
 #> │   ├── run_scripts.Rd
-#> │   └── write_and_date.Rd
+#> │   ├── write_and_date.Rd
+#> │   ├── write_preferences.Rd
+#> │   └── write_profile.Rd
 #> ├── NAMESPACE
 #> ├── R
 #> │   ├── adorn_df.R
@@ -147,7 +165,13 @@ fs::dir_tree()
 #> │   ├── print_regrsn.R
 #> │   ├── round_sensibly.R
 #> │   ├── run_scripts.R
+#> │   ├── set_preferences.R
+#> │   ├── wrap_flextable.R
 #> │   └── write_and_date.R
 #> ├── README.md
-#> └── README.Rmd
+#> ├── README.Rmd
+#> └── tests
+#>     ├── testthat
+#>     │   └── test-decode_text.R
+#>     └── testthat.R
 ```
