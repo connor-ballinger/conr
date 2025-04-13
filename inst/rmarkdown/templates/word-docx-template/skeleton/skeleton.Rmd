@@ -5,7 +5,7 @@ date: "`r conr::format_date()`"
 knit: conr::write_and_date
 output: conr::format_docx
 ---
-# how to set figure width 100% or similar? out.width does not work
+
 ```{r setup, warning=FALSE, message=FALSE, echo=FALSE}
 knitr::opts_knit$set(root.dir = here::here())
 
@@ -15,7 +15,7 @@ knitr::opts_chunk$set(
   # flextables
   ft_max_row = 50, ft_show_coltype = FALSE,
   # table captions from officer
-  tab.id="tab", tab.lp="Table", tab.cap.pre="Table",
+  tab.id="tab", tab.lp="Table:", tab.cap.pre="Table",
   tab.cap.fp_text=officer::fp_text_lite(bold = TRUE)
 )
 
@@ -43,7 +43,9 @@ conr::knit_df()
 
 `r ftext("List of Figures",  fp_text(font.size = 14, bold = TRUE))`
 
-<!---BLOCK_TOC{seq_id: 'fig'}--->
+<!---BLOCK_TOC{seq_id: 'Figure'}--->
+
+<!---Below is documentation which can be deleted. This comment won't appear in output-->
 
 # `officer` Notes
 
@@ -52,22 +54,25 @@ conr::knit_df()
 - For cross-referencing and captioning of tables, note that:
 
      - Default settings are placed in `knitr::opts_chunk$set()`, which can be overridden on a chunk-by-chunk basis.
-     - `tab.id="tab"` every table needs an id. They can all be the same. They must be unique if using officer's in-text cross-referencing (but not for the List of Tables).
+     - `tab.id="tab"` every table needs an id. They can all be the same. They must be unique if using officer's in-text cross-referencing (but not required for the List of Tables).
      - `tab.lp="Table"` this is the id in Word's field code. To get a List of Tables, `tab.lp` must match `seq_id` in the `BLOCK_TOC` above. A unique List of Tables could be constructed for each unique `tab.lp` value provided in the document. "Table" is the default code used by MS Word. The default for officer appears to be "tab" for some reason.
      - `tab.cap.pre="Table"` prefix to table number - e.g. Table 1.
      - `tab.cap.fp_text=fp_text_lite(bold = TRUE)` styling for the prefix and number.
      - `tab.cap="Iris."` caption. Include in `knitr::opts_chunk$set()` if you really want every table to have the same caption.
+     - In-text cross-references for tables or figures: \@ref(Table:tab_iris) and \@ref(Figure:fig_iris)
 
 - For further info on tables, captions, and MS Word, see the `officer` [documentation](https://davidgohel.github.io/officer/reference/opts_current_table.html). There are many useful resources in the group of packages known as the `officeverse`.
 
 ```{r}
-#| tab.cap="Iris table."
+#| tab.cap="Iris table.",
+#| tab.id="tab_iris" # required for in-text reference above.
 head(iris)
 ```
 
 <br>
 ```{r}
-#| fig.cap="Iris figure."
+#| fig.cap="Iris figure.",
+#| fig.id="fig_iris" # required for in-text reference above.
 ggplot(iris) + geom_point(aes(Sepal.Length, Sepal.Width))
 ```
 
@@ -78,3 +83,14 @@ ggplot(iris) + geom_point(aes(Sepal.Length, Sepal.Width))
 - Simply adding `page_margins: bottom: 2` to the YAML does not have any effect. But, providing `page_size` argument(s) means that the `page_margins` arguments will produce the desired effect.
 
 - Also, note that a different template could be provided in the YAML.
+
+<!---BLOCK_LANDSCAPE_START--->
+
+This is landscape.
+
+1. List
+    1. List
+    1. List
+1. List
+
+<!---BLOCK_LANDSCAPE_STOP--->
