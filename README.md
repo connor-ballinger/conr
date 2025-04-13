@@ -47,12 +47,13 @@ devtools::install_github("connor-ballinger/conr")
 - Functions to fix/improve:
 
   - remove print_rgrsn
+  - init_project: try setting active project in addition to directory
+    for console output.
+  - edit run_scripts such that there is an option to use as a background
+    job - see <https://docs.posit.co/ide/user/ide/guide/tools/jobs.html>
 
 - New functions:
 
-  - check lubridate and testthat and tools dependencies
-  - init_project: try setting active project in addition to directory
-    for console output.
   - functions for decision modelling
   - create labels and data dictionary
   - 2SB with shrinkage correction (NG 2013)
@@ -65,8 +66,6 @@ devtools::install_github("connor-ballinger/conr")
 - Use @describeIn or @rdname?
   <https://roxygen2.r-lib.org/articles/reuse.html>
 
-- utils::menu or base::readline?
-
 - Make data less available? No, causes issues, perhaps simpler to leave.
 
   - datasets will either be automatically exported if you set LazyData:
@@ -75,10 +74,10 @@ devtools::install_github("connor-ballinger/conr")
 
 ## Testing
 
-- I haven’t implemented tests thus far. Most of the functions in `conr`
-  relate to files/directories or non-interactive functions (executed
-  when knitting .Rmd). Such tests seem complicated - see tests for
-  usethis::create_package() or workflowr::wflow_start().
+- I have implemented very few tests thus far. Most of the functions in
+  `conr` relate to files/directories or non-interactive functions
+  (executed when knitting .Rmd). Such tests seem complicated - see tests
+  for usethis::create_package() or workflowr::wflow_start().
 
 ## Package Overview
 
@@ -136,17 +135,20 @@ fs::dir_tree()
 #> │   ├── format_html.Rd
 #> │   ├── init_project.Rd
 #> │   ├── insert_heading.Rd
+#> │   ├── keep_prefs.Rd
+#> │   ├── keep_prof.Rd
 #> │   ├── knit_df.Rd
 #> │   ├── knit_docx_df.Rd
 #> │   ├── knit_html_df.Rd
+#> │   ├── overwrite_preferences.Rd
+#> │   ├── overwrite_profile.Rd
 #> │   ├── plot_icer.Rd
 #> │   ├── print_regrsn.Rd
 #> │   ├── round_sensibly.Rd
 #> │   ├── run_scripts.Rd
-#> │   ├── write_and_date.Rd
-#> │   ├── write_preferences.Rd
-#> │   └── write_profile.Rd
+#> │   └── write_and_date.Rd
 #> ├── NAMESPACE
+#> ├── output
 #> ├── R
 #> │   ├── adorn_df.R
 #> │   ├── bootstrap_basic.R
