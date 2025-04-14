@@ -65,14 +65,15 @@ conr::knit_df()
 
 ```{r}
 #| tab.cap="Iris table.",
-#| tab.id="tab_iris" # required for in-text reference above.
+#| tab.id="tab_iris" 
+# tab.id is only required for the in-text reference above. Same with fig.id below.
 head(iris)
 ```
 
 <br>
 ```{r}
 #| fig.cap="Iris figure.",
-#| fig.id="fig_iris" # required for in-text reference above.
+#| fig.id="fig_iris" 
 ggplot(iris) + geom_point(aes(Sepal.Length, Sepal.Width))
 ```
 
