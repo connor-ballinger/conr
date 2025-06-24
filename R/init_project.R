@@ -120,7 +120,7 @@ write_readme <- function(path, use_git, proj_name, ...) {
   date_text <- paste0("Analysis initiated ", conr::format_date(date), ".")
   text <- readLines( # read straight from template
     con = system.file(
-      package = "conr", "rmarkdown", "templates", "rmd_template", "skeleton",
+      package = "conr", "rmarkdown", "templates", "html-template", "skeleton",
       "skeleton.Rmd"
     )
   )
