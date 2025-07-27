@@ -15,30 +15,32 @@ Depends:
 Imports: 
     cli,
     dplyr,
-    DT,
-    flextable,
     fs,
-    gert,
-    ggplot2,
     here,
     knitr,
     methods,
-    modelsummary,
     officedown,
     purrr,
     rappdirs,
-    renv,
     rlang,
     rmarkdown,
     rstudioapi,
-    scales,
-    sjlabelled,
     withr,
     xfun
 Suggests: 
-    testthat (>= 3.0.0),
     boot (>= 1.3.0),
-    lubridate
+    DT,
+    flextable,
+    gert,
+    ggplot2,
+    htmltools,
+    labelled,
+    lubridate,
+    reactable,
+    renv,
+    scales,
+    stringr,
+    testthat (>= 3.0.0)
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
