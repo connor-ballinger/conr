@@ -1,6 +1,7 @@
 #' Produce ICER Scatterplot
 #'
 #' @description Plot an ICER using `boot::boot` output. Most arguments optional.
+#' Better formatting is implemented if the \code{scales} package is installed.
 #'
 #' @param df A dataframe, likely produced from boot.
 #' @param effect Effect column. Numeric.
@@ -28,24 +29,24 @@
 #' @export
 #'
 #' @importFrom dplyr pull
-#' @importFrom ggplot2 ggplot
-#' @importFrom ggplot2 geom_vline
-#' @importFrom ggplot2 geom_hline
-#' @importFrom ggplot2 theme_set
-#' @importFrom ggplot2 theme_bw
-#' @importFrom ggplot2 theme_update
-#' @importFrom ggplot2 element_blank
-#' @importFrom ggplot2 scale_y_continuous
-#' @importFrom ggplot2 scale_x_continuous
-#' @importFrom ggplot2 coord_cartesian
-#' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_point
-#' @importFrom ggplot2 stat_ellipse
-#' @importFrom ggplot2 geom_polygon
-#' @importFrom scales label_percent
-#' @importFrom scales label_currency
-#' @importFrom scales pretty_breaks
 #' @importFrom rlang .data
+# @importFrom ggplot2 ggplot
+# @importFrom ggplot2 geom_vline
+# @importFrom ggplot2 geom_hline
+# @importFrom ggplot2 theme_set
+# @importFrom ggplot2 theme_bw
+# @importFrom ggplot2 theme_update
+# @importFrom ggplot2 element_blank
+# @importFrom ggplot2 scale_y_continuous
+# @importFrom ggplot2 scale_x_continuous
+# @importFrom ggplot2 coord_cartesian
+# @importFrom ggplot2 aes
+# @importFrom ggplot2 geom_point
+# @importFrom ggplot2 stat_ellipse
+# @importFrom ggplot2 geom_polygon
+# @importFrom scales label_percent
+# @importFrom scales label_currency
+# @importFrom scales pretty_breaks
 #'
 #' @examples
 #' c <- rnorm(n = 100, mean = 10000, sd = 20000) # cost
@@ -59,7 +60,12 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
                       wtp_line_colour = "grey", wtp_fill = "grey",
                       wtp_alpha = 0.1, ellipse = TRUE, ellipse_fill = "grey",
                       ellipse_alpha = 0.2, zoom_factor = 4) {
-
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   icer_plot <- ggplot2::ggplot(
     data = df,
     ggplot2::aes(x = {{ effect }}, y = {{ cost }})
@@ -77,13 +83,21 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
     ggplot2::theme_set(ggplot2::theme_bw()) +
     ggplot2::theme_update(panel.grid = ggplot2::element_blank()) +
     ggplot2::labs(x = "Incremental Effect", y = "Incremental Cost") +
-    ggplot2::scale_y_continuous(
-      breaks = scales::pretty_breaks(),
-      labels = scales::label_currency()
-    ) +
-    ggplot2::scale_x_continuous(breaks = scales::pretty_breaks()) +
+    # ggplot2::scale_y_continuous(
+    #   breaks = scales::pretty_breaks(),
+    #   labels = scales::label_currency()
+    # ) +
+    # ggplot2::scale_x_continuous(breaks = scales::pretty_breaks()) +
     wrangle_icer_portions(df, {{ effect }}, {{ cost }})
 
+  if(requireNamespace("scales", quietly = TRUE)) {
+    icer_plot <- icer_plot +
+      ggplot2::scale_y_continuous(
+        breaks = scales::pretty_breaks(),
+        labels = scales::label_currency()
+      ) +
+      ggplot2::scale_x_continuous(breaks = scales::pretty_breaks())
+  }
   # ensure origin always in view
   icer_plot <- icer_plot +
     zoom(df = df, effect = {{ effect }}, cost = {{ cost }},
@@ -113,12 +127,17 @@ plot_icer <- function(df, effect = "effect", cost = "cost", est_effect,
         est_shape = est_shape
       )
   }
-
   icer_plot
 }
 
 plot_icer_pt_est <- function(est_effect, est_cost, est_fill,
                              est_colour, est_size, est_shape) {
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   list(
     ggplot2::geom_point(
       data = data.frame("effect" = est_effect, "cost" = est_cost),
@@ -129,6 +148,12 @@ plot_icer_pt_est <- function(est_effect, est_cost, est_fill,
 }
 
 plot_ellipse <- function(ellipse_fill, ellipse_alpha) {
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   list(
     ggplot2::stat_ellipse(type = "norm", geom = "polygon", fill = ellipse_fill,
                           alpha = ellipse_alpha)
@@ -136,6 +161,12 @@ plot_ellipse <- function(ellipse_fill, ellipse_alpha) {
 }
 
 wrangle_icer_portions <- function(df, effect, cost) {
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   # count bootstrap replications
   B <- nrow(df)
 
@@ -158,7 +189,13 @@ wrangle_icer_portions <- function(df, effect, cost) {
   ) / B
 
   # print as %
-  quad_portions <- lapply(c(tr, br, bl, tl), scales::label_percent())
+  if(requireNamespace("scales", quietly = TRUE)) {
+    quad_portions <- lapply(c(tr, br, bl, tl), scales::label_percent())
+  } else {
+    quad_portions <- (c(tr, br, bl, tl) * 100) |>
+      round_sensibly() |>
+      paste0("%")
+  }
 
   # positioning the labels
   annotations <- data.frame(
@@ -183,6 +220,12 @@ wrangle_icer_portions <- function(df, effect, cost) {
 }
 
 plot_wtp <- function(df, effect, wtp, wtp_fill, wtp_alpha, wtp_line_colour) {
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   xmin <- dplyr::pull(df, {{ effect }}) |> min(na.rm = TRUE)
   xmax <- dplyr::pull(df, {{ effect }}) |> max(na.rm = TRUE)
   x1 <- abs(xmin) * - 100
@@ -202,6 +245,12 @@ plot_wtp <- function(df, effect, wtp, wtp_fill, wtp_alpha, wtp_line_colour) {
 }
 
 zoom <- function(df, effect, cost, zoom_factor) {
+  if(!requireNamespace("ggplot2", quietly = TRUE)) {
+    stop(
+      "Package 'ggplot2' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   zoom_factor <- 1 / zoom_factor
 
   range_e <- pull(df, {{ effect }}) |>

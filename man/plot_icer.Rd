@@ -69,6 +69,7 @@ ggplot
 }
 \description{
 Plot an ICER using \code{boot::boot} output. Most arguments optional.
+Better formatting is implemented if the \code{scales} package is installed.
 }
 \examples{
 c <- rnorm(n = 100, mean = 10000, sd = 20000) # cost
