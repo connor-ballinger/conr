@@ -14,8 +14,8 @@ library(conr)
 library(knitr)
 library(tidyverse)
 
-conr::knit_df()
-
+# conr::knit_df()
+.S3method("knit_print", "data.frame", conr::wrap_reactable)
 ```
 
 <!----------------- comment does not appear in output ------------------------->

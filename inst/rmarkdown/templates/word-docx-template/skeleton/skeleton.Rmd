@@ -30,7 +30,8 @@ library(officedown)
 library(officer)
 library(tidyverse)
 
-conr::knit_df()
+# conr::knit_df()
+.S3method("knit_print", "data.frame", conr::knit_docx_df)
 ```
 
 `r ftext("Table of Contents",  fp_text(font.size = 14, bold = TRUE))`
