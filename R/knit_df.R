@@ -11,22 +11,18 @@
 #'   \url{https://github.com/rstudio/rmarkdown-cookbook/issues/186}.
 #'
 #'   If you need to modify the method, define `knit_print.data.frame` in the
-#'   document. I tried to create two functions, such that I could pass arguments
-#'   to the knitting fn (changing `DT_opts`) but it seems too difficult.
+#'   document.
 #'
-#'   Why `DT` over `gt`? `DT`: pages, choose pageLength, copy/csv buttons. `gt`:
-#'   has most of this here
-#'   \url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
-#'   download option.
+#'   \code{\link[reactable]{reactable}} is another alternative to
+#'   \code{\link[DT]{datatable}}.
 #'
-#'   \code{reactable} is another alternative to \code{\link[DT]{datatable}}.
+#'   It may be better to use the code underneath this function for transparency
+#'   and remove this function. The rmarkdown file just needs
+#'   `.S3method("knit_print", "data.frame", fn_name)` where fn_name could be
+#'   knit_docx_df, knit_html_df, wrap_reactable, or a function defined in the
+#'   document.
 #'
-#'   Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
-#'   leading to inconsistent number of decimal places in a given column.
-#'   \code{\link[DT]{formatRound}} is not an option as trailing zeros are never
-#'   trimmed.
-#'
-#' @param ... Usual dots.
+#' @param ... Unused dots.
 #'
 #' @importFrom knitr pandoc_to
 #'
@@ -54,24 +50,32 @@ knit_df <- function(...) {
 #' @export
 #'
 #' @importFrom knitr knit_print
-#' @importFrom dplyr mutate
+#' @importFrom dplyr all_of
 #' @importFrom dplyr across
+#' @importFrom dplyr mutate
+#' @importFrom dplyr rename
 #' @importFrom dplyr where
-#' @importFrom flextable flextable
-#' @importFrom flextable nrow_part
-#' @importFrom flextable bg
-#' @importFrom sjlabelled label_to_colnames
 #'
 #' @examples
 knit_docx_df <- function(df, ...) {
+  if(!requireNamespace("flextable", quietly = TRUE)) {
+    stop(
+      "Package 'flextable' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   df <- df |>
     dplyr::mutate(
       dplyr::across(
         .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
         .fns = ~ conr::round_sensibly(.x, 4)
       )
-    ) |>
-    sjlabelled::label_to_colnames()
+    )
+  # inherit any labels here
+  if (requireNamespace("labelled", quietly = TRUE)) {
+    labs <- labelled::var_label(df, unlist = TRUE, null_action = "skip")
+    df <- dplyr::rename(df, all_of(labs))
+  }
   table <- flextable::flextable(df) |>
     flextable::autofit()
   if (flextable::nrow_part(table) >= 2) {
@@ -86,9 +90,19 @@ knit_docx_df <- function(df, ...) {
 
 #' Knit method for dataframes in html output
 #'
-#' @param df dataframe
-#' @param DT_opts passed to DT
-#' @param ... dots
+#' Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
+#' leading to inconsistent number of decimal places in a given column.
+#' \code{\link[DT]{formatRound}} is not an option as trailing zeros are never
+#' trimmed.
+#'
+#' Why `DT` over `gt`? `DT`: pages, choose pageLength, copy/csv buttons. `gt`:
+#' has most of this here
+#' \url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
+#' download option.
+#'
+#' @param df Dataframe
+#' @param DT_opts passed to \code{\link[DT]{datatable}}.
+#' @param ... Unused dots.
 #'
 #' @return Returns the dataframe in the form of \code{\link[DT]{datatable}}, via
 #'   `knitr::knit_print`.
@@ -96,11 +110,11 @@ knit_docx_df <- function(df, ...) {
 #' @export
 #'
 #' @importFrom knitr knit_print
-#' @importFrom dplyr mutate
+#' @importFrom dplyr all_of
 #' @importFrom dplyr across
+#' @importFrom dplyr mutate
+#' @importFrom dplyr rename
 #' @importFrom dplyr where
-#' @importFrom DT datatable
-#' @importFrom sjlabelled label_to_colnames
 #'
 #' @examples
 knit_html_df <- function(
@@ -115,12 +129,23 @@ knit_html_df <- function(
       buttons = c("copy", "csv")
     ),
     ...) {
+  if(!requireNamespace("DT", quietly = TRUE)) {
+    stop(
+      "Package 'DT' is needed for this function. Please install it.",
+      call. = FALSE
+    )
+  }
   df <- df |>
     dplyr::mutate(
       dplyr::across(
         .cols = where(~ is.numeric(.x) & !is(.x, "Timespan")),
         .fns = ~ conr::round_sensibly(.x, 4)
       )
-    ) |> sjlabelled::label_to_colnames()
+    )
+  # inherit any labels here
+  if (requireNamespace("labelled", quietly = TRUE)) {
+    labs <- labelled::var_label(df, unlist = TRUE, null_action = "skip")
+    df <- dplyr::rename(df, all_of(labs))
+  }
   knitr::knit_print(DT::datatable(df, DT_opts, extensions = "Buttons"), ...)
 }

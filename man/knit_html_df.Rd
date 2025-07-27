@@ -12,18 +12,27 @@ knit_html_df(
 )
 }
 \arguments{
-\item{df}{dataframe}
+\item{df}{Dataframe}
 
-\item{DT_opts}{passed to DT}
+\item{DT_opts}{passed to \code{\link[DT]{datatable}}.}
 
-\item{...}{dots}
+\item{...}{Unused dots.}
 }
 \value{
 Returns the dataframe in the form of \code{\link[DT]{datatable}}, via
 \code{knitr::knit_print}.
 }
 \description{
-Knit method for dataframes in html output
+Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
+leading to inconsistent number of decimal places in a given column.
+\code{\link[DT]{formatRound}} is not an option as trailing zeros are never
+trimmed.
+}
+\details{
+Why \code{DT} over \code{gt}? \code{DT}: pages, choose pageLength, copy/csv buttons. \code{gt}:
+has most of this here
+\url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
+download option.
 }
 \seealso{
 \code{\link[=knit_df]{knit_df()}}, \code{\link[=knit_docx_df]{knit_docx_df()}}

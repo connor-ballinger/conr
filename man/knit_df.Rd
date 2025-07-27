@@ -7,7 +7,7 @@
 knit_df(...)
 }
 \arguments{
-\item{...}{Usual dots.}
+\item{...}{Unused dots.}
 }
 \value{
 \code{\link[base]{.S3method}}.
@@ -24,20 +24,16 @@ For further info, see \code{\link[knitr]{knit_print}} and
 \url{https://github.com/rstudio/rmarkdown-cookbook/issues/186}.
 
 If you need to modify the method, define \code{knit_print.data.frame} in the
-document. I tried to create two functions, such that I could pass arguments
-to the knitting fn (changing \code{DT_opts}) but it seems too difficult.
+document.
 
-Why \code{DT} over \code{gt}? \code{DT}: pages, choose pageLength, copy/csv buttons. \code{gt}:
-has most of this here
-\url{https://gt.rstudio.com/reference/opt_interactive.html}, but not the
-download option.
+\code{\link[reactable]{reactable}} is another alternative to
+\code{\link[DT]{datatable}}.
 
-\code{reactable} is another alternative to \code{\link[DT]{datatable}}.
-
-Currently not ideal as \code{\link[DT]{datatable}} trims trailing zeros,
-leading to inconsistent number of decimal places in a given column.
-\code{\link[DT]{formatRound}} is not an option as trailing zeros are never
-trimmed.
+It may be better to use the code underneath this function for transparency
+and remove this function. The rmarkdown file just needs
+\code{.S3method("knit_print", "data.frame", fn_name)} where fn_name could be
+knit_docx_df, knit_html_df, wrap_reactable, or a function defined in the
+document.
 }
 \seealso{
 \code{\link[=knit_docx_df]{knit_docx_df()}}, \code{\link[=knit_html_df]{knit_html_df()}}
