@@ -26,14 +26,13 @@
 #' @importFrom dplyr filter
 #' @importFrom dplyr pull
 #' @importFrom fs dir_tree
-#' @importFrom gert git_add
-#' @importFrom gert git_commit_all
-#' @importFrom gert git_config
-#' @importFrom gert git_init
-#' @importFrom renv init
 #' @importFrom withr local_dir
 #'
-#' @examples
+# @importFrom gert git_add
+# @importFrom gert git_commit_all
+# @importFrom gert git_config
+# @importFrom gert git_init
+# @importFrom renv init
 
 # add github - remote?
 # see source code of usethis::use_rstudio - lots of potentially useful functions.
@@ -49,6 +48,23 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
   #     "There is no need to use packages if not using {.pkg renv}."
   #   )
   # }
+
+  if (use_renv) {
+    if(!requireNamespace("renv", quietly = TRUE)) {
+      stop(
+        "Package 'renv' is needed for use_renv = TRUE. Please install it.",
+        call. = FALSE
+      )
+    }
+  }
+  if (use_git) {
+    if(!requireNamespace("gert", quietly = TRUE)) {
+      stop(
+        "Package 'gert' is needed for use_git = TRUE. Please install it.",
+        call. = FALSE
+      )
+    }
+  }
 
   # clean proj name
   if (grepl(" ", basename(path))) {
@@ -66,19 +82,17 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
 
   # setwd(path)
   # wd <- getwd()
-  withr::local_dir(path)
 
+  withr::local_dir(path)
   write_proj(path = path)
 
   if (use_folders) {
     write_folders()
   }
-
   if (use_git) {
     gert::git_init()
     cli::cli_alert_success("Local Git repository created.")
   }
-
   if (use_renv) {
     renv::init(load = FALSE, restart = FALSE)
     cli::cli_alert_success("{.pkg renv} project library created.")
@@ -89,17 +103,14 @@ init_project <- function(path, use_renv = TRUE, use_git = TRUE,
     #   )
     # }
   }
-
   file.create("README.Rmd")
   write_readme(path = path, use_git = use_git, proj_name = basename(path))
-
   if (use_git) {
     gert::git_add(files = ".")
     gert::git_add(files = ".gitignore") # has to be manually added
     gert::git_commit_all(message = "Initial commit")
     cli::cli_alert_success("Initial changes have been committed.")
   }
-
   cli::cli_alert_info("Project overview:")
   fs::dir_tree(recurse = 2)
 }
