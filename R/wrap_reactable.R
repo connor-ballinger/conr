@@ -104,8 +104,8 @@
 #'     ),
 #'     width = 400 # limit width just to demonstrate the anchored column
 #'   )
-wrap_reactable <- function(df, ..., downloadable = TRUE, filename = "data.csv",
-                           table_id = NULL) {
+wrap_reactable <- function(df, ..., downloadable = !interactive(),
+                           filename = "data.csv", table_id = NULL) {
   if(!requireNamespace("reactable", quietly = TRUE)) {
     stop(
       "Package 'reactable' is needed for this function. Please install it.",
@@ -175,19 +175,16 @@ wrap_reactable <- function(df, ..., downloadable = TRUE, filename = "data.csv",
   )
   # Create the reactable table
   table <- do.call(reactable::reactable, arguments)
-  # Return browsable HTML with button
-  if (downloadable) {
-    htmltools::browsable( # required to work inside RStudio - should I make this conditional?
-      htmltools::tagList(
-        table,
-        download_button
-      )
-    )
-  } else { # Return browsable HTML without button
-    htmltools::browsable(
-      htmltools::tagList(
-        table
-      )
+
+  if (interactive()) {
+    table
+  } else if (downloadable) { # Return browsable HTML with button
+    # htmltools::browsable( # required to work inside RStudio - should I make this conditional?
+      htmltools::tagList(table, download_button)
+    # )
+  } else{
+    htmltools::browsable( # Return browsable HTML without button
+      htmltools::tagList(table)
     )
   }
 }

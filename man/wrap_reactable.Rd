@@ -7,7 +7,7 @@
 wrap_reactable(
   df,
   ...,
-  downloadable = TRUE,
+  downloadable = !interactive(),
   filename = "data.csv",
   table_id = NULL
 )
