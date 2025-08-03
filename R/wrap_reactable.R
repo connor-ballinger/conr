@@ -4,7 +4,9 @@
 #' into HTML format. See \code{\link[reactable]{reactable}} documentation.
 #'
 #' The following arguments of \code{\link[reactable]{reactable}} have been
-#' specified, but they can be changed by supplying arguments to the dots.
+#' specified, but they can be changed by supplying named arguments to the dots.
+#' Using the \code{defaultColDef} argument may be useful to define colDef for
+#' all/most columns.
 #'
 #' ```
 #' filterable = FALSE,
@@ -12,7 +14,7 @@
 #' defaultPageSize = 5,
 #' showPageSizeOptions = TRUE,
 #' pageSizeOptions = c(5, 10, 25),
-#' paginationType = "simple",
+#' paginationType = "numbers",
 #' highlight = TRUE,
 #' compact = TRUE,
 #' wrap = FALSE,
@@ -123,12 +125,16 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     }
     # Create the download button with a simple download icon (Unicode)
     download_button <- htmltools::tags$button(
+      class = "btn btn-reactable-download",
       style = paste(
-        "background-color: #007bff",
-        "color: white",
-        "border: none",
+        "background-color: #fff",
+        "color: rgb(82, 46, 145)",
+        "border: 1px solid transparent",
+        "border-color: #ccc",
         "border-radius: 4px",
         "cursor: pointer;",
+        "height: 120px",
+        "width: 40px",
         sep = "; "
       ),
       htmltools::tagList( # Unicode download arrow
@@ -151,7 +157,7 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     defaultPageSize = 5,
     showPageSizeOptions = TRUE,
     pageSizeOptions = c(5, 10, 25),
-    paginationType = "simple",
+    paginationType = "numbers",
     highlight = TRUE,
     compact = TRUE,
     wrap = FALSE,
@@ -175,13 +181,10 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
   )
   # Create the reactable table
   table <- do.call(reactable::reactable, arguments)
-
-  if (interactive()) {
-    table
-  } else if (downloadable) { # Return browsable HTML with button
-    # htmltools::browsable( # required to work inside RStudio - should I make this conditional?
+  if (downloadable) { # Return browsable HTML with button
+    htmltools::browsable( # required to work inside RStudio - should I make this conditional?
       htmltools::tagList(table, download_button)
-    # )
+    )
   } else{
     htmltools::browsable( # Return browsable HTML without button
       htmltools::tagList(table)
