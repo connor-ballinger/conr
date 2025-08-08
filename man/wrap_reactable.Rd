@@ -33,14 +33,16 @@ into HTML format. See \code{\link[reactable]{reactable}} documentation.
 }
 \details{
 The following arguments of \code{\link[reactable]{reactable}} have been
-specified, but they can be changed by supplying arguments to the dots.
+specified, but they can be changed by supplying named arguments to the dots.
+Using the \code{defaultColDef} argument may be useful to define colDef for
+all/most columns.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{filterable = FALSE,
 searchable = TRUE,
 defaultPageSize = 5,
 showPageSizeOptions = TRUE,
 pageSizeOptions = c(5, 10, 25),
-paginationType = "simple",
+paginationType = "numbers",
 highlight = TRUE,
 compact = TRUE,
 wrap = FALSE,
