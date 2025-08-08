@@ -53,7 +53,7 @@ knit_df <- function(...) {
 #' @importFrom dplyr all_of
 #' @importFrom dplyr across
 #' @importFrom dplyr mutate
-#' @importFrom dplyr rename
+#' @importFrom dplyr rename_with
 #' @importFrom dplyr where
 #'
 #' @examples
@@ -73,8 +73,10 @@ knit_docx_df <- function(df, ...) {
     )
   # inherit any labels here
   if (requireNamespace("labelled", quietly = TRUE)) {
-    labs <- labelled::var_label(df, unlist = TRUE, null_action = "skip")
-    df <- dplyr::rename(df, all_of(labs))
+    df <- df |>
+      dplyr::rename_with(
+        ~ labelled::var_label(df, unlist = TRUE, null_action = "fill")[.x]
+      )
   }
   table <- flextable::flextable(df) |>
     flextable::autofit()
