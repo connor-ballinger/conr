@@ -60,8 +60,8 @@
 #' @examples
 #' wrap_reactable(penguins)
 #' wrap_reactable(
-#'   penguins, filename = "penguins.csv", table_id = "penguins",
-#'   compact = FALSE, outlined  = TRUE
+#'   penguins, downloadable = TRUE, filename = "penguins.csv",
+#'   table_id = "penguins", compact = FALSE, outlined  = TRUE
 #' )
 #' # Formatting columns preserves the underlying data but changes the display.
 #' # Formatting can be applied to a subset of columns and the other columns will
@@ -133,8 +133,8 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
         "border-color: #ccc",
         "border-radius: 4px",
         "cursor: pointer;",
-        "height: 120px",
-        "width: 40px",
+        "height: 30px",
+        "width: 60px",
         sep = "; "
       ),
       htmltools::tagList( # Unicode download arrow
