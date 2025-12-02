@@ -11,16 +11,17 @@
 #' ```
 #' filterable = FALSE,
 #' searchable = TRUE,
+#' defaultColDef = reactable::colDef(format = reactable::colFormat(digits = 2)),
 #' defaultPageSize = 5,
 #' showPageSizeOptions = TRUE,
 #' pageSizeOptions = c(5, 10, 25),
 #' paginationType = "numbers",
 #' highlight = TRUE,
 #' compact = TRUE,
-#' wrap = FALSE,
+#' wrap = TRUE,
 #' showSortIcon = TRUE,
 #' showSortable = TRUE,
-#' fullWidth = TRUE,
+#' fullWidth = FALSE,
 #' language = reactable::reactableLang(
 #'   pagePrevious = "\u276e",
 #'   pageNext = "\u276f",
@@ -30,8 +31,10 @@
 #' theme = reactable::reactableTheme(
 #'   style = list(
 #'     fontFamily = "Roboto, Helvetica, Arial",
-#'     searchInputStyle = list(width = "200px", fontSize = "12px")
-#'   )
+#'     searchInputStyle = list(width = "140px", fontSize = "10px")
+#'   ),
+#'   paginationStyle = list(fontsize = "0.85em")
+#'   ),
 #' )
 #' ```
 #'
@@ -154,16 +157,17 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     elementId = table_id,
     filterable = FALSE,
     searchable = TRUE,
+    defaultColDef = reactable::colDef(format = reactable::colFormat(digits = 2)),
     defaultPageSize = 5,
     showPageSizeOptions = TRUE,
     pageSizeOptions = c(5, 10, 25),
     paginationType = "numbers",
     highlight = TRUE,
     compact = TRUE,
-    wrap = FALSE,
+    wrap = TRUE,
     showSortIcon = TRUE,
     showSortable = TRUE,
-    fullWidth = TRUE,
+    fullWidth = FALSE,
     language = reactable::reactableLang(
       pagePrevious = "\u276e",
       pageNext = "\u276f",
@@ -173,21 +177,25 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     theme = reactable::reactableTheme(
       style = list(
         fontFamily = "Roboto, Helvetica, Arial",
-        searchInputStyle = list(width = "200px", fontSize = "12px")
-      )
+        searchInputStyle = list(width = "140px", fontSize = "10px")
+      ),
+      paginationStyle = list(fontsize = "0.85em")
     ),
     ...,
     .homonyms = "last" # means the dots can overwrite defaults
   )
   # Create the reactable table
   table <- do.call(reactable::reactable, arguments)
-  if (downloadable) { # Return browsable HTML with button
-    htmltools::browsable( # required to work inside RStudio - should I make this conditional?
-      htmltools::tagList(table, download_button)
-    )
-  } else{
-    htmltools::browsable( # Return browsable HTML without button
-      htmltools::tagList(table)
-    )
+  # Download button - y/n
+  output <- if (downloadable) {
+    htmltools::tagList(table, download_button)
+  } else {
+    htmltools::tagList(table)
+  }
+  # Make browsable if interactive
+  if (interactive()) {
+    htmltools::browsable(output) # required to work inside RStudio
+  } else {
+    output
   }
 }

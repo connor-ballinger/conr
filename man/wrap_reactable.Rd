@@ -39,16 +39,17 @@ all/most columns.
 
 \if{html}{\out{<div class="sourceCode">}}\preformatted{filterable = FALSE,
 searchable = TRUE,
+defaultColDef = reactable::colDef(format = reactable::colFormat(digits = 2)),
 defaultPageSize = 5,
 showPageSizeOptions = TRUE,
 pageSizeOptions = c(5, 10, 25),
 paginationType = "numbers",
 highlight = TRUE,
 compact = TRUE,
-wrap = FALSE,
+wrap = TRUE,
 showSortIcon = TRUE,
 showSortable = TRUE,
-fullWidth = TRUE,
+fullWidth = FALSE,
 language = reactable::reactableLang(
   pagePrevious = "\\u276e",
   pageNext = "\\u276f",
@@ -58,16 +59,18 @@ language = reactable::reactableLang(
 theme = reactable::reactableTheme(
   style = list(
     fontFamily = "Roboto, Helvetica, Arial",
-    searchInputStyle = list(width = "200px", fontSize = "12px")
-  )
+    searchInputStyle = list(width = "140px", fontSize = "10px")
+  ),
+  paginationStyle = list(fontsize = "0.85em")
+  ),
 )
 }\if{html}{\out{</div>}}
 }
 \examples{
 wrap_reactable(penguins)
 wrap_reactable(
-  penguins, filename = "penguins.csv", table_id = "penguins",
-  compact = FALSE, outlined  = TRUE
+  penguins, downloadable = TRUE, filename = "penguins.csv",
+  table_id = "penguins", compact = FALSE, outlined  = TRUE
 )
 # Formatting columns preserves the underlying data but changes the display.
 # Formatting can be applied to a subset of columns and the other columns will
@@ -88,7 +91,7 @@ wrap_reactable(
     )
   )
 )
-\dontshow{if (requireNamespace("labelled") & requireNamespace("stringr")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("labelled") & requireNamespace("stringr")) withAutoprint(\{ # examplesIf}
 library(labelled)
 library(stringr)
 # Anchor a column. Pretend you already have labelled variables and want the
