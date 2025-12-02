@@ -26,7 +26,7 @@ A named vector of mean incremental effect and cost and icer.
 Basic bootstrap
 }
 \examples{
-\dontshow{if (requireNamespace("boot")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("boot")) withAutoprint(\{ # examplesIf}
 df <- fake_health_ec_data
 str(df)
 # pass named args of bootstrap_basic to boot::boot

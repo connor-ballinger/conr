@@ -28,7 +28,7 @@ base::round(2.5)
 conr::round_sensibly(2.5)
 conr::round_sensibly(2.115, 2)
 
-\dontshow{if (requireNamespace("lubridate")) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
+\dontshow{if (requireNamespace("lubridate")) withAutoprint(\{ # examplesIf}
 library(lubridate)
 lubridate::interval(
   lubridate::ymd("2021-01-01"),
