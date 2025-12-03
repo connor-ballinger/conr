@@ -151,6 +151,10 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
       )
     )
   }
+  # inherit any labels here
+  if (requireNamespace("labelled", quietly = TRUE)) {
+    colnames(df) <- labelled::var_label(df, unlist = TRUE, null_action = "fill")
+  }
   n_row <- nrow(df)
   # args for reactable
   arguments <- rlang::dots_list(
