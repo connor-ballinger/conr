@@ -151,14 +151,15 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
       )
     )
   }
+  n_row <- nrow(df)
   # args for reactable
   arguments <- rlang::dots_list(
     data = df,
     elementId = table_id,
     filterable = FALSE,
-    searchable = TRUE,
+    searchable = n_row > 10,
     defaultColDef = reactable::colDef(format = reactable::colFormat(digits = 2)),
-    defaultPageSize = 5,
+    defaultPageSize = ifelse(n_row <= 10, n_row, 5),
     showPageSizeOptions = TRUE,
     pageSizeOptions = c(5, 10, 25),
     paginationType = "numbers",
@@ -167,7 +168,7 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     wrap = TRUE,
     showSortIcon = TRUE,
     showSortable = TRUE,
-    fullWidth = FALSE,
+    fullWidth = TRUE,
     language = reactable::reactableLang(
       pagePrevious = "\u276e",
       pageNext = "\u276f",
@@ -177,9 +178,17 @@ wrap_reactable <- function(df, ..., downloadable = !interactive(),
     theme = reactable::reactableTheme(
       style = list(
         fontFamily = "Roboto, Helvetica, Arial",
-        searchInputStyle = list(width = "140px", fontSize = "10px")
+        marginTop = "20px",
+        boxShadow = "0px 0px 12px rgba(0,0,0,0.1)",
+        broderRadius = "6px"
       ),
-      paginationStyle = list(fontsize = "0.85em")
+      searchInputStyle = list(
+        width = "120px", height = "20px", fontSize = "12px", opacity = 0.7,
+        padding = "2px 8px"
+      ),
+      paginationStyle = list(
+        fontSize = "12px", opacity = 0.7, padding = "4px 0"
+      )
     ),
     ...,
     .homonyms = "last" # means the dots can overwrite defaults
